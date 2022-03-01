@@ -1,0 +1,39 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1.6rem;
+  width: 100%;
+  height: var(--layout-mobile-nav-height);
+  background: linear-gradient(
+    to right,
+    var(--color-dark),
+    var(--color-dark-violet)
+  );
+  border-top: 0.2rem solid var(--color-dark-violet-2);
+  border-radius: 1rem 1rem 0 0;
+  border: solid yellow;
+
+  &__link {
+    display: flex;
+    border: 0.1rem solid transparent;
+    align-items: center;
+    border-radius: 10rem;
+    padding: 1rem 1.5rem;
+    grid-gap: 1rem;
+
+    &--active {
+      background: linear-gradient(
+        to right,
+        var(--color-dark-1),
+        var(--color-dark-violet-1)
+      );
+      border-color: var(--color-dark-violet-1);
+    }
+  }
+
+  &__label {
+    font-size: 1.4rem;
+  }
+}
