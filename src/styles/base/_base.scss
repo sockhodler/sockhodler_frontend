@@ -41,3 +41,11 @@ input {
 button {
   cursor: pointer;
 }
+
+img {
+  background: linear-gradient(
+    to right,
+    var(--color-dark-1),
+    var(--color-dark-violet-1)
+  );
+}

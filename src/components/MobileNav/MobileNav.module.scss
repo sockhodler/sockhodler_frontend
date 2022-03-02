@@ -3,7 +3,9 @@
   bottom: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 1.6rem;
+  align-items: center;
+  padding: 0 2.6rem;
+  grid-gap: 8rem;
   width: 100%;
   height: var(--layout-mobile-nav-height);
   background: linear-gradient(
@@ -12,16 +14,15 @@
     var(--color-dark-violet)
   );
   border-top: 0.2rem solid var(--color-dark-violet-2);
-  border-radius: 1rem 1rem 0 0;
-  border: solid yellow;
+  border-radius: 3rem 3rem 0 0;
 
   &__link {
     display: flex;
-    border: 0.1rem solid transparent;
     align-items: center;
+    border: 0.1rem solid transparent;
     border-radius: 10rem;
-    padding: 1rem 1.5rem;
-    grid-gap: 1rem;
+    padding: 1.6rem 3.4rem;
+    grid-gap: 4rem;
 
     &--active {
       background: linear-gradient(
@@ -31,9 +32,15 @@
       );
       border-color: var(--color-dark-violet-1);
     }
+
+    svg {
+      height: 8.3rem;
+      width: auto;
+    }
   }
 
   &__label {
-    font-size: 1.4rem;
+    font-size: 2.7rem;
+    font-weight: 700;
   }
 }

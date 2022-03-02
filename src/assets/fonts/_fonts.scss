@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'made-soulmaze';
+  src: url('./made-soulmaze/made-soulmaze.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'made-soulmaze-outline';
+  src: url('./made-soulmaze/made-soulmaze-outline.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'lato';
+  src: url('./lato/Lato-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'lato';
+  src: url('./lato/Lato-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'lato';
+  src: url('./lato/Lato-Bold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'lato';
+  src: url('./lato/Lato-BoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'lato';
+  src: url('./lato/Lato-Black.ttf') format('truetype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'lato';
+  src: url('./lato/Lato-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}

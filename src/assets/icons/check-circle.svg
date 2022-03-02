@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 188.252 188.253">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.151" y1="0.816" x2="0.846" y2="0.187" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#61adfa" />
+      <stop offset="1" stop-color="#ffadfa" />
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffadfa" />
+      <stop offset="1" stop-color="#61adfa" />
+    </linearGradient>
+  </defs>
+  <g id="Group_143" data-name="Group 143" transform="translate(-490.874 -377.665)">
+    <g id="Group_142" data-name="Group 142">
+      <g id="Group_141" data-name="Group 141">
+        <path id="Path_45" data-name="Path 45"
+          d="M627.876,397.528a85.752,85.752,0,1,0,42.876,74.263A85.752,85.752,0,0,0,627.876,397.528Zm4.02-6.962a93.792,93.792,0,1,0,46.9,81.225A93.789,93.789,0,0,0,631.9,390.566Z"
+          stroke="#fff" stroke-miterlimit="10" stroke-width="0.67" fill-rule="evenodd" fill="url(#linear-gradient)" />
+      </g>
+      <path id="Path_46" data-name="Path 46"
+        d="M551.351,478.338l10.719-13.4,16.078,13.4,24.118-37.516,13.4,10.719-34.837,48.235Z" stroke="#fff"
+        stroke-miterlimit="10" stroke-width="0.765" fill="url(#linear-gradient-2)" />
+    </g>
+  </g>
+</svg>

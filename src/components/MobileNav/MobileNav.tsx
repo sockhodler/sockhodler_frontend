@@ -23,7 +23,7 @@ export const MobileNav: React.FunctionComponent = () => {
             )
           }
         >
-          <div>icon</div>
+          {item.icon}
           {item.to === pathname && (
             <span className={classes.nav__label}>{item.label}</span>
           )}

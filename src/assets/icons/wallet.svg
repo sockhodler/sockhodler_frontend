@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 50.748">
+  <g id="Group_153" data-name="Group 153" transform="translate(-1039.5 -49.014)">
+    <path id="Rectangle_210" data-name="Rectangle 210"
+      d="M10,0H58a5,5,0,0,1,5,5V44.748a5,5,0,0,1-5,5H10a10,10,0,0,1-10-10V10A10,10,0,0,1,10,0Z"
+      transform="translate(1040 49.514)" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="1" />
+    <path id="Rectangle_211" data-name="Rectangle 211"
+      d="M5,0H23.245a0,0,0,0,1,0,0V15.641a0,0,0,0,1,0,0H5a5,5,0,0,1-5-5V5A5,5,0,0,1,5,0Z"
+      transform="translate(1079.429 66.459)" fill="none" stroke="currentColor" stroke-miterlimit="10"
+      stroke-width="1" />
+  </g>
+</svg>
