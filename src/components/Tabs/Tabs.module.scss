@@ -1,0 +1,43 @@
+.tabs {
+  display: grid;
+  flex-direction: column;
+}
+
+.tape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: linear-gradient(
+    to right,
+    var(--color-dark-4),
+    var(--color-dark-violet-7)
+  );
+  grid-gap: 3rem;
+  padding: 0.6rem 1.2rem;
+  flex-shrink: 0;
+  margin-bottom: 2.7rem;
+
+  &__item {
+    padding: 1.2rem 3.4rem;
+    font-size: 1.9rem;
+    border: none;
+    background: none;
+    border: 0.1rem solid transparent;
+    color: var(--color-grey-4);
+    white-space: nowrap;
+    border-radius: 10rem;
+    flex: 1 1 auto;
+
+    &--active {
+      background: linear-gradient(
+        to right,
+        var(--color-dark-1),
+        var(--color-dark-violet-1)
+      );
+      border-color: var(--color-dark-violet-1);
+    }
+  }
+}

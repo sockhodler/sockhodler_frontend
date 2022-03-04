@@ -19,11 +19,14 @@ export const Layout: React.FunctionComponent<Props> = ({ children, tabs }) => {
   const selectedTabParam = searchParams.get('tab')
 
   useEffect(() => {
-    if (!selectedTabParam) {
-      setSearchParams(`tab=${defaultTabValue}`)
-    } else {
-      setSelectedTab(selectedTabParam)
+    if (defaultTabValue) {
+      if (!selectedTabParam) {
+        setSearchParams(`tab=${defaultTabValue}`)
+      } else {
+        setSelectedTab(selectedTabParam)
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setSearchParams, selectedTabParam])
 
   const handleChangeTab = (tab: string) => {

@@ -1,26 +1,25 @@
 .content {
-  padding: 0.8rem 7.5rem 7rem 7.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .check-icon {
-  height: 18.8rem;
-  width: 18.8rem;
-  margin-bottom: 8rem;
+  height: 15rem;
+  width: 15rem;
+  margin-bottom: 3.2rem;
 }
 
 .title {
   font-size: 6rem;
-  margin-bottom: 1.3rem;
+  margin-bottom: 0.5rem;
   font-family: var(--fonts-made-soulmaze);
   font-weight: normal;
 }
 
 .subtitle {
   font-size: 2.6rem;
-  margin-bottom: 7.7rem;
+  margin-bottom: 10.7rem;
 
   a {
     color: var(--color-red);
@@ -30,33 +29,36 @@
 
 .nft {
   display: flex;
-  grid-gap: 2.9rem;
-  margin-bottom: 11.5rem;
+  grid-gap: 6.4rem;
+  margin-bottom: 4.1rem;
+  width: 100%;
 
   &__img {
-    height: 41.4rem;
-    width: 41.4rem;
+    height: 54.7rem;
+    width: 54.7rem;
     border-radius: 3rem;
+    flex-shrink: 0;
   }
 
   &__info {
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
   }
 
   &__title {
-    font-size: 4rem;
-    margin-bottom: 1.6rem;
+    font-size: 3.2rem;
+    margin-bottom: 1.8rem;
     font-family: var(--fonts-made-soulmaze);
   }
 
   &__details {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     line-height: 1.5;
     padding-bottom: 3rem;
     margin-bottom: auto;
 
-    button {
+    /* button {
       background: none;
       border: none;
       margin-left: 0.3rem;
@@ -66,19 +68,17 @@
       &:focus {
         outline: none;
       }
-    }
+    } */
   }
 }
 
 .details {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 5.6rem;
+  grid-row-gap: 3.3rem;
   list-style-type: none;
   align-self: stretch;
-
-  & > * + * {
-    margin-top: 6rem;
-  }
 }
 
 .detail {
@@ -92,6 +92,7 @@
     var(--color-dark-violet-1)
   );
   border-radius: 3rem;
+  border: 0.1rem solid var(--color-violet);
 
   &__name {
     flex: 0 1 26.3rem;

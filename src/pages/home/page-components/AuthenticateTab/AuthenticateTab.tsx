@@ -54,7 +54,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
 
         <div className={classes.nft}>
           <img
-            src="https://unsplash.it/414/414"
+            src="https://unsplash.it/600/600"
             alt=""
             className={classes.nft__img}
           />
@@ -64,7 +64,9 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
             <p className={classes.nft__details}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Suspendisse bibendum tortor ac auctor sollicitudin. Aliquam
-              sodales interdum.... <button>more</button>
+              sodales interdum Duis autem vel eum iriure dolor in hendrerit in
+              vulputate velit esse molestie consequat, vel illum dolore eu
+              feugiat nulla facilisis at vero
             </p>
             <Button>REDEEM NFT</Button>
           </div>

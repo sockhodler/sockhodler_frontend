@@ -10,6 +10,7 @@
   );
   border-radius: 0 0 3rem 3rem;
   margin-bottom: 10.5rem;
+  z-index: 10;
 }
 
 // header
@@ -79,14 +80,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  grid-gap: 5rem;
-  flex: 1 1 auto;
+  flex: 0 1 100rem;
+  margin-right: auto;
 
   &__link {
     display: flex;
     align-items: center;
     border-radius: 10rem;
-    padding: 2.1rem 4.4rem;
+    padding: 2.1rem 2rem;
     grid-gap: 4rem;
 
     &--active {
@@ -95,6 +96,7 @@
         var(--color-dark-1),
         var(--color-dark-violet-1)
       );
+      padding: 2.1rem 4.4rem;
     }
 
     svg {
@@ -123,7 +125,8 @@
   );
   grid-gap: 3rem;
   padding: 1.1rem 1.8rem;
-  margin-left: 7rem;
+  margin-left: 6rem;
+  flex-shrink: 0;
 
   &__item {
     padding: 2.2rem 3.2rem;
