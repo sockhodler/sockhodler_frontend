@@ -3,12 +3,12 @@ import classNames from 'classnames'
 
 import classes from './LayoutTab.module.scss'
 
-import { LayoutTabContext } from './LayoutTabs'
+import { LayoutTabContext } from 'components/Layout/Layout'
 
 const useTabsContext = () => {
   const context = useContext(LayoutTabContext)
   if (!context) {
-    throw new Error('LayoutTab must be inside of <LayoutTabs />')
+    throw new Error('LayoutTab must be inside of <Layout />')
   }
   return context
 }

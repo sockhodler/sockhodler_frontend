@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import classes from './Header.module.scss'
 import classNames from 'classnames'
@@ -14,9 +15,12 @@ import { ReactComponent as ProfileIcon } from 'assets/icons/profile.svg'
 
 interface Props {
   className?: string
+  tabs?: { label: string; value: string }[]
+  selectedTab?: string
+  onTabChange?: (tab: string) => void
 }
 
-export const navItems = [
+const navItems = [
   {
     label: 'Home',
     to: '/',
@@ -44,19 +48,68 @@ export const navItems = [
   },
 ]
 
-export const Header: React.FunctionComponent<Props> = ({ className }) => {
+export const Header: React.FunctionComponent<Props> = ({
+  className,
+  tabs,
+  selectedTab,
+  onTabChange,
+}) => {
+  const { pathname } = useLocation()
+
   return (
-    <header className={classNames(classes.header, className)}>
-      <Link to="/" className={classes.logo}>
-        THE SOCK<span>VALUT</span>
-      </Link>
+    <header className={classNames(classes.container, className)}>
+      <div className={classes.header}>
+        <Link to="/" className={classes.logo}>
+          THE SOCK<span>VALUT</span>
+        </Link>
 
-      <div className={classes.wallet}>
-        <span className={classes.wallet__address}>HMU5393945954...</span>
+        <div className={classes.wallet}>
+          <span className={classes.wallet__address}>HMU5393945954...</span>
 
-        <button className={classes.wallet__btn}>
-          <WalletIcon />
-        </button>
+          <button className={classes.wallet__btn}>
+            <WalletIcon />
+          </button>
+        </div>
+      </div>
+
+      <div className={classes.navbar}>
+        <nav className={classes['page-nav']}>
+          {navItems.map((item) => (
+            <NavLink
+              to={item.to}
+              key={item.label}
+              className={({ isActive }) =>
+                classNames(
+                  classes['page-nav__link'],
+                  isActive && classes['page-nav__link--active'],
+                )
+              }
+            >
+              {item.icon}
+              {item.to === pathname && (
+                <span className={classes['page-nav__label']}>{item.label}</span>
+              )}
+            </NavLink>
+          ))}
+        </nav>
+
+        {tabs && tabs.length > 0 ? (
+          <nav className={classes['tabs-tape']}>
+            {tabs.map((tab) => (
+              <button
+                key={tab.value}
+                onClick={() => onTabChange?.(tab.value)}
+                className={classNames(
+                  classes['tabs-tape__item'],
+                  selectedTab === tab.value &&
+                    classes['tabs-tape__item--active'],
+                )}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        ) : null}
       </div>
     </header>
   )

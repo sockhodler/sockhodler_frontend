@@ -37,6 +37,8 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
             <Button>BID ON ALGOXNFT</Button>
           </div>
         </div>
+
+        <div className={classes.grid}></div>
       </section>
     </LayoutTab>
   )
