@@ -1,38 +1,9 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
-import { Layout, Tabs, Tab, NFT, Button } from 'components'
+import { Layout, Tabs, Tab, NFTGrid } from 'components'
 import classes from './index.module.scss'
-import { ReactComponent as ArrowRightIcon } from 'assets/icons/arrow-right.svg'
 
 import { NftProps } from 'components/NFT/NFT'
-
-interface NftGridProps {
-  list: NftProps[]
-}
-
-const NftGrid: React.FunctionComponent<NftGridProps> = ({ list }) => {
-  return (
-    <div className={classes.grid}>
-      <div className={classes.grid__header}>
-        <Link to="/">
-          <ArrowRightIcon />
-          <span>back to home</span>
-        </Link>
-      </div>
-
-      <div className={classes.grid__list}>
-        {list.map((nft) => (
-          <NFT {...nft} />
-        ))}
-      </div>
-
-      <Button size="huge" className={classes['grid__load-more']}>
-        LOAD MORE
-      </Button>
-    </div>
-  )
-}
 
 export const Marketplace: React.FunctionComponent = () => {
   const items: NftProps[] = []
@@ -69,7 +40,11 @@ export const Marketplace: React.FunctionComponent = () => {
         ]}
       >
         <Tab for="base-collection">
-          <NftGrid list={items} />
+          <NFTGrid
+            back={{ label: 'back to home', to: '/' }}
+            list={items}
+            onLoadMoreClick={() => console.log('onLoadMoreClick')}
+          />
         </Tab>
 
         <Tab for="genesis-collection">genesis-collection</Tab>

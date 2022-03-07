@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid var(--color-dark-violet-4);
+  overflow: hidden;
+}
+
+.handle {
+  padding: 1rem 1.4rem;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--color-dark-violet-4);
+
+  &:focus {
+    outline: none;
+  }
+
+  &__text {
+    flex: 1 1 auto;
+    font-size: 1.8rem;
+    text-align: left;
+    color: var(--color-white);
+  }
+
+  &__divider {
+    height: 2.4rem;
+    width: 0.1rem;
+    background-color: var(--color-dark-violet-4);
+  }
+
+  svg {
+    margin-left: 2.4rem;
+    transform: rotate(90deg);
+    height: 1.4rem;
+    width: auto;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &--open {
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.content {
+  padding: 1.4rem;
+  padding-top: 0;
+  font-size: 1.4rem;
+  line-height: 1.6;
+}

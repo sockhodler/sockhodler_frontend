@@ -8,6 +8,10 @@ export { Tab } from './Tabs/Tab'
 // forms
 export { Button } from './Button/Button'
 export { Card } from './Card/Card'
+export { Accordion } from './Accordion/Accordion'
 
 // nft
 export { NFT } from './NFT/NFT'
+export { NFTGrid } from './NFTGrid/NFTGrid'
+export { NFTDetails } from './NFTDetails/NFTDetails'
+export { NFTInfo } from './NFTInfo/NFTInfo'

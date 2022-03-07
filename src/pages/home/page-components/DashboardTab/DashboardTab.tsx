@@ -70,7 +70,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
               vulputate velit esse molestie consequat, vel illum dolore eu
               feugiat nulla facilisis at vero
             </p>
-            <Button>BID ON ALGOXNFT</Button>
+            <Button size="huge">BID ON ALGOXNFT</Button>
           </div>
         </div>
 

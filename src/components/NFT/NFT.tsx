@@ -2,6 +2,7 @@ import React from 'react'
 
 import classes from './NFT.module.scss'
 import { Card, Button } from 'components'
+import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as AlgoIcon } from 'assets/icons/algo.svg'
 
@@ -13,7 +14,7 @@ export interface NftProps {
   unitMax?: number
   unitAvailable?: number
   currentBid?: number
-  endIn?: string
+  endIn?: number
 }
 
 export const NFT: React.FunctionComponent<NftProps> = ({
@@ -26,6 +27,12 @@ export const NFT: React.FunctionComponent<NftProps> = ({
   currentBid,
   endIn,
 }) => {
+  const navigate = useNavigate()
+
+  const handleRedirect = () => {
+    navigate('/nft-auction-details')
+  }
+
   return (
     <Card className={classes.nft}>
       <img src="https://unsplash.it/400/400" className={classes.img} alt="" />
@@ -47,7 +54,9 @@ export const NFT: React.FunctionComponent<NftProps> = ({
             <span>ENDS {endIn} DAYS</span>
           </div>
         )}
-        <Button accent="red">BUY NOW</Button>
+        <Button accent="red" onClick={handleRedirect}>
+          BUY NOW
+        </Button>
       </div>
     </Card>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LayoutTab, Button } from 'components'
+import { LayoutTab, Button, NFTInfo } from 'components'
 
 import classes from './AuthenticateTab.module.scss'
 
@@ -15,26 +15,32 @@ const details = [
   {
     name: 'UID',
     value: '042f4442c96e80',
+    to: '/',
   },
   {
     name: 'Token ID',
     value: '598088282',
+    to: '/',
   },
   {
     name: 'Owner Address',
     value: 'SOCKSV3B6CDAE5R4BS5...',
+    to: '/',
   },
   {
     name: 'Creator Address',
     value: 'SOCKSV3B6CDAE5R4BS53...',
+    to: '/',
   },
   {
     name: 'Total Supply',
     value: '1',
+    to: '/',
   },
   {
     name: 'Circulating Supply',
     value: '2',
+    to: '/',
   },
 ]
 
@@ -68,25 +74,20 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
               vulputate velit esse molestie consequat, vel illum dolore eu
               feugiat nulla facilisis at vero
             </p>
-            <Button>REDEEM NFT</Button>
+            <Button size="huge">REDEEM NFT</Button>
           </div>
         </div>
 
-        <ul className={classes.details}>
+        <div className={classes.details}>
           {details.map((detail) => (
-            <li className={classes.detail} key={detail.value}>
-              <span className={classes.detail__name}>{detail.name}</span>
-              <div className={classes.detail__divider} />
-              <a href="#" className={classes.detail__value}>
-                {detail.value}
-              </a>
-              <div className={classes.detail__divider} />
-              <button className={classes.detail__action}>
-                <ArrowRightIcon />
-              </button>
-            </li>
+            <NFTInfo
+              key={detail.value}
+              name={detail.name}
+              value={detail.value}
+              to={detail.to}
+            />
           ))}
-        </ul>
+        </div>
       </section>
     </LayoutTab>
   )
