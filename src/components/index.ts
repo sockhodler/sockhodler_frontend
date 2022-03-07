@@ -7,3 +7,7 @@ export { Tab } from './Tabs/Tab'
 
 // forms
 export { Button } from './Button/Button'
+export { Card } from './Card/Card'
+
+// nft
+export { NFT } from './NFT/NFT'

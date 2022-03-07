@@ -79,20 +79,11 @@
   }
 }
 
-.grid-item {
-  border-radius: 1.5rem;
-  background: linear-gradient(
-    to right,
-    var(--color-dark-1),
-    var(--color-dark-violet-1)
-  );
-
-  &__title {
-    font-family: var(--fonts-made-soulmaze);
-    font-size: 2.2rem;
-    text-transform: uppercase;
-    display: block;
-  }
+@mixin grid-item-title {
+  font-family: var(--fonts-made-soulmaze);
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  display: block;
 }
 
 .release {
@@ -157,6 +148,7 @@
   }
 
   &__title {
+    @include grid-item-title;
     margin-bottom: 2.1rem;
   }
 
@@ -213,6 +205,7 @@
   padding: 2rem 1.6rem 2.7rem 1.6rem;
 
   &__title {
+    @include grid-item-title;
     margin-bottom: 2.7rem;
     text-align: center;
   }
@@ -338,6 +331,7 @@
   padding: 1.5rem 2.5rem 3rem 2.5rem;
 
   &__title {
+    @include grid-item-title;
     margin-bottom: 5.5rem;
     text-align: center;
   }

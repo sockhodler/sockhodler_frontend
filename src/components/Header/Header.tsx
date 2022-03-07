@@ -11,7 +11,7 @@ import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
 import { ReactComponent as NFTStackingIcon } from 'assets/icons/nft-stacking.svg'
 import { ReactComponent as NFTAuctionsIcon } from 'assets/icons/nft-auctions.svg'
 import { ReactComponent as MarketplaceIcon } from 'assets/icons/marketplace.svg'
-import { ReactComponent as ProfileIcon } from 'assets/icons/profile.svg'
+import { ReactComponent as PortfolioIcon } from 'assets/icons/portfolio.svg'
 
 interface Props {
   className?: string
@@ -27,8 +27,8 @@ const navItems = [
     icon: <HomeIcon />,
   },
   {
-    label: 'NFT Stacking',
-    to: '/nft-stacking',
+    label: 'NFT Staking',
+    to: '/nft-staking',
     icon: <NFTStackingIcon />,
   },
   {
@@ -42,9 +42,9 @@ const navItems = [
     icon: <MarketplaceIcon />,
   },
   {
-    label: 'Profile',
-    to: '/profile',
-    icon: <ProfileIcon />,
+    label: 'Portfolio',
+    to: '/portfolio',
+    icon: <PortfolioIcon />,
   },
 ]
 
@@ -86,9 +86,14 @@ export const Header: React.FunctionComponent<Props> = ({
               }
             >
               {item.icon}
-              {item.to === pathname && (
-                <span className={classes['page-nav__label']}>{item.label}</span>
-              )}
+              <span
+                className={classNames(
+                  classes['page-nav__label'],
+                  item.to === pathname && classes['page-nav__label--active'],
+                )}
+              >
+                {item.label}
+              </span>
             </NavLink>
           ))}
         </nav>

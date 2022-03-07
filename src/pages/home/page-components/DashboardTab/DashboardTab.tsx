@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LayoutTab, Button, Tabs, Tab } from 'components'
+import { LayoutTab, Button, Tabs, Tab, Card } from 'components'
 import classNames from 'classnames'
 import NftSampleImage from 'assets/images/sample-nft.png'
 import Banner from 'assets/images/banner.png'
@@ -76,8 +76,8 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
 
         <section className={classes.grid}>
           <div className={classes['grid__left']}>
-            <div
-              className={classNames(classes['grid-item'], classes.release)}
+            <Card
+              className={classes.release}
               style={{ backgroundImage: `url(${NftSampleImage})` }}
             >
               <div className={classes.release__content}>
@@ -91,17 +91,10 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
 
                 <button>learn more</button>
               </div>
-            </div>
+            </Card>
 
-            <div className={classNames(classes['grid-item'], classes.price)}>
-              <span
-                className={classNames(
-                  classes['grid-item__title'],
-                  classes.price__title,
-                )}
-              >
-                Price Ticker
-              </span>
+            <Card className={classes.price}>
+              <span className={classes.price__title}>Price Ticker</span>
 
               <Tabs
                 tabs={[
@@ -155,7 +148,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                   </div>
                 </Tab>
               </Tabs>
-            </div>
+            </Card>
 
             <img
               className={classes.banner}
@@ -166,16 +159,9 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
           </div>
 
           <div className={classes['grid__right']}>
-            <div className={classNames(classes['grid-item'], classes.giveaway)}>
+            <Card className={classes.giveaway}>
               <div className={classes.giveaway__content}>
-                <span
-                  className={classNames(
-                    classes['grid-item__title'],
-                    classes.giveaway__title,
-                  )}
-                >
-                  Active Giveaway
-                </span>
+                <span className={classes.giveaway__title}>Active Giveaway</span>
 
                 <div className={classes.giveaway__grid}>
                   <img
@@ -206,17 +192,10 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
               </div>
 
               <Button className={classes.giveaway__action}>+1 ENTRY</Button>
-            </div>
+            </Card>
 
-            <div className={classNames(classes['grid-item'], classes.news)}>
-              <span
-                className={classNames(
-                  classes['grid-item__title'],
-                  classes.news__title,
-                )}
-              >
-                News
-              </span>
+            <Card className={classes.news}>
+              <span className={classes.news__title}>News</span>
 
               <Carousel
                 autoPlay
@@ -263,7 +242,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                   </p>
                 </div>
               </Carousel>
-            </div>
+            </Card>
           </div>
         </section>
       </section>

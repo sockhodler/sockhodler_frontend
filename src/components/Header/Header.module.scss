@@ -76,20 +76,33 @@
   padding: 1.2rem 3.2rem;
 }
 
+@mixin active-link-label {
+  visibility: visible;
+  margin-left: 4rem;
+  width: auto;
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
 .page-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex: 0 1 100rem;
   margin-right: auto;
+  grid-gap: 3rem;
+  transition: all 0.3s ease-in-out;
 
   &__link {
     display: flex;
     align-items: center;
     border-radius: 10rem;
     padding: 2.1rem 2rem;
-    grid-gap: 4rem;
+    // grid-gap: 4rem;
+    transition: all 0.3s ease-in-out;
 
+    &:hover,
     &--active {
       background: linear-gradient(
         to right,
@@ -103,11 +116,28 @@
       height: 4.6rem;
       width: auto;
     }
+
+    &:hover {
+      .page-nav__label {
+        @include active-link-label;
+      }
+    }
   }
 
   &__label {
     font-size: 2.2rem;
     font-weight: 700;
+    visibility: hidden;
+    transform: translateX(-4rem);
+    opacity: 0;
+    width: 0;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+    white-space: nowrap;
+
+    &--active {
+      @include active-link-label;
+    }
   }
 }
 

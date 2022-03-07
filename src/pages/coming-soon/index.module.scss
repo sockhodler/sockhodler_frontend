@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10rem 0;
+}
+
+.title {
+  font-size: 8rem;
+  margin-bottom: 6.2rem;
+  font-family: var(--fonts-made-soulmaze);
+  font-weight: normal;
+  text-align: center;
+}
+
+.info {
+  font-size: 3rem;
+  text-align: center;
+}
