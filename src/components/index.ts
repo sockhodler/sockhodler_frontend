@@ -9,9 +9,13 @@ export { Tab } from './Tabs/Tab'
 export { Button } from './Button/Button'
 export { Card } from './Card/Card'
 export { Accordion } from './Accordion/Accordion'
+export { TextField } from './TextField/TextField'
+export { Switch } from './Switch/Switch'
 
 // nft
 export { NFT } from './NFT/NFT'
 export { NFTGrid } from './NFTGrid/NFTGrid'
 export { NFTDetails } from './NFTDetails/NFTDetails'
 export { NFTInfo } from './NFTInfo/NFTInfo'
+export { StakingGrid } from './StakingGrid/StakingGrid'
+export { StakingItem } from './StakingItem/StakingItem'
