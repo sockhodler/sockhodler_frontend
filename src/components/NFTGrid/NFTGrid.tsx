@@ -10,12 +10,14 @@ interface Props {
   list: NftProps[]
   onLoadMoreClick?: () => void
   back: { label: string; to: string }
+  type?: 'portfolio'
 }
 
 export const NFTGrid: React.FunctionComponent<Props> = ({
   list,
   onLoadMoreClick,
   back,
+  type,
 }) => {
   return (
     <div className={classes.grid}>
@@ -28,7 +30,7 @@ export const NFTGrid: React.FunctionComponent<Props> = ({
 
       <div className={classes.grid__list}>
         {list.map((nft) => (
-          <NFT {...nft} />
+          <NFT {...nft} type={type} />
         ))}
       </div>
 

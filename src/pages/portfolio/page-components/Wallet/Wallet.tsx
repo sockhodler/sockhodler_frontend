@@ -10,21 +10,27 @@ export const Wallet: React.FunctionComponent = () => {
         <strong>Your Wallet:</strong> <span>SOCKSV3B6CDAE5R4BS5R...</span>
       </div>
 
-      <div className={classes.info}>
-        <div className={classes.info__left}>
-          <span>ALGO</span>
-          <span>500</span>
+      <div className={classes.content}>
+        <div className={classes.info}>
+          <div className={classes.info__left}>
+            <span>ALGO</span>
+            <span>500</span>
+          </div>
+          <div className={classes.divider} />
+          <div className={classes.info__right}>
+            <span>SOCKS</span>
+            <span>150,000</span>
+          </div>
         </div>
-        <div className={classes.divider} />
-        <div className={classes.info__right}>
-          <span>SOCKS</span>
-          <span>150,000</span>
-        </div>
-      </div>
 
-      <div className={classes.actions}>
-        <Button>DISCONNECT</Button>
-        <Button>EXPLORER</Button>
+        <div className={classes.actions}>
+          <Button size="tiny" accent="purple" sharp>
+            DISCONNECT
+          </Button>
+          <Button size="tiny" accent="black" sharp>
+            EXPLORER
+          </Button>
+        </div>
       </div>
     </Card>
   )

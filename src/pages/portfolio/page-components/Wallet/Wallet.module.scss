@@ -1,12 +1,18 @@
 .wallet {
   display: flex;
   flex-direction: column;
+  max-width: 75.4rem;
+  margin: 0 auto 7rem auto;
+  border-radius: 3rem;
+  border: 0.1rem solid var(--color-dark-violet-1);
 }
 
 .header {
   padding: 2rem 3rem;
   border-bottom: 0.1rem solid var(--color-dark-violet-4);
-  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 
   strong {
     font-size: 1.6rem;
@@ -18,12 +24,18 @@
   }
 }
 
+.content {
+  padding: 1.5rem 5rem 2.7rem 5rem;
+}
+
 .info {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 1.8rem;
 
-  &__left {
+  &__left,
+  &__right {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,9 +56,11 @@
   height: 6.5rem;
   width: 0.1rem;
   background-color: var(--color-dark-violet-4);
+  margin: 0 5rem;
 }
 
 .actions {
   display: flex;
   align-items: center;
+  justify-content: center;
 }

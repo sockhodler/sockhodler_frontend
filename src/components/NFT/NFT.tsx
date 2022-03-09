@@ -9,12 +9,14 @@ import { ReactComponent as AlgoIcon } from 'assets/icons/algo.svg'
 export interface NftProps {
   title: string
   subtitle: string
-  price: number
+  price?: number
   unitMin?: number
   unitMax?: number
   unitAvailable?: number
   currentBid?: number
   endIn?: number
+  type?: 'portfolio'
+  info?: { label: string; value: string }[]
 }
 
 export const NFT: React.FunctionComponent<NftProps> = ({
@@ -26,6 +28,8 @@ export const NFT: React.FunctionComponent<NftProps> = ({
   unitAvailable,
   currentBid,
   endIn,
+  type,
+  info,
 }) => {
   const navigate = useNavigate()
 
@@ -39,24 +43,37 @@ export const NFT: React.FunctionComponent<NftProps> = ({
       <div className={classes.content}>
         <span className={classes.title}>{title}</span>
         <span className={classes.subtitle}>{subtitle}</span>
-        <div className={classes.price}>
-          {price}
-          <AlgoIcon />
-        </div>
-        {unitMin && (
-          <span className={classes.unit}>
-            {unitMin}/{unitMax} - {unitAvailable} UNITS LEFT
-          </span>
+        {type !== 'portfolio' ? (
+          <>
+            <div className={classes.price}>
+              {price}
+              <AlgoIcon />
+            </div>
+            {unitMin && (
+              <span className={classes.unit}>
+                {unitMin}/{unitMax} - {unitAvailable} UNITS LEFT
+              </span>
+            )}
+            {currentBid && (
+              <div className={classes['current-bid']}>
+                <span>CURRENT BID</span>
+                <span>ENDS {endIn} DAYS</span>
+              </div>
+            )}
+            <Button accent="red" onClick={handleRedirect}>
+              BUY NOW
+            </Button>
+          </>
+        ) : (
+          <ul className={classes.info}>
+            {info?.map((inf) => (
+              <li key={inf.label}>
+                <span>{inf.label}</span>
+                <span>{inf.value}</span>
+              </li>
+            ))}
+          </ul>
         )}
-        {currentBid && (
-          <div className={classes['current-bid']}>
-            <span>CURRENT BID</span>
-            <span>ENDS {endIn} DAYS</span>
-          </div>
-        )}
-        <Button accent="red" onClick={handleRedirect}>
-          BUY NOW
-        </Button>
       </div>
     </Card>
   )
