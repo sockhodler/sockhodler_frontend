@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Link } from 'react-router-dom'
 import { NavLink, useLocation } from 'react-router-dom'
 
 import classes from './Header.module.scss'
 import classNames from 'classnames'
+
+import { AlgorandWalletConnector } from 'components'
+import { SessionWallet } from 'algorand-session-wallet'
+import { config } from 'common/config/conf'
+import {
+  setSessionWallet,
+  setAccounts,
+  setConnectedStatus,
+} from "redux/wallet/wallet-slice"
+import { useSelector, useDispatch } from 'react-redux'
 
 import { ReactComponent as WalletIcon } from 'assets/icons/wallet.svg'
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
@@ -55,6 +65,22 @@ export const Header: React.FunctionComponent<Props> = ({
   onTabChange,
 }) => {
   const { pathname } = useLocation()
+  const dispatch = useDispatch()
+
+  const sw = new SessionWallet(config.network ? config.network : 'TestNet')
+
+  const [connected, setConnected] = React.useState(sw.connected())
+
+  useEffect(() => {
+    setConnected(connected)
+  }, [connected])
+
+  const updateWallet = (swk: SessionWallet) => { 
+    dispatch(setSessionWallet(swk))
+    dispatch(setAccounts(swk.accountList()))
+    dispatch(setConnectedStatus(swk.connected()))
+    setConnected(swk.connected())
+  }
 
   return (
     <header className={classNames(classes.container, className)}>
@@ -69,6 +95,13 @@ export const Header: React.FunctionComponent<Props> = ({
           <button className={classes.wallet__btn}>
             <WalletIcon />
           </button>
+          <AlgorandWalletConnector  
+            darkMode={false}
+            sessionWallet={sw}
+            accts={[]}
+            connected={connected} 
+            updateWallet={updateWallet}
+          />
         </div>
       </div>
 

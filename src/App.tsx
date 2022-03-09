@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import {
   Home,
@@ -10,11 +11,18 @@ import {
   NFTAuctionDetails,
   MarketplaceDetails,
 } from 'pages'
+import { LoadingIndicator, Layout } from 'components'
 
 function App() {
   return (
-    <>
-      <Router>
+      <BrowserRouter>
+        <React.Suspense
+        fallback={
+          <Layout>
+            <LoadingIndicator />
+          </Layout>
+        }
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/marketplace" element={<Marketplace />} />
@@ -25,8 +33,8 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="*" element={<ComingSoon />} />
         </Routes>
-      </Router>
-    </>
+        </React.Suspense>
+      </BrowserRouter>
   )
 }
 

@@ -4,6 +4,7 @@ export { Header } from './Header/Header'
 export { LayoutTab } from './LayoutTab/LayoutTab'
 export { Tabs } from './Tabs/Tabs'
 export { Tab } from './Tabs/Tab'
+export { LoadingIndicator } from './LoadingIndicator/LoadingIndicator'
 
 // forms
 export { Button } from './Button/Button'
@@ -19,3 +20,6 @@ export { NFTDetails } from './NFTDetails/NFTDetails'
 export { NFTInfo } from './NFTInfo/NFTInfo'
 export { StakingGrid } from './StakingGrid/StakingGrid'
 export { StakingItem } from './StakingItem/StakingItem'
+
+// AlgorandWalletConnector
+export { AlgorandWalletConnector } from './AlgorandWalletConnector/AlgorandWalletConnector'
