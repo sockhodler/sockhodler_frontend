@@ -1,0 +1,17 @@
+.input {
+  font-size: 1.4rem;
+  border: none;
+  background: transparent;
+  border-bottom: 0.1rem solid var(--color-dark-violet-4);
+  color: var(--color-white);
+  padding: 0.6rem 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--color-white);
+    opacity: 1;
+  }
+}

@@ -60,7 +60,7 @@ export const Header: React.FunctionComponent<Props> = ({
     <header className={classNames(classes.container, className)}>
       <div className={classes.header}>
         <Link to="/" className={classes.logo}>
-          THE SOCK<span>VALUT</span>
+          THE SOCK<span>VAULT</span>
         </Link>
 
         <div className={classes.wallet}>

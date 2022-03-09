@@ -1,0 +1,24 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+
+  &__search {
+    max-width: 18.3rem;
+    width: 100%;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  & > * + * {
+    margin-top: 3.2rem;
+  }
+}
