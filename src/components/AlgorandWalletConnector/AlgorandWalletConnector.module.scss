@@ -8,11 +8,6 @@
   display: flex;
   align-items: center;
 
-  &__address {
-    font-size: 2.2rem;
-    margin-right: 3.4rem;
-  }
-
   &__btn {
     height: 6.7rem;
     width: 6.7rem;
@@ -126,14 +121,31 @@
   color: var(--color-white-dark) !important;
   background: none !important;
   outline: none !important;
-  svg {
-    color: var(--color-light-blue);
+  border: none;
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+  font-size: 2.2rem;
+
+  & span:nth-child(2) {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
   }
+
+  svg {
+    fill: var(--color-violet-1);
+  }
+}
+
+.wallets-container {
+  display: flex;
+  align-items: center;
 }
 
 .popover-content {
   background: #17173c !important;
-  filter: drop-shadow(0 0 0.3rem var(--color-light-blue));
+  filter: drop-shadow(0 0 0.3rem var(--color-violet-1));
   border-radius: 3px;
 }
 
@@ -146,12 +158,12 @@
   justify-content: center;
   &:hover {
     cursor: pointer;
-    color: var(--color-light-blue) !important;
+    color: var(--color-violet-1) !important;
   }
 }
 
 .blueGlowText {
-  color: var(--color-light-blue) !important;
+  color: var(--color-violet-1) !important;
 }
 
 .dialog {
@@ -215,11 +227,18 @@
   }
 }
 
-// .disconnect {
-//   @include respond(xs) {
-//     display: none;
-//   }
-// }
+.disconnect {
+  background: none;
+  fill: var(--color-white);
+  display: flex;
+  align-items: center;
+  transform: translateY(0.2rem);
+
+  svg {
+    height: 2rem;
+    width: 2rem;
+  }
+}
 
 .linkTo {
   background: none !important;

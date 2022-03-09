@@ -126,8 +126,6 @@ export const AlgorandWalletConnector: React.FunctionComponent<
     return (
       <>
         <div className={classes.wallet}>
-          {/* <span className={classes.wallet__address}>HMU5393945954...</span> */}
-
           <button
             className={classes.wallet__btn}
             onClick={() => setSelectorOpen(true)}
@@ -157,7 +155,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   }
 
   return (
-    <div>
+    <div className={classes['wallets-container']}>
       <Popover
         minimal
         position={Position.BOTTOM}
@@ -180,7 +178,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<
                 addr === selectedWallet && classes.blueGlowText,
               )}
             >
-              {formatAddress(addr)}{' '}
+              {formatAddress(addr)}
               <Button
                 icon="arrow-right"
                 minimal
