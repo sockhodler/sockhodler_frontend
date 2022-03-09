@@ -1,5 +1,5 @@
-import { ErrorModel } from './ErrorModel';
-import { RootState } from 'redux/rootReducer';
+import { RootState } from "redux/rootReducer";
+import { ErrorModel } from "./ErrorModel";
 
 export interface AsyncThunkOptions {
   state: RootState;

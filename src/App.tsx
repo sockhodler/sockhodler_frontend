@@ -1,6 +1,6 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LoadingIndicator, Layout } from "components";
 import {
   Home,
   ComingSoon,
@@ -10,13 +10,12 @@ import {
   Portfolio,
   NFTAuctionDetails,
   MarketplaceDetails,
-} from 'pages'
-import { LoadingIndicator, Layout } from 'components'
+} from "pages";
 
 function App() {
   return (
-      <BrowserRouter>
-        <React.Suspense
+    <BrowserRouter>
+      <React.Suspense
         fallback={
           <Layout>
             <LoadingIndicator />
@@ -33,9 +32,9 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="*" element={<ComingSoon />} />
         </Routes>
-        </React.Suspense>
-      </BrowserRouter>
-  )
+      </React.Suspense>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

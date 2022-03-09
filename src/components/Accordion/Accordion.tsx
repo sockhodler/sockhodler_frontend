@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
-
-import classes from './Accordion.module.scss'
-import { Card } from 'components'
-import { ReactComponent as ArrowRightIcon } from 'assets/icons/arrow-right.svg'
-import { Collapse } from 'react-collapse'
-import classNames from 'classnames'
+import React, { useState } from "react";
+import classNames from "classnames";
+import { Collapse } from "react-collapse";
+import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
+import { Card } from "components";
+import classes from "./Accordion.module.scss";
 
 interface Props {
-  title: string
-  body: string
-  isOpen?: boolean
+  title: string;
+  body: string;
+  isOpen?: boolean;
 }
 
 export const Accordion: React.FunctionComponent<Props> = ({
@@ -17,14 +16,14 @@ export const Accordion: React.FunctionComponent<Props> = ({
   body,
   isOpen: defaultOpen,
 }) => {
-  const [isOpen, setIsOpen] = useState(defaultOpen ? defaultOpen : false)
+  const [isOpen, setIsOpen] = useState(defaultOpen || false);
 
   return (
     <Card className={classes.container}>
       <button
         className={classNames(
           classes.handle,
-          isOpen && classes['handle--open'],
+          isOpen && classes["handle--open"]
         )}
         onClick={() => setIsOpen((open) => !open)}
       >
@@ -37,5 +36,5 @@ export const Accordion: React.FunctionComponent<Props> = ({
         <p className={classes.content}>{body}</p>
       </Collapse>
     </Card>
-  )
-}
+  );
+};

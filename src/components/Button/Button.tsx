@@ -1,14 +1,13 @@
-import React from 'react'
-
-import classes from './Button.module.scss'
-import classNames from 'classnames'
+import React from "react";
+import classNames from "classnames";
+import classes from "./Button.module.scss";
 
 interface Props {
-  className?: string
-  onClick?: () => void
-  accent?: 'red' | 'black' | 'purple'
-  size?: 'tiny' | 'small' | 'large' | 'huge'
-  sharp?: boolean
+  className?: string;
+  onClick?: () => void;
+  accent?: "red" | "black" | "purple";
+  size?: "tiny" | "small" | "large" | "huge";
+  sharp?: boolean;
 }
 
 export const Button: React.FunctionComponent<Props> = ({
@@ -25,12 +24,12 @@ export const Button: React.FunctionComponent<Props> = ({
         classes.btn,
         accent && classes[`color-${accent}`],
         size && classes[`size-${size}`],
-        sharp && classes['shape-sharp'],
-        className,
+        sharp && classes["shape-sharp"],
+        className
       )}
       onClick={onClick}
     >
       {children}
     </button>
-  )
-}
+  );
+};

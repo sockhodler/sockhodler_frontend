@@ -1,20 +1,18 @@
-import React from 'react'
-
-import { Layout, NFTGrid } from 'components'
-import classes from './index.module.scss'
-
-import { NftProps } from 'components/NFT/NFT'
+import React from "react";
+import { Layout, NFTGrid } from "components";
+import { NftProps } from "components/NFT/NFT";
+import classes from "./index.module.scss";
 
 export const NftAuctions: React.FunctionComponent = () => {
-  const items: NftProps[] = []
+  const items: NftProps[] = [];
   for (let i = 0; i < 20; i++) {
     items.push({
-      title: 'SockHodler 1/250',
-      subtitle: 'SOCKHODLER',
+      title: "SockHodler 1/250",
+      subtitle: "SOCKHODLER",
       price: 125,
       currentBid: 5,
       endIn: 20,
-    })
+    });
   }
 
   return (
@@ -23,10 +21,10 @@ export const NftAuctions: React.FunctionComponent = () => {
       <span className={classes.subtitle}>Auction Collection</span>
 
       <NFTGrid
-        back={{ label: 'back to nft auctions', to: '/nft-auctions' }}
+        back={{ label: "back to nft auctions", to: "/nft-auctions" }}
         list={items}
-        onLoadMoreClick={() => console.log('onLoadMoreClick')}
+        onLoadMoreClick={() => console.log("onLoadMoreClick")}
       />
     </Layout>
-  )
-}
+  );
+};

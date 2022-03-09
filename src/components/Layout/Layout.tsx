@@ -1,38 +1,37 @@
-import React, { useState, useEffect, createContext } from 'react'
+import React, { useState, useEffect, createContext } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Header } from "components";
+import classes from "./Layout.module.scss";
 
-import { Header } from 'components'
-import classes from './Layout.module.scss'
-import { useSearchParams } from 'react-router-dom'
-
-export const LayoutTabContext = createContext<string>('')
-LayoutTabContext.displayName = 'LayoutTabContext'
+export const LayoutTabContext = createContext<string>("");
+LayoutTabContext.displayName = "LayoutTabContext";
 
 interface Props {
-  tabs?: { label: string; value: string }[]
+  tabs?: { label: string; value: string }[];
 }
 
 export const Layout: React.FunctionComponent<Props> = ({ children, tabs }) => {
-  const defaultTabValue = tabs && tabs.length > 0 ? tabs[0].value : ''
-  const [selectedTab, setSelectedTab] = useState(defaultTabValue)
-  const [searchParams, setSearchParams] = useSearchParams()
+  const defaultTabValue = tabs && tabs.length > 0 ? tabs[0].value : "";
+  const [selectedTab, setSelectedTab] = useState(defaultTabValue);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectedTabParam = searchParams.get('tab')
+  const selectedTabParam = searchParams.get("tab");
 
   useEffect(() => {
     if (defaultTabValue) {
       if (!selectedTabParam) {
-        setSearchParams(`tab=${defaultTabValue}`)
+        setSearchParams(`tab=${defaultTabValue}`);
       } else {
-        setSelectedTab(selectedTabParam)
+        setSelectedTab(selectedTabParam);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setSearchParams, selectedTabParam])
+  }, [setSearchParams, selectedTabParam]);
 
   const handleChangeTab = (tab: string) => {
-    setSelectedTab(tab)
-    setSearchParams(`tab=${tab}`)
-  }
+    setSelectedTab(tab);
+    setSearchParams(`tab=${tab}`);
+  };
 
   return (
     <div className={classes.layout}>
@@ -51,5 +50,5 @@ export const Layout: React.FunctionComponent<Props> = ({ children, tabs }) => {
         )}
       </main>
     </div>
-  )
-}
+  );
+};

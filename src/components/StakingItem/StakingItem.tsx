@@ -1,16 +1,15 @@
-import React from 'react'
-
-import { Button, Card } from 'components'
-import classes from './StakingItem.module.scss'
+import React from "react";
+import { Button, Card } from "components";
+import classes from "./StakingItem.module.scss";
 
 export interface StakingItemProps {
-  title: string
-  img: string
-  details: { label: string; value: string }[]
-  info: { label: string; value: string }[]
-  onWithdrawClick: () => void
-  onWebsiteClick: () => void
-  onExplorerClick: () => void
+  title: string;
+  img: string;
+  details: { label: string; value: string }[];
+  info: { label: string; value: string }[];
+  onWithdrawClick: () => void;
+  onWebsiteClick: () => void;
+  onExplorerClick: () => void;
 }
 
 export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
@@ -72,5 +71,5 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
         </div>
       </div>
     </Card>
-  )
-}
+  );
+};

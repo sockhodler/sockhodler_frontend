@@ -1,7 +1,6 @@
-import React from 'react'
-
-import { Layout } from 'components'
-import classes from './index.module.scss'
+import React from "react";
+import { Layout } from "components";
+import classes from "./index.module.scss";
 
 export const ComingSoon: React.FunctionComponent = () => {
   return (
@@ -11,5 +10,5 @@ export const ComingSoon: React.FunctionComponent = () => {
         <p className={classes.info}>This page will be available soon</p>
       </div>
     </Layout>
-  )
-}
+  );
+};

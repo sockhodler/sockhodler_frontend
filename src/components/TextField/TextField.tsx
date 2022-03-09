@@ -1,13 +1,12 @@
-import React from 'react'
-
-import classes from './TextField.module.scss'
-import classNames from 'classnames'
+import React from "react";
+import classNames from "classnames";
+import classes from "./TextField.module.scss";
 
 interface Props {
-  placeholder?: string
-  value?: string
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
-  className?: string
+  placeholder?: string;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  className?: string;
 }
 
 export const TextField: React.FunctionComponent<Props> = ({
@@ -24,5 +23,5 @@ export const TextField: React.FunctionComponent<Props> = ({
       onChange={onChange}
       value={value}
     />
-  )
-}
+  );
+};

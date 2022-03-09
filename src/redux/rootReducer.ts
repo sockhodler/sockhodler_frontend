@@ -1,6 +1,5 @@
-import { combineReducers } from '@reduxjs/toolkit';
-
-import { walletReducer } from "./wallet/wallet-slice"
+import { combineReducers } from "@reduxjs/toolkit";
+import { walletReducer } from "./wallet/wallet-slice";
 
 const reducers = {
   wallets: walletReducer,

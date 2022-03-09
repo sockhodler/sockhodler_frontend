@@ -1,2 +1,2 @@
-export { AuthenticateTab } from './AuthenticateTab/AuthenticateTab'
-export { DashboardTab } from './DashboardTab/DashboardTab'
+export { AuthenticateTab } from "./AuthenticateTab/AuthenticateTab";
+export { DashboardTab } from "./DashboardTab/DashboardTab";

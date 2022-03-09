@@ -1,19 +1,18 @@
-import React from 'react'
-
-import { Link } from 'react-router-dom'
-import { ReactComponent as ArrowRightIcon } from 'assets/icons/arrow-right.svg'
-import { Card, Accordion, NFTInfo, Button } from 'components'
-import classes from './NFTDetails.module.scss'
+import React from "react";
+import { Link } from "react-router-dom";
+import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
+import { Card, Accordion, NFTInfo, Button } from "components";
+import classes from "./NFTDetails.module.scss";
 
 interface Props {
-  back: { label: string; to: string }
-  details: { name: string; value: string; to: string }[]
-  faqItems?: { title: string; body: string; isOpen?: boolean }[]
-  imgSrc: string
-  actionLabel: string
-  onActionClick: () => void
-  title: string
-  info: { title?: string; value: string | JSX.Element }[]
+  back: { label: string; to: string };
+  details: { name: string; value: string; to: string }[];
+  faqItems?: { title: string; body: string; isOpen?: boolean }[];
+  imgSrc: string;
+  actionLabel: string;
+  onActionClick: () => void;
+  title: string;
+  info: { title?: string; value: string | JSX.Element }[];
 }
 
 export const NFTDetails: React.FunctionComponent<Props> = ({
@@ -41,7 +40,7 @@ export const NFTDetails: React.FunctionComponent<Props> = ({
         <div className={classes.left}>
           <img src={imgSrc} alt="" className={classes.img} />
           {faqItems && faqItems.length > 0 ? (
-            <div className={classes['faq-list']}>
+            <div className={classes["faq-list"]}>
               {faqItems.map((faq) => (
                 <Accordion
                   title={faq.title}
@@ -63,7 +62,7 @@ export const NFTDetails: React.FunctionComponent<Props> = ({
                 {item.title ? (
                   <>
                     <span>{item.title}</span>
-                    {typeof item.value === 'string' ? (
+                    {typeof item.value === "string" ? (
                       <span>{item.value}</span>
                     ) : (
                       item.value
@@ -96,5 +95,5 @@ export const NFTDetails: React.FunctionComponent<Props> = ({
         </div>
       </Card>
     </div>
-  )
-}
+  );
+};

@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
+import classNames from "classnames";
+import Modal from "react-modal";
+import classes from "./Base.module.scss";
 
-import Modal from 'react-modal'
-
-import classNames from 'classnames'
-
-import classes from './Base.module.scss'
-
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
 interface Props {
-  isOpen: boolean
-  onClose: () => void
-  className?: string
-  overlayClassName?: string
-  title?: string
-  hideHeader?: boolean
+  isOpen: boolean;
+  onClose: () => void;
+  className?: string;
+  overlayClassName?: string;
+  title?: string;
+  hideHeader?: boolean;
 }
 
 export const BaseModal: React.FunctionComponent<Props> = ({
@@ -26,28 +23,25 @@ export const BaseModal: React.FunctionComponent<Props> = ({
   title,
   hideHeader,
 }) => {
-  useEffect(() => {
-    // @ts-ignore: Unreachable code error
-    document.addEventListener('keyup', handleCloseModalOnEsc)
-
-    return () => {
-      // @ts-ignore: Unreachable code error
-      document.removeEventListener('keyup', handleCloseModalOnEsc)
+  const handleCloseModalOnEsc = (e: React.KeyboardEvent): void => {
+    if (e.code === "Escape") {
+      onClose();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  };
 
-  const handleCloseModalOnEsc = (e: React.KeyboardEvent) => {
-    if (e.code === 'Escape') {
-      onClose()
+  const handleCloseModal = (e: React.MouseEvent): void => {
+    if ((e.target as Element).className.includes("ReactModal__Overlay")) {
+      onClose();
     }
-  }
+  };
 
-  const handleCloseModal = (e: React.MouseEvent) => {
-    if ((e.target as Element).className.includes('ReactModal__Overlay')) {
-      onClose()
-    }
-  }
+  // useEffect(() => {
+  //   document.addEventListener("keyup", handleCloseModalOnEsc);
+
+  //   return () => {
+  //     document.removeEventListener("keyup", handleCloseModalOnEsc);
+  //   };
+  // }, []);
 
   return (
     <Modal
@@ -55,8 +49,8 @@ export const BaseModal: React.FunctionComponent<Props> = ({
       isOpen={isOpen}
       className={classNames(
         classes.modal,
-        hideHeader && classes['modal--hide-header'],
-        className,
+        hideHeader && classes["modal--hide-header"],
+        className
       )}
       overlayClassName={classNames(classes.overlay, overlayClassName)}
       onRequestClose={handleCloseModal}
@@ -69,5 +63,5 @@ export const BaseModal: React.FunctionComponent<Props> = ({
 
       <div className={classes.content}>{children}</div>
     </Modal>
-  )
-}
+  );
+};

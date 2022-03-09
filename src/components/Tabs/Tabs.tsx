@@ -1,15 +1,13 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, createContext } from "react";
+import classNames from "classnames";
+import classes from "./Tabs.module.scss";
 
-import classNames from 'classnames'
-
-import classes from './Tabs.module.scss'
-
-export const TabsContext = createContext<string | number>('')
+export const TabsContext = createContext<string | number>("");
 
 interface Props {
-  tabs: { label: string; value: string | number }[]
-  className?: string
-  selected?: string
+  tabs: { label: string; value: string | number }[];
+  className?: string;
+  selected?: string;
 }
 
 export const Tabs: React.FunctionComponent<Props> = ({
@@ -18,12 +16,8 @@ export const Tabs: React.FunctionComponent<Props> = ({
   className,
   selected: selectedTab,
 }) => {
-  const defaultTab = selectedTab
-    ? selectedTab
-    : tabs.length > 0
-    ? tabs[0].value
-    : ''
-  const [selected, setSelected] = useState(defaultTab)
+  const defaultTab = selectedTab || (tabs.length > 0 ? tabs[0].value : "");
+  const [selected, setSelected] = useState(defaultTab);
 
   return (
     <div className={classes.tabs}>
@@ -34,7 +28,7 @@ export const Tabs: React.FunctionComponent<Props> = ({
             onClick={() => setSelected(tab.value)}
             className={classNames(
               classes.tape__item,
-              selected === tab.value && classes['tape__item--active'],
+              selected === tab.value && classes["tape__item--active"]
             )}
           >
             {tab.label}
@@ -44,5 +38,5 @@ export const Tabs: React.FunctionComponent<Props> = ({
 
       <TabsContext.Provider value={selected}>{children}</TabsContext.Provider>
     </div>
-  )
-}
+  );
+};

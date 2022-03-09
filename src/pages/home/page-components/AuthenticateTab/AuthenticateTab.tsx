@@ -1,48 +1,45 @@
-import React from 'react'
-
-import { LayoutTab, Button, NFTInfo } from 'components'
-
-import classes from './AuthenticateTab.module.scss'
-
-import { ReactComponent as CheckCircleIcon } from 'assets/icons/check-circle.svg'
-import { ReactComponent as ArrowRightIcon } from 'assets/icons/arrow-right.svg'
+import React from "react";
+import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
+import { ReactComponent as CheckCircleIcon } from "assets/icons/check-circle.svg";
+import { LayoutTab, Button, NFTInfo } from "components";
+import classes from "./AuthenticateTab.module.scss";
 
 interface Props {
-  for: string
+  for: string;
 }
 
 const details = [
   {
-    name: 'UID',
-    value: '042f4442c96e80',
-    to: '/',
+    name: "UID",
+    value: "042f4442c96e80",
+    to: "/",
   },
   {
-    name: 'Token ID',
-    value: '598088282',
-    to: '/',
+    name: "Token ID",
+    value: "598088282",
+    to: "/",
   },
   {
-    name: 'Owner Address',
-    value: 'SOCKSV3B6CDAE5R4BS5...',
-    to: '/',
+    name: "Owner Address",
+    value: "SOCKSV3B6CDAE5R4BS5...",
+    to: "/",
   },
   {
-    name: 'Creator Address',
-    value: 'SOCKSV3B6CDAE5R4BS53...',
-    to: '/',
+    name: "Creator Address",
+    value: "SOCKSV3B6CDAE5R4BS53...",
+    to: "/",
   },
   {
-    name: 'Total Supply',
-    value: '1',
-    to: '/',
+    name: "Total Supply",
+    value: "1",
+    to: "/",
   },
   {
-    name: 'Circulating Supply',
-    value: '2',
-    to: '/',
+    name: "Circulating Supply",
+    value: "2",
+    to: "/",
   },
-]
+];
 
 export const AuthenticateTab: React.FunctionComponent<Props> = ({
   for: tabFor,
@@ -50,7 +47,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   return (
     <LayoutTab for={tabFor}>
       <section className={classes.content}>
-        <CheckCircleIcon className={classes['check-icon']} />
+        <CheckCircleIcon className={classes["check-icon"]} />
 
         <h2 className={classes.title}>Authenticated</h2>
         <p className={classes.subtitle}>
@@ -90,5 +87,5 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
         </div>
       </section>
     </LayoutTab>
-  )
-}
+  );
+};

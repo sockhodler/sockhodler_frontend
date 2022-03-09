@@ -1,46 +1,43 @@
-import React from 'react'
-
-import { LayoutTab, Button, Tabs, Tab, Card } from 'components'
-import classNames from 'classnames'
-import NftSampleImage from 'assets/images/sample-nft.png'
-import Banner from 'assets/images/banner.png'
-import { ReactComponent as MngoIcon } from 'assets/icons/mngo.svg'
-import { ReactComponent as SockholderIcon } from 'assets/icons/sockholder.svg'
+import React from "react";
+import { LayoutTab, Button, Tabs, Tab, Card } from "components";
+import classNames from "classnames";
+import Banner from "assets/images/banner.png";
+import { ReactComponent as MngoIcon } from "assets/icons/mngo.svg";
+import { ReactComponent as SockholderIcon } from "assets/icons/sockholder.svg";
 // import { ReactComponent as VerifiedIcon } from 'assets/icons/verified.svg'
-import { ReactComponent as ArrowRightIcon } from 'assets/icons/arrow-right.svg'
-
-import VerifiedIcon from 'assets/icons/verified.png'
-import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
-import { Carousel } from 'react-responsive-carousel'
-
-import classes from './DashboardTab.module.scss'
+import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
+import VerifiedIcon from "assets/icons/verified.png";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import NftSampleImage from "assets/images/sample-nft.png";
+import classes from "./DashboardTab.module.scss";
 
 interface Props {
-  for: string
+  for: string;
 }
 
 const usdTabDetails = [
   {
-    name: 'LIQUIDITY',
-    value: '$20,605.93',
+    name: "LIQUIDITY",
+    value: "$20,605.93",
   },
   {
-    name: 'MARKET CAP',
-    value: '$220,336',
+    name: "MARKET CAP",
+    value: "$220,336",
   },
   {
-    name: 'FDMC',
-    value: '$475,416',
+    name: "FDMC",
+    value: "$475,416",
   },
   {
-    name: 'CIRC. SUPPLY',
-    value: '46.34%',
+    name: "CIRC. SUPPLY",
+    value: "46.34%",
   },
   {
-    name: 'TOTAL SUPPLY',
-    value: '100,000,000',
+    name: "TOTAL SUPPLY",
+    value: "100,000,000",
   },
-]
+];
 
 export const DashboardTab: React.FunctionComponent<Props> = ({
   for: tabFor,
@@ -75,7 +72,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
         </div>
 
         <section className={classes.grid}>
-          <div className={classes['grid__left']}>
+          <div className={classes.grid__left}>
             <Card
               className={classes.release}
               style={{ backgroundImage: `url(${NftSampleImage})` }}
@@ -99,12 +96,12 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
               <Tabs
                 tabs={[
                   {
-                    label: 'ALGO',
-                    value: 'algo',
+                    label: "ALGO",
+                    value: "algo",
                   },
                   {
-                    label: 'USD',
-                    value: 'usd',
+                    label: "USD",
+                    value: "usd",
                   },
                 ]}
                 className={classes.price__tabs}
@@ -113,7 +110,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                 <Tab for="algo">algo</Tab>
                 <Tab for="usd">
                   <div className={classes.price__sockholder}>
-                    <div className={classes['price__sockholder-grid']}>
+                    <div className={classes["price__sockholder-grid"]}>
                       <SockholderIcon />
                       <span>
                         SOCKHODLER {/* <VerifiedIcon /> */}
@@ -126,7 +123,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                       <span>SOCKS &nbsp; 452047208</span>
                     </div>
 
-                    <div className={classes['price__sockholder-price']}>
+                    <div className={classes["price__sockholder-price"]}>
                       <span>$.004754</span>
                       <span>
                         <ArrowRightIcon />
@@ -134,10 +131,10 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                       </span>
                     </div>
 
-                    <div className={classes['price__sockholder-details']}>
+                    <div className={classes["price__sockholder-details"]}>
                       {usdTabDetails.map((detail) => (
                         <div
-                          className={classes['price__sockholder-detail']}
+                          className={classes["price__sockholder-detail"]}
                           key={detail.name}
                         >
                           <span>{detail.name}</span>
@@ -158,7 +155,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
             />
           </div>
 
-          <div className={classes['grid__right']}>
+          <div className={classes.grid__right}>
             <Card className={classes.giveaway}>
               <div className={classes.giveaway__content}>
                 <span className={classes.giveaway__title}>Active Giveaway</span>
@@ -247,5 +244,5 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
         </section>
       </section>
     </LayoutTab>
-  )
-}
+  );
+};

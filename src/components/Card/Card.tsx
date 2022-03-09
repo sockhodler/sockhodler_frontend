@@ -1,11 +1,10 @@
-import React from 'react'
-
-import classNames from 'classnames'
-import classes from './Card.module.scss'
+import React from "react";
+import classNames from "classnames";
+import classes from "./Card.module.scss";
 
 interface Props {
-  className?: string
-  style?: {}
+  className?: string;
+  style?: any;
 }
 
 export const Card: React.FunctionComponent<Props> = ({
@@ -17,5 +16,5 @@ export const Card: React.FunctionComponent<Props> = ({
     <div className={classNames(classes.card, className)} style={style}>
       {children}
     </div>
-  )
-}
+  );
+};

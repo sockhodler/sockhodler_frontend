@@ -1,15 +1,14 @@
-import React from 'react'
-
-import classes from './NFTInfo.module.scss'
-import { ReactComponent as ArrowRightIcon } from 'assets/icons/arrow-right.svg'
-import { Link } from 'react-router-dom'
-import classNames from 'classnames'
+import React from "react";
+import classNames from "classnames";
+import { Link } from "react-router-dom";
+import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
+import classes from "./NFTInfo.module.scss";
 
 interface Props {
-  value: string
-  name: string
-  to: string
-  size?: 'small'
+  value: string;
+  name: string;
+  to: string;
+  size?: "small";
 }
 
 export const NFTInfo: React.FunctionComponent<Props> = ({
@@ -33,5 +32,5 @@ export const NFTInfo: React.FunctionComponent<Props> = ({
         <ArrowRightIcon />
       </Link>
     </div>
-  )
-}
+  );
+};

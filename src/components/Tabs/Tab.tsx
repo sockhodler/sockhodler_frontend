@@ -1,36 +1,34 @@
-import React, { useContext } from 'react'
-
-import classNames from 'classnames'
-
-import classes from './Tab.module.scss'
-import { TabsContext } from './Tabs'
+import React, { useContext } from "react";
+import classNames from "classnames";
+import classes from "./Tab.module.scss";
+import { TabsContext } from "./Tabs";
 
 const useTabsContext = () => {
-  const context = useContext(TabsContext)
+  const context = useContext(TabsContext);
   if (!context) {
-    throw new Error('Tab must be inside of <Tabs />')
+    throw new Error("Tab must be inside of <Tabs />");
   }
-  return context
-}
+  return context;
+};
 
 interface Props {
-  for: string
+  for: string;
 }
 
 export const Tab: React.FunctionComponent<Props> = ({
   for: forTab,
   children,
 }) => {
-  const selected = useTabsContext()
+  const selected = useTabsContext();
 
   return (
     <div
       className={classNames(
         classes.tab,
-        selected === forTab && classes['tab--active'],
+        selected === forTab && classes["tab--active"]
       )}
     >
       {children}
     </div>
-  )
-}
+  );
+};

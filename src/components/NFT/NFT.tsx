@@ -1,22 +1,20 @@
-import React from 'react'
-
-import classes from './NFT.module.scss'
-import { Card, Button } from 'components'
-import { useNavigate } from 'react-router-dom'
-
-import { ReactComponent as AlgoIcon } from 'assets/icons/algo.svg'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
+import { Card, Button } from "components";
+import classes from "./NFT.module.scss";
 
 export interface NftProps {
-  title: string
-  subtitle: string
-  price?: number
-  unitMin?: number
-  unitMax?: number
-  unitAvailable?: number
-  currentBid?: number
-  endIn?: number
-  type?: 'portfolio'
-  info?: { label: string; value: string }[]
+  title: string;
+  subtitle: string;
+  price?: number;
+  unitMin?: number;
+  unitMax?: number;
+  unitAvailable?: number;
+  currentBid?: number;
+  endIn?: number;
+  type?: "portfolio";
+  info?: { label: string; value: string }[];
 }
 
 export const NFT: React.FunctionComponent<NftProps> = ({
@@ -31,11 +29,11 @@ export const NFT: React.FunctionComponent<NftProps> = ({
   type,
   info,
 }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleRedirect = () => {
-    navigate('/nft-auction-details')
-  }
+    navigate("/nft-auction-details");
+  };
 
   return (
     <Card className={classes.nft}>
@@ -43,7 +41,7 @@ export const NFT: React.FunctionComponent<NftProps> = ({
       <div className={classes.content}>
         <span className={classes.title}>{title}</span>
         <span className={classes.subtitle}>{subtitle}</span>
-        {type !== 'portfolio' ? (
+        {type !== "portfolio" ? (
           <>
             <div className={classes.price}>
               {price}
@@ -55,7 +53,7 @@ export const NFT: React.FunctionComponent<NftProps> = ({
               </span>
             )}
             {currentBid && (
-              <div className={classes['current-bid']}>
+              <div className={classes["current-bid"]}>
                 <span>CURRENT BID</span>
                 <span>ENDS {endIn} DAYS</span>
               </div>
@@ -76,5 +74,5 @@ export const NFT: React.FunctionComponent<NftProps> = ({
         )}
       </div>
     </Card>
-  )
-}
+  );
+};

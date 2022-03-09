@@ -1,31 +1,30 @@
-import React from 'react'
-
-import { Layout, NFTGrid } from 'components'
-import { Wallet } from './page-components'
-import classes from './index.module.scss'
-import { NftProps } from 'components/NFT/NFT'
+import React from "react";
+import { Layout, NFTGrid } from "components";
+import { NftProps } from "components/NFT/NFT";
+import classes from "./index.module.scss";
+import { Wallet } from "./page-components";
 
 export const Portfolio: React.FunctionComponent = () => {
-  const items: NftProps[] = []
+  const items: NftProps[] = [];
   for (let i = 0; i < 20; i++) {
     items.push({
-      title: 'SockHodler 1/250',
-      subtitle: 'SOCKHODLER',
+      title: "SockHodler 1/250",
+      subtitle: "SOCKHODLER",
       info: [
         {
-          label: 'CREATOR ADDRESS',
-          value: 'SOCKSV5K4SS3...',
+          label: "CREATOR ADDRESS",
+          value: "SOCKSV5K4SS3...",
         },
         {
-          label: 'OWNER ADDRESS',
-          value: 'SOCKSV5K4SS3...',
+          label: "OWNER ADDRESS",
+          value: "SOCKSV5K4SS3...",
         },
         {
-          label: 'OWNED',
-          value: '1',
+          label: "OWNED",
+          value: "1",
         },
       ],
-    })
+    });
   }
 
   return (
@@ -36,11 +35,11 @@ export const Portfolio: React.FunctionComponent = () => {
       <Wallet />
 
       <NFTGrid
-        back={{ label: 'back to home', to: '/' }}
+        back={{ label: "back to home", to: "/" }}
         list={items}
-        onLoadMoreClick={() => console.log('onLoadMoreClick')}
+        onLoadMoreClick={() => console.log("onLoadMoreClick")}
         type="portfolio"
       />
     </Layout>
-  )
-}
+  );
+};

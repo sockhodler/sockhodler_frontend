@@ -1,62 +1,57 @@
-import React, { useEffect } from 'react'
-
-import { Link } from 'react-router-dom'
-import { NavLink, useLocation } from 'react-router-dom'
-
-import classes from './Header.module.scss'
-import classNames from 'classnames'
-
-import { AlgorandWalletConnector } from 'components'
-import { SessionWallet } from 'algorand-session-wallet'
-import { config } from 'common/config/conf'
+import React, { useEffect } from "react";
+import { SessionWallet } from "algorand-session-wallet";
+import classNames from "classnames";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { ReactComponent as HomeIcon } from "assets/icons/home.svg";
+import { ReactComponent as MarketplaceIcon } from "assets/icons/marketplace.svg";
+import { ReactComponent as NFTAuctionsIcon } from "assets/icons/nft-auctions.svg";
+import { ReactComponent as NFTStackingIcon } from "assets/icons/nft-stacking.svg";
+import { ReactComponent as PortfolioIcon } from "assets/icons/portfolio.svg";
+import { ReactComponent as WalletIcon } from "assets/icons/wallet.svg";
+import { config } from "common/config/conf";
+import { AlgorandWalletConnector } from "components";
 import {
   setSessionWallet,
   setAccounts,
   setConnectedStatus,
-} from 'redux/wallet/wallet-slice'
-import { useSelector, useDispatch } from 'react-redux'
-
-import { ReactComponent as WalletIcon } from 'assets/icons/wallet.svg'
-import { ReactComponent as HomeIcon } from 'assets/icons/home.svg'
-import { ReactComponent as NFTStackingIcon } from 'assets/icons/nft-stacking.svg'
-import { ReactComponent as NFTAuctionsIcon } from 'assets/icons/nft-auctions.svg'
-import { ReactComponent as MarketplaceIcon } from 'assets/icons/marketplace.svg'
-import { ReactComponent as PortfolioIcon } from 'assets/icons/portfolio.svg'
+} from "redux/wallet/wallet-slice";
+import classes from "./Header.module.scss";
 
 interface Props {
-  className?: string
-  tabs?: { label: string; value: string }[]
-  selectedTab?: string
-  onTabChange?: (tab: string) => void
+  className?: string;
+  tabs?: { label: string; value: string }[];
+  selectedTab?: string;
+  onTabChange?: (tab: string) => void;
 }
 
 const navItems = [
   {
-    label: 'Home',
-    to: '/',
+    label: "Home",
+    to: "/",
     icon: <HomeIcon />,
   },
   {
-    label: 'NFT Staking',
-    to: '/nft-staking',
+    label: "NFT Staking",
+    to: "/nft-staking",
     icon: <NFTStackingIcon />,
   },
   {
-    label: 'NFT Auctions',
-    to: '/nft-auctions',
+    label: "NFT Auctions",
+    to: "/nft-auctions",
     icon: <NFTAuctionsIcon />,
   },
   {
-    label: 'Marketplace',
-    to: '/marketplace',
+    label: "Marketplace",
+    to: "/marketplace",
     icon: <MarketplaceIcon />,
   },
   {
-    label: 'Portfolio',
-    to: '/portfolio',
+    label: "Portfolio",
+    to: "/portfolio",
     icon: <PortfolioIcon />,
   },
-]
+];
 
 export const Header: React.FunctionComponent<Props> = ({
   className,
@@ -64,23 +59,23 @@ export const Header: React.FunctionComponent<Props> = ({
   selectedTab,
   onTabChange,
 }) => {
-  const { pathname } = useLocation()
-  const dispatch = useDispatch()
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
-  const sw = new SessionWallet(config.network ? config.network : 'TestNet')
+  const sw = new SessionWallet(config.network ? config.network : "TestNet");
 
-  const [connected, setConnected] = React.useState(sw.connected())
+  const [connected, setConnected] = React.useState(sw.connected());
 
   useEffect(() => {
-    setConnected(connected)
-  }, [connected])
+    setConnected(connected);
+  }, [connected]);
 
   const updateWallet = (swk: SessionWallet) => {
-    dispatch(setSessionWallet(swk))
-    dispatch(setAccounts(swk.accountList()))
-    dispatch(setConnectedStatus(swk.connected()))
-    setConnected(swk.connected())
-  }
+    dispatch(setSessionWallet(swk));
+    dispatch(setAccounts(swk.accountList()));
+    dispatch(setConnectedStatus(swk.connected()));
+    setConnected(swk.connected());
+  };
 
   return (
     <header className={classNames(classes.container, className)}>
@@ -99,23 +94,23 @@ export const Header: React.FunctionComponent<Props> = ({
       </div>
 
       <div className={classes.navbar}>
-        <nav className={classes['page-nav']}>
+        <nav className={classes["page-nav"]}>
           {navItems.map((item) => (
             <NavLink
               to={item.to}
               key={item.label}
               className={({ isActive }) =>
                 classNames(
-                  classes['page-nav__link'],
-                  isActive && classes['page-nav__link--active'],
+                  classes["page-nav__link"],
+                  isActive && classes["page-nav__link--active"]
                 )
               }
             >
               {item.icon}
               <span
                 className={classNames(
-                  classes['page-nav__label'],
-                  item.to === pathname && classes['page-nav__label--active'],
+                  classes["page-nav__label"],
+                  item.to === pathname && classes["page-nav__label--active"]
                 )}
               >
                 {item.label}
@@ -125,15 +120,15 @@ export const Header: React.FunctionComponent<Props> = ({
         </nav>
 
         {tabs && tabs.length > 0 ? (
-          <nav className={classes['tabs-tape']}>
+          <nav className={classes["tabs-tape"]}>
             {tabs.map((tab) => (
               <button
                 key={tab.value}
                 onClick={() => onTabChange?.(tab.value)}
                 className={classNames(
-                  classes['tabs-tape__item'],
+                  classes["tabs-tape__item"],
                   selectedTab === tab.value &&
-                    classes['tabs-tape__item--active'],
+                    classes["tabs-tape__item--active"]
                 )}
               >
                 {tab.label}
@@ -143,5 +138,5 @@ export const Header: React.FunctionComponent<Props> = ({
         ) : null}
       </div>
     </header>
-  )
-}
+  );
+};

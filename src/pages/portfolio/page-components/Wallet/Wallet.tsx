@@ -1,7 +1,6 @@
-import React from 'react'
-
-import { Card, Button } from 'components'
-import classes from './Wallet.module.scss'
+import React from "react";
+import { Card, Button } from "components";
+import classes from "./Wallet.module.scss";
 
 export const Wallet: React.FunctionComponent = () => {
   return (
@@ -33,5 +32,5 @@ export const Wallet: React.FunctionComponent = () => {
         </div>
       </div>
     </Card>
-  )
-}
+  );
+};

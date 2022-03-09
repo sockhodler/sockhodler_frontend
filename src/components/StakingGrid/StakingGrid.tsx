@@ -1,11 +1,10 @@
-import React from 'react'
-
-import classes from './StakingGrid.module.scss'
-import { StakingItem, TextField, Switch } from 'components'
-import { StakingItemProps } from 'components/StakingItem/StakingItem'
+import React from "react";
+import { StakingItem, TextField, Switch } from "components";
+import { StakingItemProps } from "components/StakingItem/StakingItem";
+import classes from "./StakingGrid.module.scss";
 
 interface Props {
-  list: StakingItemProps[]
+  list: StakingItemProps[];
 }
 
 export const StakingGrid: React.FunctionComponent<Props> = ({ list }) => {
@@ -22,5 +21,5 @@ export const StakingGrid: React.FunctionComponent<Props> = ({ list }) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,12 +1,11 @@
-import React from 'react'
-
-import classes from './Switch.module.scss'
+import React from "react";
+import classes from "./Switch.module.scss";
 
 interface Props {
-  label?: string
+  label?: string;
 }
 
-const randomId = `switch-${Math.random() * 10}`
+const randomId = `switch-${Math.random() * 10}`;
 
 export const Switch: React.FunctionComponent<Props> = ({ label }) => {
   return (
@@ -17,5 +16,5 @@ export const Switch: React.FunctionComponent<Props> = ({ label }) => {
         <div className={classes.ball} />
       </div>
     </label>
-  )
-}
+  );
+};

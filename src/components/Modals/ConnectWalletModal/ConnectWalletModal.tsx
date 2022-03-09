@@ -1,14 +1,12 @@
-import React from 'react'
-
-import { BaseModal } from 'components'
-
-import classes from './ConnectWalletModal.module.scss'
+import React from "react";
+import { BaseModal } from "components";
+import classes from "./ConnectWalletModal.module.scss";
 
 interface Props {
-  isOpen: boolean
-  onClose: () => void
-  wallets: { icon: string; label: string; id: string }[]
-  onWalletClick: (id: string) => void
+  isOpen: boolean;
+  onClose: () => void;
+  wallets: { icon: string; label: string; id: string }[];
+  onWalletClick: (id: string) => void;
 }
 
 export const ConnectWalletModal: React.FunctionComponent<Props> = ({
@@ -42,5 +40,5 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
         ))}
       </div>
     </BaseModal>
-  )
-}
+  );
+};

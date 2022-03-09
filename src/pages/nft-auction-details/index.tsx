@@ -1,12 +1,11 @@
-import React from 'react'
-
-import { Layout, NFTDetails } from 'components'
-import classes from './index.module.scss'
-import { ReactComponent as AlgoIcon } from 'assets/icons/algo.svg'
+import React from "react";
+import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
+import { Layout, NFTDetails } from "components";
+import classes from "./index.module.scss";
 
 const infoItems = [
   {
-    title: 'Current Bid',
+    title: "Current Bid",
     value: (
       <span>
         125
@@ -15,7 +14,7 @@ const infoItems = [
     ),
   },
   {
-    title: 'Starting Bid',
+    title: "Starting Bid",
     value: (
       <span>
         125
@@ -24,42 +23,42 @@ const infoItems = [
     ),
   },
   {
-    title: 'Quantity Available',
-    value: '50',
+    title: "Quantity Available",
+    value: "50",
   },
   {
-    title: 'Auction Ends',
-    value: '3 Days 43m left',
+    title: "Auction Ends",
+    value: "3 Days 43m left",
   },
-]
+];
 
 const details = [
   {
-    name: 'Asset ID',
-    value: '545366852',
-    to: '/',
+    name: "Asset ID",
+    value: "545366852",
+    to: "/",
   },
   {
-    name: 'App ID',
-    value: '6112547',
-    to: '/',
+    name: "App ID",
+    value: "6112547",
+    to: "/",
   },
   {
-    name: 'Royalty',
-    value: '5%',
-    to: '/',
+    name: "Royalty",
+    value: "5%",
+    to: "/",
   },
   {
-    name: 'Creator',
-    value: 'SOCKSV3AE5R4BS5...',
-    to: '/',
+    name: "Creator",
+    value: "SOCKSV3AE5R4BS5...",
+    to: "/",
   },
   {
-    name: 'Escrow',
-    value: '4GB16A567B776GB...',
-    to: '/',
+    name: "Escrow",
+    value: "4GB16A567B776GB...",
+    to: "/",
   },
-]
+];
 
 export const NFTAuctionDetails: React.FunctionComponent = () => {
   return (
@@ -68,14 +67,14 @@ export const NFTAuctionDetails: React.FunctionComponent = () => {
       <span className={classes.subtitle}>Auction Listing</span>
 
       <NFTDetails
-        back={{ label: 'back to nft auctions', to: '/nft-auctions' }}
+        back={{ label: "back to nft auctions", to: "/nft-auctions" }}
         title="Taco Coin - Meet Me at Dora’s #1"
         imgSrc="https://unsplash.it/700/700"
         actionLabel="BID"
-        onActionClick={() => console.log('on action click')}
+        onActionClick={() => console.log("on action click")}
         info={infoItems}
         details={details}
       />
     </Layout>
-  )
-}
+  );
+};
