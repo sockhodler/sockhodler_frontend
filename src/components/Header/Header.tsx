@@ -13,7 +13,7 @@ import {
   setSessionWallet,
   setAccounts,
   setConnectedStatus,
-} from "redux/wallet/wallet-slice"
+} from 'redux/wallet/wallet-slice'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { ReactComponent as WalletIcon } from 'assets/icons/wallet.svg'
@@ -75,7 +75,7 @@ export const Header: React.FunctionComponent<Props> = ({
     setConnected(connected)
   }, [connected])
 
-  const updateWallet = (swk: SessionWallet) => { 
+  const updateWallet = (swk: SessionWallet) => {
     dispatch(setSessionWallet(swk))
     dispatch(setAccounts(swk.accountList()))
     dispatch(setConnectedStatus(swk.connected()))
@@ -89,20 +89,13 @@ export const Header: React.FunctionComponent<Props> = ({
           THE SOCK<span>VAULT</span>
         </Link>
 
-        <div className={classes.wallet}>
-          <span className={classes.wallet__address}>HMU5393945954...</span>
-
-          <button className={classes.wallet__btn}>
-            <WalletIcon />
-          </button>
-          <AlgorandWalletConnector  
-            darkMode={false}
-            sessionWallet={sw}
-            accts={[]}
-            connected={connected} 
-            updateWallet={updateWallet}
-          />
-        </div>
+        <AlgorandWalletConnector
+          darkMode={false}
+          sessionWallet={sw}
+          accts={[]}
+          connected={connected}
+          updateWallet={updateWallet}
+        />
       </div>
 
       <div className={classes.navbar}>

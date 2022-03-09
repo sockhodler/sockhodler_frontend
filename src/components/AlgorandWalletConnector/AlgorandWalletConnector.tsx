@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { SessionWallet, allowedWallets } from "algorand-session-wallet"
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { SessionWallet, allowedWallets } from 'algorand-session-wallet'
 import {
   Dialog,
   Button,
@@ -8,33 +8,34 @@ import {
   Menu,
   Popover,
   Position,
-} from "@blueprintjs/core"
-import classNames from "classnames"
+} from '@blueprintjs/core'
+import classNames from 'classnames'
 
-import { setSelectedAccount } from "redux/wallet/wallet-slice"
-import { formatAddress } from "common/helper/FormatAddress"
-import classes from "./AlgorandWalletConnector.module.scss"
+import { ConnectWalletModal } from 'components'
 
-import { RootState } from 'redux/rootReducer';
+import { setSelectedAccount } from 'redux/wallet/wallet-slice'
+import { formatAddress } from 'common/helper/FormatAddress'
+import classes from './AlgorandWalletConnector.module.scss'
+import { ReactComponent as WalletIcon } from 'assets/icons/wallet.svg'
+
+import { RootState } from 'redux/rootReducer'
 
 type AlgorandWalletConnectorProps = {
-    darkMode: boolean
-    connected: boolean
-    accts: string[]
-    sessionWallet: SessionWallet
-    updateWallet(sw: SessionWallet): void
+  darkMode: boolean
+  connected: boolean
+  accts: string[]
+  sessionWallet: SessionWallet
+  updateWallet(sw: SessionWallet): void
 }
 
-export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConnectorProps> = ({
-  sessionWallet,
-  updateWallet,
-  darkMode,
-  connected,
-  accts,
-}) => {
+export const AlgorandWalletConnector: React.FunctionComponent<
+  AlgorandWalletConnectorProps
+> = ({ sessionWallet, updateWallet, darkMode, connected, accts }) => {
   const dispatch = useDispatch()
 
-  const selectedWallet = useSelector((state: RootState) => state.wallets?.selectedAccount)
+  const selectedWallet = useSelector(
+    (state: RootState) => state.wallets?.selectedAccount,
+  )
   const [selectorOpen, setSelectorOpen] = useState(false)
 
   useEffect(() => {
@@ -67,18 +68,19 @@ export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConn
   }, [sessionWallet, updateWallet])
 
   const disconnectWallet = () => {
-    localStorage.removeItem("selectedAccount")
-    dispatch(setSelectedAccount(""))
+    localStorage.removeItem('selectedAccount')
+    dispatch(setSelectedAccount(''))
     sessionWallet.disconnect()
     updateWallet(
-      new SessionWallet(sessionWallet.network, sessionWallet.permissionCallback)
+      new SessionWallet(
+        sessionWallet.network,
+        sessionWallet.permissionCallback,
+      ),
     )
   }
 
-  const handleSelectedWallet = async (e: any) => {
-    const choice = e.currentTarget.id
-
-    if (!(choice in allowedWallets)) {
+  const handleSelectedWallet = async (id: string) => {
+    if (!(id in allowedWallets)) {
       if (sessionWallet.wallet !== undefined) sessionWallet.disconnect()
       return setSelectorOpen(false)
     }
@@ -86,7 +88,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConn
     const sw = new SessionWallet(
       sessionWallet.network,
       sessionWallet.permissionCallback,
-      choice
+      id,
     )
 
     if (!(await sw.connect())) {
@@ -100,86 +102,47 @@ export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConn
 
   const walletOptions = []
   const myAlgoOption = Object.entries(allowedWallets).find(
-    (w) => w[0] === "my-algo-connect"
+    (w) => w[0] === 'my-algo-connect',
   )
   if (myAlgoOption) {
-    walletOptions.push(
-      <li key={myAlgoOption[0]}>
-        <Button
-          id={myAlgoOption[0]}
-          large
-          fill
-          minimal
-          outlined
-          onClick={handleSelectedWallet}
-          className={classes.buttonPink}
-        >
-          <div className={classes["wallet-option"]}>
-            <img
-              alt="wallet-branding"
-              className={classes["wallet-branding"]}
-              src={myAlgoOption[1].img(darkMode)}
-            />
-            <h5>{myAlgoOption[1].displayName()}</h5>
-          </div>
-        </Button>
-      </li>
-    )
+    walletOptions.push({
+      icon: myAlgoOption[1].img(darkMode),
+      label: myAlgoOption[1].displayName(),
+      id: myAlgoOption[0],
+    })
   }
   // eslint-disable-next-line no-restricted-syntax
   for (const [k, v] of Object.entries(allowedWallets).filter(
-    (w) => w[0] !== "my-algo-connect"
+    (w) => w[0] !== 'my-algo-connect',
   )) {
-    walletOptions.push(
-      <li key={k}>
-        <Button
-          id={k}
-          large
-          fill
-          minimal
-          outlined
-          onClick={handleSelectedWallet}
-          className={classes.buttonPink}
-        >
-          <div className={classes["wallet-option"]}>
-            <img
-              alt="wallet-branding"
-              className={classes["wallet-branding"]}
-              src={v.img(darkMode)}
-            />
-            <h5>{v.displayName()}</h5>
-          </div>
-        </Button>
-      </li>
-    )
+    walletOptions.push({
+      icon: v.img(darkMode),
+      label: v.displayName(),
+      id: k,
+    })
   }
 
   if (!connected)
     return (
-      <div>
-        <Button
-          minimal
-          rightIcon="selection"
-          intent="warning"
-          outlined
-          className={classes.buttonPink}
-          onClick={() => setSelectorOpen(true)}
-        >
-          Connect Wallet
-        </Button>
+      <>
+        <div className={classes.wallet}>
+          {/* <span className={classes.wallet__address}>HMU5393945954...</span> */}
 
-        <Dialog
+          <button
+            className={classes.wallet__btn}
+            onClick={() => setSelectorOpen(true)}
+          >
+            <WalletIcon />
+          </button>
+        </div>
+
+        <ConnectWalletModal
           isOpen={selectorOpen}
-          title=""
-          onClose={handleSelectedWallet}
-          className={classes.dialog}
-        >
-          <h2 className={classes["dialog-title"]}>Select Wallet</h2>
-          <div className={Classes.DIALOG_BODY}>
-            <ul className={classes["wallet-option-list"]}>{walletOptions}</ul>
-          </div>
-        </Dialog>
-      </div>
+          onClose={() => setSelectorOpen(false)}
+          wallets={walletOptions}
+          onWalletClick={handleSelectedWallet}
+        />
+      </>
     )
 
   const handleWalletChange = (index: number, addr: string) => {
@@ -189,7 +152,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConn
   }
 
   const hadleGoClick = (addr: string) => {
-      console.log('addr', addr)
+    console.log('addr', addr)
     // history.push(`/creators/${addr}`)
   }
 
@@ -198,15 +161,15 @@ export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConn
       <Popover
         minimal
         position={Position.BOTTOM}
-        className={classes["wallet-popover"]}
+        className={classes['wallet-popover']}
       >
         <Button
           text={formatAddress(selectedWallet.toString())}
-          className={classes["wallets-dropdown"]}
+          className={classes['wallets-dropdown']}
           rightIcon="symbol-circle"
           intent="success"
         />
-        <div className={classes["popover-content"]}>
+        <div className={classes['popover-content']}>
           {accts.map((addr, idx) => (
             <Menu
               // text={addr}
@@ -214,10 +177,10 @@ export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConn
               onClick={() => handleWalletChange(idx, addr)}
               className={classNames(
                 classes.walletMenu,
-                addr === selectedWallet && classes.blueGlowText
+                addr === selectedWallet && classes.blueGlowText,
               )}
             >
-              {formatAddress(addr)}{" "}
+              {formatAddress(addr)}{' '}
               <Button
                 icon="arrow-right"
                 minimal
@@ -235,7 +198,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<AlgorandWalletConn
         className={classNames(
           classes.buttonPink,
           classes.noOutline,
-          classes.disconnect
+          classes.disconnect,
         )}
       />
     </div>

@@ -23,3 +23,7 @@ export { StakingItem } from './StakingItem/StakingItem'
 
 // AlgorandWalletConnector
 export { AlgorandWalletConnector } from './AlgorandWalletConnector/AlgorandWalletConnector'
+
+// modals
+export { BaseModal } from './Modals/Base/Base'
+export { ConnectWalletModal } from './Modals/ConnectWalletModal/ConnectWalletModal'
