@@ -28,8 +28,8 @@ export const NFTGrid: React.FunctionComponent<Props> = ({
       </div>
 
       <div className={classes.grid__list}>
-        {list.map((nft) => (
-          <NFT {...nft} type={type} />
+        {list.map((nft, index) => (
+          <NFT key={index} {...nft} type={type} />
         ))}
       </div>
 
