@@ -3,6 +3,8 @@ import classNames from "classnames";
 import Modal from "react-modal";
 import classes from "./Base.module.scss";
 
+import { ReactComponent as CloseIcon } from "assets/icons/close.svg";
+
 Modal.setAppElement("#root");
 
 interface Props {
@@ -10,8 +12,6 @@ interface Props {
   onClose: () => void;
   className?: string;
   overlayClassName?: string;
-  title?: string;
-  hideHeader?: boolean;
 }
 
 export const BaseModal: React.FunctionComponent<Props> = ({
@@ -20,8 +20,6 @@ export const BaseModal: React.FunctionComponent<Props> = ({
   children,
   className,
   overlayClassName,
-  title,
-  hideHeader,
 }) => {
   const handleCloseModalOnEsc = (e: React.KeyboardEvent): void => {
     if (e.code === "Escape") {
@@ -47,19 +45,15 @@ export const BaseModal: React.FunctionComponent<Props> = ({
     <Modal
       closeTimeoutMS={300}
       isOpen={isOpen}
-      className={classNames(
-        classes.modal,
-        hideHeader && classes["modal--hide-header"],
-        className
-      )}
+      className={classNames(classes.modal, className)}
       overlayClassName={classNames(classes.overlay, overlayClassName)}
       onRequestClose={handleCloseModal}
     >
-      {!hideHeader && (
-        <div className={classes.header}>
-          <h3>{title}</h3>
-        </div>
-      )}
+      <div className={classes.header}>
+        <button onClick={onClose}>
+          <CloseIcon />
+        </button>
+      </div>
 
       <div className={classes.content}>{children}</div>
     </Modal>

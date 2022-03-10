@@ -16,12 +16,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   onWalletClick,
 }) => {
   return (
-    <BaseModal
-      isOpen={isOpen}
-      onClose={onClose}
-      className={classes.modal}
-      hideHeader
-    >
+    <BaseModal isOpen={isOpen} onClose={onClose} className={classes.modal}>
       <div className={classes.header}>
         <h3>Connect your wallet</h3>
         <span>Select what wallet you want to connect below</span>

@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(27, 8, 51, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,38 +20,41 @@
   display: flex;
   flex-direction: column;
   border-radius: 1.5rem;
+  border: 0.1rem solid var(--color-dark-violet-8);
   background: linear-gradient(
-    to right,
-    var(--color-dark-1),
-    var(--color-dark-violet-1)
+    180deg,
+    var(--color-dark-6) 0%,
+    var(--color-dark-7) 100%
   );
-  border: 0.1rem solid var(--color-dark-violet-1);
+  box-shadow: 0 0 6rem rgba(138, 38, 153, 0.4);
 
   &:focus {
     outline: none;
-  }
-
-  &--hide-header {
-    .content {
-      padding-top: 2rem;
-    }
   }
 }
 
 .header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  padding: 2.6rem 2.3rem;
+  justify-content: flex-end;
+  padding: 2.3rem 2.7rem 3.4rem 2.7rem;
 
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 500;
+  button {
+    border: none;
+    background: none;
+    display: flex;
+
+    &:focus {
+      outline: none;
+    }
+
+    svg {
+      height: 2.1rem;
+      width: 2.1rem;
+    }
   }
 }
 
 .content {
-  padding: 2rem;
-  padding-top: 0;
+  padding: 0 6rem 6rem 6rem;
 }

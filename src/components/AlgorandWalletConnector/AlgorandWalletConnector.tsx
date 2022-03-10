@@ -167,12 +167,12 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   if (!connected)
     return (
       <>
-        <button className={classes.wallet}>
+        <button
+          className={classes.wallet}
+          onClick={() => setSelectorOpen(true)}
+        >
           <span className={classes.wallet__text}>Connect Wallet</span>
-          <div
-            className={classes.wallet__btn}
-            onClick={() => setSelectorOpen(true)}
-          >
+          <div className={classes.wallet__btn}>
             <WalletIcon />
           </div>
         </button>
