@@ -36,7 +36,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   const [selectorOpen, setSelectorOpen] = useState(false);
 
   useEffect(() => {
-    if (accts?.length > 0 && !accts.includes(selectedWallet)) {
+    if (accts && accts?.length > 0 && !accts.includes(selectedWallet)) {
       dispatch(setSelectedAccount(accts[0]));
     }
   }, [accts]);

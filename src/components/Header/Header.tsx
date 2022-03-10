@@ -17,6 +17,7 @@ import {
   setConnectedStatus,
 } from "redux/wallet/wallet-slice";
 import classes from "./Header.module.scss";
+import { RootState } from "redux/rootReducer";
 
 interface Props {
   className?: string;
@@ -62,6 +63,10 @@ export const Header: React.FunctionComponent<Props> = ({
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
+  const { sessionWallet, accts } = useSelector(
+    (state: RootState) => state.wallets
+  );
+
   const sw = new SessionWallet(config.network ? config.network : "TestNet");
 
   const [connected, setConnected] = React.useState(sw.connected());
@@ -86,8 +91,8 @@ export const Header: React.FunctionComponent<Props> = ({
 
         <AlgorandWalletConnector
           darkMode={false}
-          sessionWallet={sw}
-          accts={[]}
+          sessionWallet={sessionWallet}
+          accts={accts}
           connected={connected}
           updateWallet={updateWallet}
         />

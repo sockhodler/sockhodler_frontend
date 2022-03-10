@@ -27,9 +27,9 @@ export enum WalletErrorId {
 interface WalletStateModel {
   error: ErrorModel[];
   loading: WalletLoadingId[];
-  sessionWallet: SessionWallet | undefined;
+  sessionWallet: SessionWallet;
   connected: boolean | undefined;
-  accts: any[] | undefined;
+  accts: any[];
   selectedAccount: any;
 }
 
@@ -42,10 +42,8 @@ interface GetConnectWalletPayload {
   data: any;
 }
 
-let sw;
-if (config.network) {
-  sw = new SessionWallet(config.network);
-}
+const sw = new SessionWallet(config.network ? config.network : "TestNet");
+
 const localAddr = localStorage.getItem("selectedAccount");
 
 /* ****************** Initial State ****************** */
