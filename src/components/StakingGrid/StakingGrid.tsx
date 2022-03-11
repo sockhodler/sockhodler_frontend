@@ -11,7 +11,11 @@ export const StakingGrid: React.FunctionComponent<Props> = ({ list }) => {
   return (
     <div className={classes.grid}>
       <div className={classes.header}>
-        <TextField placeholder="SEARCH" className={classes.header__search} />
+        <TextField
+          placeholder="SEARCH"
+          className={classes.header__search}
+          underline
+        />
         <Switch label="STAKED" />
       </div>
 

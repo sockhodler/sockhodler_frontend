@@ -180,8 +180,8 @@ export const AlgorandWalletConnector: React.FunctionComponent<
         <ConnectWalletModal
           isOpen={selectorOpen}
           onClose={() => setSelectorOpen(false)}
-          wallets={walletOptions}
-          onWalletClick={handleSelectedWallet}
+          // wallets={walletOptions}
+          // onWalletClick={handleSelectedWallet}
         />
       </>
     );

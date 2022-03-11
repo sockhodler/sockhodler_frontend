@@ -7,6 +7,7 @@ interface Props {
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
+  underline?: boolean;
 }
 
 export const TextField: React.FunctionComponent<Props> = ({
@@ -14,10 +15,15 @@ export const TextField: React.FunctionComponent<Props> = ({
   onChange,
   value,
   className,
+  underline,
 }) => {
   return (
     <input
-      className={classNames(classes.input, className)}
+      className={classNames(
+        classes.input,
+        underline && classes.underline,
+        className
+      )}
       type="text"
       placeholder={placeholder}
       onChange={onChange}

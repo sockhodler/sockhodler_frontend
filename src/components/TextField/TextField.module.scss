@@ -1,10 +1,11 @@
 .input {
-  font-size: 1.4rem;
-  border: none;
   background: transparent;
-  border-bottom: 0.1rem solid var(--color-dark-violet-4);
   color: var(--color-white);
-  padding: 0.6rem 0;
+  font-size: 1.6rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 0.1rem solid var(--color-dark-violet-8);
+  background-color: (--color-dark-6);
 
   &:focus {
     outline: none;
@@ -13,5 +14,18 @@
   &::placeholder {
     color: var(--color-white);
     opacity: 1;
+    font-weight: 300;
+  }
+}
+
+.underline {
+  padding: 0.6rem 0;
+  font-size: 1.4rem;
+  border: none;
+  border-bottom: 0.1rem solid var(--color-dark-violet-4);
+  border-radius: 0;
+
+  &::placeholder {
+    font-weight: 400;
   }
 }

@@ -32,6 +32,15 @@
   background-color: var(--color-dark-violet-8);
 }
 
+.color-gr-top-bottom {
+  border: 0.1rem solid var(--color-dark-violet-8);
+  background: linear-gradient(
+    180deg,
+    var(--color-dark-violet-8) 0%,
+    var(--color-dark-6) 100%
+  );
+}
+
 // sizes
 .size-tiny {
   font-size: 1.4rem;

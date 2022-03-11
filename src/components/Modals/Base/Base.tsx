@@ -12,6 +12,7 @@ interface Props {
   onClose: () => void;
   className?: string;
   overlayClassName?: string;
+  hideHeader?: boolean;
 }
 
 export const BaseModal: React.FunctionComponent<Props> = ({
@@ -20,6 +21,7 @@ export const BaseModal: React.FunctionComponent<Props> = ({
   children,
   className,
   overlayClassName,
+  hideHeader,
 }) => {
   const handleCloseModalOnEsc = (e: React.KeyboardEvent): void => {
     if (e.code === "Escape") {
@@ -49,11 +51,13 @@ export const BaseModal: React.FunctionComponent<Props> = ({
       overlayClassName={classNames(classes.overlay, overlayClassName)}
       onRequestClose={handleCloseModal}
     >
-      <div className={classes.header}>
-        <button onClick={onClose}>
-          <CloseIcon />
-        </button>
-      </div>
+      {!hideHeader && (
+        <div className={classes.header}>
+          <button onClick={onClose}>
+            <CloseIcon />
+          </button>
+        </div>
+      )}
 
       <div className={classes.content}>{children}</div>
     </Modal>

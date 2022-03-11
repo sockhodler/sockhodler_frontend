@@ -5,7 +5,7 @@ import classes from "./Button.module.scss";
 interface Props {
   className?: string;
   onClick?: () => void;
-  accent?: "red" | "black" | "purple";
+  accent?: "red" | "black" | "purple" | "gr-top-bottom";
   size?: "tiny" | "small" | "large" | "huge";
   sharp?: boolean;
 }

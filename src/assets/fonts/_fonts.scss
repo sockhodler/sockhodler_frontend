@@ -10,6 +10,19 @@
 
 @font-face {
   font-family: 'lato';
+  src: url('./lato/Lato-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'lato';
+  src: url('./lato/Lato-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'lato';
   src: url('./lato/Lato-Regular.ttf') format('truetype');
   font-weight: 400;
 }
