@@ -1,0 +1,24 @@
+.container {
+  padding-top: calc((20rem / 2));
+}
+
+.card {
+  border-radius: 3rem;
+  position: relative;
+  min-height: 20rem;
+  padding: calc((19.3rem / 2) + 4.3rem) 5.1rem 4.2rem 5.1rem;
+}
+
+.img {
+  height: 19.3rem;
+  width: 19.3rem;
+  border-radius: 3rem;
+  border: 0.1rem solid var(--color-dark-violet-1);
+  // margin-top: -50%;
+  position: absolute;
+  right: 50%;
+  top: -50%;
+  transform: translateX(50%);
+}
+
+// 43 51 42

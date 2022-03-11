@@ -24,6 +24,7 @@ interface Props {
   tabs?: { label: string; value: string }[];
   selectedTab?: string;
   onTabChange?: (tab: string) => void;
+  noNav?: boolean;
 }
 
 const navItems = [
@@ -59,6 +60,7 @@ export const Header: React.FunctionComponent<Props> = ({
   tabs,
   selectedTab,
   onTabChange,
+  noNav,
 }) => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -98,50 +100,52 @@ export const Header: React.FunctionComponent<Props> = ({
         />
       </div>
 
-      <div className={classes.navbar}>
-        <nav className={classes["page-nav"]}>
-          {navItems.map((item) => (
-            <NavLink
-              to={item.to}
-              key={item.label}
-              className={({ isActive }) =>
-                classNames(
-                  classes["page-nav__link"],
-                  isActive && classes["page-nav__link--active"]
-                )
-              }
-            >
-              {item.icon}
-              <span
-                className={classNames(
-                  classes["page-nav__label"],
-                  item.to === pathname && classes["page-nav__label--active"]
-                )}
+      {!noNav && (
+        <div className={classes.navbar}>
+          <nav className={classes["page-nav"]}>
+            {navItems.map((item) => (
+              <NavLink
+                to={item.to}
+                key={item.label}
+                className={({ isActive }) =>
+                  classNames(
+                    classes["page-nav__link"],
+                    isActive && classes["page-nav__link--active"]
+                  )
+                }
               >
-                {item.label}
-              </span>
-            </NavLink>
-          ))}
-        </nav>
-
-        {tabs && tabs.length > 0 ? (
-          <nav className={classes["tabs-tape"]}>
-            {tabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => onTabChange?.(tab.value)}
-                className={classNames(
-                  classes["tabs-tape__item"],
-                  selectedTab === tab.value &&
-                    classes["tabs-tape__item--active"]
-                )}
-              >
-                {tab.label}
-              </button>
+                {item.icon}
+                <span
+                  className={classNames(
+                    classes["page-nav__label"],
+                    item.to === pathname && classes["page-nav__label--active"]
+                  )}
+                >
+                  {item.label}
+                </span>
+              </NavLink>
             ))}
           </nav>
-        ) : null}
-      </div>
+
+          {tabs && tabs.length > 0 ? (
+            <nav className={classes["tabs-tape"]}>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.value}
+                  onClick={() => onTabChange?.(tab.value)}
+                  className={classNames(
+                    classes["tabs-tape__item"],
+                    selectedTab === tab.value &&
+                      classes["tabs-tape__item--active"]
+                  )}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
+          ) : null}
+        </div>
+      )}
     </header>
   );
 };

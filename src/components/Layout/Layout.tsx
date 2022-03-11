@@ -8,9 +8,14 @@ LayoutTabContext.displayName = "LayoutTabContext";
 
 interface Props {
   tabs?: { label: string; value: string }[];
+  noNav?: boolean;
 }
 
-export const Layout: React.FunctionComponent<Props> = ({ children, tabs }) => {
+export const Layout: React.FunctionComponent<Props> = ({
+  children,
+  tabs,
+  noNav,
+}) => {
   const defaultTabValue = tabs && tabs.length > 0 ? tabs[0].value : "";
   const [selectedTab, setSelectedTab] = useState(defaultTabValue);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,6 +44,7 @@ export const Layout: React.FunctionComponent<Props> = ({ children, tabs }) => {
         tabs={tabs}
         selectedTab={selectedTab}
         onTabChange={handleChangeTab}
+        noNav={noNav}
       />
       <main className={classes.main}>
         {tabs && tabs.length > 0 ? (

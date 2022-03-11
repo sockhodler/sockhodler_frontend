@@ -6,3 +6,4 @@ export { NftStaking } from "./nft-staking/index";
 export { Portfolio } from "./portfolio/index";
 export { NFTAuctionDetails } from "./nft-auction-details/index";
 export { MarketplaceDetails } from "./marketplace-details/index";
+export { MintNFT } from "./mint-nft/index";

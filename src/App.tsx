@@ -10,9 +10,10 @@ import {
   Portfolio,
   NFTAuctionDetails,
   MarketplaceDetails,
+  MintNFT,
 } from "pages";
 
-function App() {
+const App: React.FunctionComponent = () => {
   return (
     <BrowserRouter>
       <React.Suspense
@@ -30,11 +31,12 @@ function App() {
           <Route path="/nft-auction-details" element={<NFTAuctionDetails />} />
           <Route path="/nft-staking" element={<NftStaking />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/mint-nft" element={<MintNFT />} />
           <Route path="*" element={<ComingSoon />} />
         </Routes>
       </React.Suspense>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

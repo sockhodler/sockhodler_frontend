@@ -12,7 +12,7 @@ interface Props {
   onClose: () => void;
   className?: string;
   overlayClassName?: string;
-  hideHeader?: boolean;
+  noHeader?: boolean;
 }
 
 export const BaseModal: React.FunctionComponent<Props> = ({
@@ -21,7 +21,7 @@ export const BaseModal: React.FunctionComponent<Props> = ({
   children,
   className,
   overlayClassName,
-  hideHeader,
+  noHeader,
 }) => {
   const handleCloseModalOnEsc = (e: React.KeyboardEvent): void => {
     if (e.code === "Escape") {
@@ -51,7 +51,7 @@ export const BaseModal: React.FunctionComponent<Props> = ({
       overlayClassName={classNames(classes.overlay, overlayClassName)}
       onRequestClose={handleCloseModal}
     >
-      {!hideHeader && (
+      {!noHeader && (
         <div className={classes.header}>
           <button onClick={onClose}>
             <CloseIcon />
@@ -59,7 +59,14 @@ export const BaseModal: React.FunctionComponent<Props> = ({
         </div>
       )}
 
-      <div className={classes.content}>{children}</div>
+      <div
+        className={classNames(
+          classes.content,
+          noHeader && classes["content--no-header"]
+        )}
+      >
+        {children}
+      </div>
     </Modal>
   );
 };

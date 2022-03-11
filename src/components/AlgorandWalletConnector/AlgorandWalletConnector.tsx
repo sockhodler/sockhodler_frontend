@@ -181,7 +181,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<
           isOpen={selectorOpen}
           onClose={() => setSelectorOpen(false)}
           // wallets={walletOptions}
-          // onWalletClick={handleSelectedWallet}
+          onWalletClick={handleSelectedWallet}
         />
       </>
     );

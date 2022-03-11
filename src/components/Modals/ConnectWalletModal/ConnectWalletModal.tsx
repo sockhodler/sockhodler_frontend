@@ -13,11 +13,13 @@ import { ReactComponent as SockholderLogo } from "assets/icons/sockholder-logo.s
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onWalletClick: (id: string) => void;
 }
 
 export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   isOpen,
   onClose,
+  onWalletClick,
 }) => {
   const [step, setStep] = useState(0);
 
@@ -58,9 +60,15 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
 
           <div className={classes["step-welcome__grid"]}>
             <div className={classes["step-welcome__logos"]}>
-              <MyAlgoIcon />
-              <AlgoSignerIcon />
-              <PeraIcon />
+              <button onClick={() => onWalletClick("my-algo-connect")}>
+                <MyAlgoIcon />
+              </button>
+              <button onClick={() => onWalletClick("algo-signer")}>
+                <AlgoSignerIcon />
+              </button>
+              <button onClick={() => onWalletClick("wallet-connect")}>
+                <PeraIcon />
+              </button>
             </div>
 
             <div className={classes["step-welcome__divider"]} />

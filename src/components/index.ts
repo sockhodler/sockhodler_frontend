@@ -27,3 +27,4 @@ export { AlgorandWalletConnector } from "./AlgorandWalletConnector/AlgorandWalle
 // modals
 export { BaseModal } from "./Modals/Base/Base";
 export { ConnectWalletModal } from "./Modals/ConnectWalletModal/ConnectWalletModal";
+export { AdminPanelLoginModal } from "./Modals/AdminPanelLoginModal/AdminPanelLoginModal";

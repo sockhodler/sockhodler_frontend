@@ -54,3 +54,9 @@ img {
 .ReactCollapse--collapse {
   transition: height 300ms;
 }
+
+// temp: hacky fix for Uncaught ReferenceError: process is not defined
+iframe {
+  pointer-events: none;
+  opacity: 0;
+}

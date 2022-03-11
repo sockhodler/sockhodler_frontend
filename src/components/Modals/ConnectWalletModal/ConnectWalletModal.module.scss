@@ -51,17 +51,27 @@
       margin-top: 4.5rem;
     }
 
-    & svg:nth-child(1) {
+    button {
+      border: none;
+      display: flex;
+      background: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    & button:nth-child(1) svg {
       height: 4.8rem;
       width: auto;
     }
 
-    & svg:nth-child(2) {
+    & button:nth-child(2) svg {
       height: 2.4rem;
       width: auto;
     }
 
-    & svg:nth-child(3) {
+    & button:nth-child(3) svg {
       height: 6.4rem;
       width: auto;
     }
