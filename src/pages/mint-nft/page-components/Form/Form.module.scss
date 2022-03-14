@@ -1,0 +1,42 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.row {
+  display: flex;
+  grid-gap: 6.1rem;
+  padding-top: 2.9rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 0.1rem solid var(--color-dark-violet-4);
+
+  & > * {
+    flex: 1 1 33.333%;
+  }
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+
+  &:last-of-type {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.file-picker {
+  margin-bottom: 4rem;
+
+  &__link {
+    color: var(--color-cyan);
+  }
+}
+
+.checkbox {
+  margin-bottom: 4.5rem;
+}
+
+.action {
+  width: 100%;
+}

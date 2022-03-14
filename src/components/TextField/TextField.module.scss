@@ -1,11 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .input {
   background: transparent;
   color: var(--color-white);
   font-size: 1.6rem;
-  padding: 2rem;
-  border-radius: 1.5rem;
+  width: 100%;
   border: 0.1rem solid var(--color-dark-violet-8);
+  border-radius: 1.5rem;
   background-color: (--color-dark-6);
+  padding: 2rem;
 
   &:focus {
     outline: none;
@@ -18,14 +25,53 @@
   }
 }
 
-.underline {
-  padding: 0.6rem 0;
-  font-size: 1.4rem;
-  border: none;
-  border-bottom: 0.1rem solid var(--color-dark-violet-4);
-  border-radius: 0;
+.label {
+  font-size: 2rem;
+  margin-bottom: 1.4rem;
 
-  &::placeholder {
+  span {
+    color: var(--color-cyan);
+  }
+}
+
+.underline {
+  .input {
+    font-size: 1.4rem;
+    padding: 0.6rem 0;
+    border: none;
+    border-bottom: 0.1rem solid var(--color-dark-violet-4);
+    border-radius: 0;
+  }
+
+  & .input::placeholder {
     font-weight: 400;
+  }
+}
+
+// accent
+.accent-purple {
+  .input {
+    background: linear-gradient(
+      to right,
+      var(--color-dark-1),
+      var(--color-dark-violet-1)
+    );
+    border-color: var(--color-dark-violet-8);
+  }
+
+  & .input::placeholder {
+    color: var(--color-violet-2);
+  }
+}
+
+// size
+.size-large {
+  .input {
+    padding: 2.1rem 1.7rem;
+    font-size: 2rem;
+
+    &::placeholder {
+      font-weight: 400;
+    }
   }
 }

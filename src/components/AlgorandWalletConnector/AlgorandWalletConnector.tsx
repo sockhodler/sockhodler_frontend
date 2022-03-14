@@ -8,62 +8,14 @@ import {
   Position,
 } from "@blueprintjs/core";
 import { SessionWallet, allowedWallets } from "algorand-session-wallet";
-import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as WalletIcon } from "assets/icons/wallet.svg";
-import { ReactComponent as ChevronDownIcon } from "assets/icons/chevron-down.svg";
 import { ReactComponent as LogoutIcon } from "assets/icons/logout.svg";
 import { formatAddress } from "common/helper/FormatAddress";
-import { ConnectWalletModal } from "components";
+import { ConnectWalletModal, Select } from "components";
 import { RootState } from "redux/rootReducer";
 import { setSelectedAccount } from "redux/wallet/wallet-slice";
 import classes from "./AlgorandWalletConnector.module.scss";
-
-interface WalletDropdownProps {
-  selected: string;
-  items: { label: string; value: string }[];
-  onClickItem?: (idx: number, id: string) => void;
-}
-
-const WalletDropdown: React.FunctionComponent<WalletDropdownProps> = ({
-  selected,
-  items,
-  onClickItem,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const hanleClickOnItem = (idx: number, value: string) => {
-    onClickItem?.(idx, value);
-    setIsOpen(false);
-  };
-
-  return (
-    <div
-      className={classNames(
-        classes.dropdown,
-        isOpen && classes["dropdown--open"]
-      )}
-    >
-      <button
-        className={classes.dropdown__select}
-        onClick={() => setIsOpen((op) => !op)}
-      >
-        {selected}... <ChevronDownIcon />
-      </button>
-      <div className={classes.dropdown__list}>
-        {items.map((item, idx) => (
-          <button
-            className={classes.dropdown__item}
-            key={item.value}
-            onClick={() => hanleClickOnItem(idx, item.value)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 type AlgorandWalletConnectorProps = {
   darkMode: boolean;
@@ -199,11 +151,12 @@ export const AlgorandWalletConnector: React.FunctionComponent<
 
   return (
     <div className={classes.connected}>
-      <WalletDropdown
+      <Select
         selected={formatAddress(selectedWallet.toString())}
         items={accts.map((acc) => ({ label: formatAddress(acc), value: acc }))}
-        onClickItem={(idx, addr) => handleWalletChange(idx, addr)}
+        onClickItem={(item, idx) => handleWalletChange(idx, item.value)}
       />
+
       <button className={classes.connected__logout}>
         <LogoutIcon />
       </button>

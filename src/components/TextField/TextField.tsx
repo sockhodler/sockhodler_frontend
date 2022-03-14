@@ -8,6 +8,11 @@ interface Props {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
   underline?: boolean;
+  label?: string;
+  required?: boolean;
+  size?: "large";
+  accent?: "purple";
+  type?: string;
 }
 
 export const TextField: React.FunctionComponent<Props> = ({
@@ -16,18 +21,38 @@ export const TextField: React.FunctionComponent<Props> = ({
   value,
   className,
   underline,
+  label,
+  required,
+  size,
+  accent,
+  type = "text",
 }) => {
+  const randomId = `text-field-${Math.random()}`;
+
   return (
-    <input
+    <div
       className={classNames(
-        classes.input,
+        classes.container,
         underline && classes.underline,
+        size && classes[`size-${size}`],
+        accent && classes[`accent-${accent}`],
         className
       )}
-      type="text"
-      placeholder={placeholder}
-      onChange={onChange}
-      value={value}
-    />
+    >
+      {label && (
+        <label className={classes.label} htmlFor={randomId}>
+          {label} {required && <span>*</span>}
+        </label>
+      )}
+      <input
+        className={classes.input}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        value={value}
+        id={randomId}
+        required={required}
+      />
+    </div>
   );
 };

@@ -5,9 +5,9 @@ interface Props {
   label?: string;
 }
 
-const randomId = `switch-${Math.random() * 10}`;
-
 export const Switch: React.FunctionComponent<Props> = ({ label }) => {
+  const randomId = `switch-${Math.random()}`;
+
   return (
     <label className={classes.switch} htmlFor={randomId}>
       <span className={classes.label}>{label}</span>

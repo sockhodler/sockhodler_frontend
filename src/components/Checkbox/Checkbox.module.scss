@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  max-width: max-content;
+}
+
+.input {
+  display: none;
+
+  &:checked + .checkbox {
+    svg {
+      transform: scale(1);
+    }
+  }
+}
+
+.checkbox {
+  height: 6.6rem;
+  width: 6.6rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(
+    to bottom,
+    var(--color-dark-1),
+    var(--color-dark-violet-1)
+  );
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.9rem;
+  border: 0.1rem solid var(--color-dark-violet-4);
+
+  svg {
+    height: 100%;
+    width: auto;
+    transform: scale(0);
+    transition: all 0.1s ease-in-out;
+  }
+}
+
+.label {
+  font-size: 2rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

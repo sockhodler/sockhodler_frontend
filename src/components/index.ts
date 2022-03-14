@@ -12,6 +12,10 @@ export { Card } from "./Card/Card";
 export { Accordion } from "./Accordion/Accordion";
 export { TextField } from "./TextField/TextField";
 export { Switch } from "./Switch/Switch";
+export { Select } from "./Select/Select";
+export { Textarea } from "./Textarea/Textarea";
+export { FilePicker } from "./FilePicker/FilePicker";
+export { Checkbox } from "./Checkbox/Checkbox";
 
 // nft
 export { NFT } from "./NFT/NFT";
