@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classNames from "classnames";
 import classes from "./Textarea.module.scss";
 
@@ -9,33 +9,41 @@ interface Props {
   className?: string;
   label?: string;
   required?: boolean;
+  error?: boolean;
 }
 
-export const Textarea: React.FunctionComponent<Props> = ({
-  placeholder,
-  onChange,
-  value,
-  className,
-  label,
-  required,
-}) => {
-  const randomId = `textarea-${Math.random()}`;
+export const Textarea: React.FunctionComponent<Props> = forwardRef<
+  HTMLTextAreaElement,
+  Props
+>(
+  (
+    { placeholder, onChange, value, className, label, required, error },
+    ref
+  ) => {
+    const randomId = `textarea-${Math.random()}`;
 
-  return (
-    <div className={classNames(classes.container, className)}>
-      {label && (
-        <label className={classes.label} htmlFor={randomId}>
-          {label} {required && <span>*</span>}
-        </label>
-      )}
-      <textarea
-        className={classes.textarea}
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value}
-        id={randomId}
-        required={required}
-      />
-    </div>
-  );
-};
+    return (
+      <div
+        className={classNames(
+          classes.container,
+          error && classes.error,
+          className
+        )}
+      >
+        {label && (
+          <label className={classes.label} htmlFor={randomId}>
+            {label} {required && <span>*</span>}
+          </label>
+        )}
+        <textarea
+          className={classes.textarea}
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+          id={randomId}
+          ref={ref}
+        />
+      </div>
+    );
+  }
+);

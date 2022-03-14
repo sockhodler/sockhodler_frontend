@@ -8,6 +8,7 @@ interface Props {
   accent?: "red" | "black" | "purple" | "gr-top-bottom";
   size?: "tiny" | "small" | "large" | "huge";
   sharp?: boolean;
+  type?: "button" | "submit";
 }
 
 export const Button: React.FunctionComponent<Props> = ({
@@ -17,6 +18,7 @@ export const Button: React.FunctionComponent<Props> = ({
   accent,
   size,
   sharp,
+  type = "button",
 }) => {
   return (
     <button
@@ -28,6 +30,7 @@ export const Button: React.FunctionComponent<Props> = ({
         className
       )}
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>
