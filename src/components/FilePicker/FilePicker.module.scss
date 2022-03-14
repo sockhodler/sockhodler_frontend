@@ -29,3 +29,9 @@
   line-height: 1.5;
   line-height: inherit;
 }
+
+.error {
+  .btn {
+    border: 0.1rem solid var(--color-red);
+  }
+}

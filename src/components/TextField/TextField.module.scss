@@ -75,3 +75,13 @@
     }
   }
 }
+
+.error {
+  .label {
+    color: var(--color-red);
+  }
+
+  .input {
+    border-color: var(--color-red);
+  }
+}

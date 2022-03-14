@@ -154,7 +154,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<
       <Select
         selected={formatAddress(selectedWallet.toString())}
         items={accts.map((acc) => ({ label: formatAddress(acc), value: acc }))}
-        onClickItem={(item, idx) => handleWalletChange(idx, item.value)}
+        onChange={(item, idx) => handleWalletChange(idx, item.value)}
       />
 
       <button className={classes.connected__logout}>

@@ -37,3 +37,13 @@
     color: var(--color-cyan);
   }
 }
+
+.error {
+  .label {
+    color: var(--color-red);
+  }
+
+  .textarea {
+    border-color: var(--color-red);
+  }
+}

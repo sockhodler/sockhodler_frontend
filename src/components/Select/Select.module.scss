@@ -75,3 +75,13 @@
   border: none;
   border-bottom: 0.1rem solid var(--color-violet);
 }
+
+.error {
+  .label {
+    color: var(--color-red);
+  }
+
+  .select {
+    border-color: var(--color-red);
+  }
+}

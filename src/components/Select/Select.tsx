@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 
 import classNames from "classnames";
 import classes from "./Select.module.scss";
@@ -7,51 +7,71 @@ import { ReactComponent as ChevronDownIcon } from "assets/icons/chevron-down.svg
 type Item = { label: string; value: string };
 
 interface Props {
-  selected?: string;
   placeholder?: string;
   items: Item[];
-  onClickItem?: (item: Item, idx: number) => void;
   label?: string;
+  error?: boolean;
+  onChange?: (item: Item, idx: number) => void;
+  selected?: string;
 }
 
-export const Select: React.FunctionComponent<Props> = ({
-  selected,
-  placeholder,
-  items,
-  onClickItem,
-  label,
-}) => {
+export const Select: React.FunctionComponent<Props> = forwardRef<
+  HTMLSelectElement,
+  Props
+>(({ placeholder, items, label, error, onChange, selected }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClickOnItem = (item: Item, idx: number) => {
-    onClickItem?.(item, idx);
-    setIsOpen(false);
+  // find selected
+  const defaultSelected = items.find((item) => item.value === selected);
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement> | string) => {
+    const targetValue = typeof e === "string" ? e : e.target.value;
+    // find object item index
+    const targetIndex = items.findIndex((item) => item.value === targetValue);
+    if (targetIndex !== -1) {
+      onChange?.(items[targetIndex], targetIndex);
+      setIsOpen(false);
+    }
   };
 
   return (
     <div
       className={classNames(
         classes.container,
-        isOpen && classes["container--open"]
+        isOpen && classes["container--open"],
+        error && classes.error
       )}
     >
       {label && <span className={classes.label}>{label}</span>}
 
       <button className={classes.select} onClick={() => setIsOpen((op) => !op)}>
-        {selected ?? placeholder}... <ChevronDownIcon />
+        {selected ? defaultSelected?.label : placeholder} <ChevronDownIcon />
       </button>
 
       <div className={classes.list}>
-        {items.map((item, idx) => (
+        {items.map((item) => (
           <button
             className={classes.item}
             key={item.value}
-            onClick={() => handleClickOnItem(item, idx)}
+            onClick={() => handleSelect(item.value)}
           >
             {item.label}
           </button>
         ))}
       </div>
+
+      <select
+        ref={ref}
+        onChange={(e) => handleSelect(e)}
+        style={{ display: "none" }}
+        defaultValue={selected}
+      >
+        {items.map((item) => (
+          <option value={item.value} key={item.label}>
+            {item.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
-};
+});

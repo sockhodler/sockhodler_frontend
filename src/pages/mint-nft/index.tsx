@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 import { Layout, AdminPanelLoginModal } from "components";
 import { MintCard, Form, UploadMedia, Success } from "./page-components";
 import classes from "./index.module.scss";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+// types
+import { FormInputs } from "./page-components/Form/Form";
 
 export const MintNFT: React.FunctionComponent = () => {
   const [step, setStep] = useState(0);
+
+  const onFormSubmit = (data: FormInputs) => {
+    console.log(data);
+    // setStep(1);
+  };
 
   return (
     <Layout noNav>
@@ -30,7 +37,7 @@ export const MintNFT: React.FunctionComponent = () => {
           selectedItem={step}
           dynamicHeight
         >
-          <Form onProcessClick={() => setStep(1)} />
+          <Form onSubmit={onFormSubmit} />
           <UploadMedia onMintClick={() => setStep(2)} />
           <Success onBackClick={() => setStep(0)} />
         </Carousel>
