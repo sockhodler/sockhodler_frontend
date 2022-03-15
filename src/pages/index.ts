@@ -7,3 +7,4 @@ export { Portfolio } from "./portfolio/index";
 export { NFTAuctionDetails } from "./nft-auction-details/index";
 export { MarketplaceDetails } from "./marketplace-details/index";
 export { MintNFT } from "./mint-nft/index";
+export { NFTDetails } from "./nft-details/index";
