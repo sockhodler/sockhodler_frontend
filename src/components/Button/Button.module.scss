@@ -41,6 +41,11 @@
   );
 }
 
+.color-grey {
+  @include base-color;
+  background-color: var(--color-grey);
+}
+
 // sizes
 .size-tiny {
   font-size: 1.4rem;
