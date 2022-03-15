@@ -1,8 +1,9 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useRef } from "react";
 
 import classNames from "classnames";
 import classes from "./Select.module.scss";
-import { ReactComponent as ChevronDownIcon } from "assets/icons/chevron-down.svg";
+import { ReactComponent as ArrowDownIcon } from "assets/icons/arrow-down.svg";
+import { useOnClickOutside } from "hooks";
 
 type Item = { label: string; value: string };
 
@@ -20,6 +21,8 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
   Props
 >(({ placeholder, items, label, error, onChange, selected }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef<HTMLDivElement | null>(null);
+  useOnClickOutside(selectRef, () => setIsOpen(false));
 
   // find selected
   const defaultSelected = items.find((item) => item.value === selected);
@@ -41,11 +44,12 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
         isOpen && classes["container--open"],
         error && classes.error
       )}
+      ref={selectRef}
     >
       {label && <span className={classes.label}>{label}</span>}
 
       <button className={classes.select} onClick={() => setIsOpen((op) => !op)}>
-        {selected ? defaultSelected?.label : placeholder} <ChevronDownIcon />
+        {selected ? defaultSelected?.label : placeholder} <ArrowDownIcon />
       </button>
 
       <div className={classes.list}>
