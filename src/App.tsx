@@ -12,6 +12,7 @@ import {
   MarketplaceDetails,
   MintNFT,
   NFTDetails,
+  MintedAssets,
 } from "pages";
 
 const App: React.FunctionComponent = () => {
@@ -34,6 +35,7 @@ const App: React.FunctionComponent = () => {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/mint-nft" element={<MintNFT />} />
           <Route path="/nft-details" element={<NFTDetails />} />
+          <Route path="/minted-assets" element={<MintedAssets />} />
           <Route path="*" element={<ComingSoon />} />
         </Routes>
       </React.Suspense>

@@ -8,3 +8,4 @@ export { NFTAuctionDetails } from "./nft-auction-details/index";
 export { MarketplaceDetails } from "./marketplace-details/index";
 export { MintNFT } from "./mint-nft/index";
 export { NFTDetails } from "./nft-details/index";
+export { MintedAssets } from "./minted-assets/index";
