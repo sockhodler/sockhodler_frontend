@@ -20,8 +20,8 @@ const metadataItems = [
     value: "arc3",
   },
   {
-    label: "ARC3222",
-    value: "arc3222",
+    label: "ARC69",
+    value: "arc69",
   },
 ];
 
@@ -51,9 +51,9 @@ const schema = yup
     metadataFormat: yup
       .object({ label: yup.string(), value: yup.string() })
       .required(),
-    file: yup.object().shape({
-      file: yup.mixed().required(),
-    }),
+    // file: yup.object().shape({
+    //   file: yup.mixed().required(),
+    // }),
   })
   .required();
 
