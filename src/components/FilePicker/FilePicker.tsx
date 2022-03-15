@@ -4,7 +4,7 @@ import classes from "./FilePicker.module.scss";
 import { Button } from "components";
 
 interface Props {
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: (file: FileList) => void;
   className?: string;
   label?: string;
   required?: boolean;
@@ -23,6 +23,12 @@ export const FilePicker: React.FunctionComponent<Props> = forwardRef<
     targetInput?.click();
   };
 
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      onChange?.(e.target.files);
+    }
+  };
+
   return (
     <div
       className={classNames(
@@ -39,7 +45,7 @@ export const FilePicker: React.FunctionComponent<Props> = forwardRef<
       <input
         className={classes.input}
         type="file"
-        onChange={onChange}
+        onChange={handleOnChange}
         id={randomId}
         ref={ref}
       />

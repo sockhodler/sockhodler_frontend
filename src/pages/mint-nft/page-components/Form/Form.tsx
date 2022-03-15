@@ -20,8 +20,12 @@ const metadataItems = [
     value: "arc3",
   },
   {
-    label: "ARC3222",
-    value: "arc3222",
+    label: "ARC4",
+    value: "arc4",
+  },
+  {
+    label: "ARC5",
+    value: "arc5",
   },
 ];
 
@@ -51,9 +55,14 @@ const schema = yup
     metadataFormat: yup
       .object({ label: yup.string(), value: yup.string() })
       .required(),
-    file: yup.object().shape({
-      file: yup.mixed().required(),
-    }),
+    file: yup
+      .mixed()
+      .test("required", "You need to provide a file", (value) => {
+        return value && value.length;
+      })
+      .test("fileSize", "The file is too large", (value) => {
+        return value && value[0] && value[0].size <= 2097152; // sample, 2MB
+      }),
   })
   .required();
 
@@ -133,13 +142,13 @@ export const Form: React.FunctionComponent<Props> = ({
           name="metadataFormat"
           control={control}
           defaultValue={metadataItems[0]}
-          render={({ field }) => (
+          render={({ field: { onChange, value } }) => (
             <Select
               items={metadataItems}
-              selected={metadataItems[0].value}
+              selected={value.value}
+              onChange={(item) => onChange(item)}
               label="Metadata Format"
               error={!!errors.metadataFormat}
-              {...field}
             />
           )}
         />
@@ -181,7 +190,7 @@ export const Form: React.FunctionComponent<Props> = ({
           <Controller
             name="file"
             control={control}
-            render={({ field }) => (
+            render={({ field, field: { value } }) => (
               <FilePicker
                 className={classes["file-picker"]}
                 label="Upload Traits"
