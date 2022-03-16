@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ipfsURL, NFTMetadata } from "./nft";
 import { conf } from "./config";
 
@@ -11,10 +12,15 @@ import { conf } from "./config";
 import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
 
 const storage = new Web3Storage({ token: conf.storageToken });
+const pinataJsonURL = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
 
 export async function putToIPFS(file: File, md: NFTMetadata): Promise<string> {
   try {
     const imgAdded = await storage.put([file], { wrapWithDirectory: false });
+    // setProgress({
+    //     status: 40,
+    //     note: "Uploading asset data to IPFS...",
+    //   })
     md.image = ipfsURL(imgAdded);
 
     return await storage.put([md.toFile()], { wrapWithDirectory: false });
@@ -23,6 +29,42 @@ export async function putToIPFS(file: File, md: NFTMetadata): Promise<string> {
   }
   return "";
 }
+
+export const putToPinata = async (
+  file: File,
+  md: NFTMetadata
+): Promise<string> => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    if (conf.pinataURL) {
+      const res = await axios.post(conf.pinataURL, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: `Bearer ${conf.pinataJWT}`,
+        },
+      });
+      const hash = res.data?.IpfsHash ?? "";
+      md.image = `${conf.ipfsGateway}${hash}`;
+
+      const assRes = await axios.post(pinataJsonURL, md, {
+        headers: {
+          Authorization: `Bearer ${conf.pinataJWT}`,
+        },
+      });
+
+      return assRes.data?.IpfsHash ?? "";
+    }
+    return "";
+    //   setProgress({
+    //     status: 40,
+    //     note: "Uploading asset data to IPFS...",
+    //   })
+  } catch (err) {
+    console.error(err);
+    return "";
+  }
+};
 
 export async function getMimeTypeFromIpfs(url: string): Promise<string | null> {
   const req = new Request(url, { method: "HEAD" });

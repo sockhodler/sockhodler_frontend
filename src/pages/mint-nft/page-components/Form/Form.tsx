@@ -2,9 +2,12 @@ import React, { useState } from "react";
 
 import classes from "./Form.module.scss";
 import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { SessionWallet } from "algorand-session-wallet";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { imageIntegrity, NFT, NFTMetadata } from "utils/nft";
+import { putToPinata, putToIPFS } from "utils/ipfs";
 import {
   TextField,
   Select,
@@ -13,6 +16,8 @@ import {
   Checkbox,
   Button,
 } from "components";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/rootReducer";
 
 const metadataItems = [
   {
@@ -35,7 +40,6 @@ export interface FormInputs {
   metadataFormat: { label: string; value: string };
   file: File;
 }
-
 interface Props {
   onSubmit: (data: NFTMetadata) => void;
 }
@@ -72,8 +76,31 @@ export const Form: React.FunctionComponent<Props> = ({
   } = useForm<FormInputs>({
     resolver: yupResolver(schema),
   });
+  const sw: SessionWallet = useSelector(
+    (state: RootState) => state.wallets.sessionWallet
+  );
+  const navigate = useNavigate();
   const [meta, setMeta] = useState(new NFTMetadata());
+  const [fileObj, setFileObj] = useState<File>();
 
+  const setFile = (file: File) => {
+    setFileObj(file);
+
+    if (file) {
+      setMeta(
+        (meta) =>
+          new NFTMetadata({
+            ...meta,
+            image: file.name,
+            image_mimetype: file.type,
+            properties: { ...meta.properties, size: file.size },
+          })
+      );
+    }
+  };
+  const handleSetNFT = (nft: NFT) => {
+    navigate(`/mint-nft/${nft.token?.id}`);
+  };
   const captureMetadata = (values: FormInputs) => {
     // const eprops = values.mints.reduce(
     //   (all, ep) => ({ ...all, [ep.name]: ep.value }),
@@ -89,8 +116,22 @@ export const Form: React.FunctionComponent<Props> = ({
       // properties: { ...eprops, ...meta.properties },
     });
   };
-  const onSubmit = (data: FormInputs) => {
+  const onSubmit = async (data: FormInputs) => {
     const md = captureMetadata(data);
+    if (fileObj) {
+      md.image_integrity = await imageIntegrity(fileObj);
+      setMeta(md);
+      const cid = await putToPinata(fileObj, md);
+      if (cid) {
+        try {
+          const nft: NFT = await NFT.create(sw.wallet, md, cid);
+          handleSetNFT(nft);
+        } catch (error) {
+          console.log("error", error);
+        }
+      }
+    }
+
     onFormSuccessSubmit(md);
   };
 
