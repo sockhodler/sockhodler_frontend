@@ -1,10 +1,10 @@
 import React, { useState, forwardRef } from "react";
 
-import classes from "./ImagePicker.module.scss";
+import classes from "./MediaPicker.module.scss";
 
-import DefaultImage from "assets/images/image-picker-default.png";
 import classNames from "classnames";
 import { ReactComponent as CloseIcon } from "assets/icons/close.svg";
+import { ReactComponent as ImageIcon } from "assets/icons/image.svg";
 
 interface Props {
   onChange: (file: File | null) => void;
@@ -12,12 +12,13 @@ interface Props {
   error?: boolean;
 }
 
-export const ImagePicker: React.FunctionComponent<Props> = forwardRef<
+export const MediaPicker: React.FunctionComponent<Props> = forwardRef<
   HTMLInputElement,
   Props
 >(({ onChange, className, error }, ref) => {
   const randomId = `image-picker-${Math.random()}`;
   const [img, setImg] = useState("");
+  const [mediaType, setMediaType] = useState("image");
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -28,15 +29,20 @@ export const ImagePicker: React.FunctionComponent<Props> = forwardRef<
       const reader = new FileReader();
       reader.onload = (e: any) => {
         setImg(e.target.result);
+        if (file) setMediaType(file.type.split("/")[0]);
       };
       // @ts-ignore
       reader.readAsDataURL(file);
     }
   };
 
-  const handleRemoveFile = () => {
+  const handleRemoveFile = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     onChange(null);
     setImg("");
+    setMediaType("image");
   };
 
   return (
@@ -57,12 +63,18 @@ export const ImagePicker: React.FunctionComponent<Props> = forwardRef<
           <CloseIcon />
         </button>
 
-        <img src={img} alt="" />
+        {mediaType === "image" && <img src={img} alt="" />}
+        {mediaType === "video" && (
+          <video preload="auto" autoPlay loop muted>
+            <source src={img} type="video/mp4" />
+          </video>
+        )}
       </div>
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label htmlFor={randomId} className={classes.label}>
-        <img src={DefaultImage} alt="" />
+        <ImageIcon />
+        <span>Click here to select a file</span>
       </label>
 
       <input
