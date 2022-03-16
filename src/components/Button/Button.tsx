@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import classes from "./Button.module.scss";
 import ReactTooltip from "react-tooltip";
+import { ReactComponent as LoadingIcon } from "assets/icons/loading-spinner.svg";
 
 interface Props {
   className?: string;
@@ -12,6 +13,7 @@ interface Props {
   type?: "button" | "submit";
   disabled?: boolean;
   tooltip?: string;
+  loading?: boolean;
 }
 
 export const Button: React.FunctionComponent<Props> = ({
@@ -24,6 +26,7 @@ export const Button: React.FunctionComponent<Props> = ({
   type = "button",
   disabled,
   tooltip,
+  loading,
 }) => {
   const handleOnClick = () => {
     if (!disabled) onClick?.();
@@ -45,6 +48,11 @@ export const Button: React.FunctionComponent<Props> = ({
         data-tip={tooltip}
       >
         {children}
+        {loading && (
+          <div className={classes.loading}>
+            <LoadingIcon />
+          </div>
+        )}
       </button>
 
       {tooltip && (
