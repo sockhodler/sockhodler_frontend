@@ -12,6 +12,8 @@ import {
   FilePicker,
   Checkbox,
   Button,
+  Card,
+  ImagePicker,
 } from "components";
 
 const metadataItems = [
@@ -26,6 +28,7 @@ const metadataItems = [
 ];
 
 export interface FormInputs {
+  imagePicker: File;
   name: string;
   unitName: string;
   quantity: string;
@@ -33,7 +36,7 @@ export interface FormInputs {
   description: string;
   isNFT?: boolean;
   metadataFormat: { label: string; value: string };
-  file: File;
+  // file: File;
 }
 
 interface Props {
@@ -42,6 +45,14 @@ interface Props {
 
 const schema = yup
   .object({
+    imagePicker: yup
+      .mixed()
+      .test("required", "You need to provide a file", (value) => {
+        return value && value.size > 0;
+      })
+      .test("fileSize", "The file is too large", (value) => {
+        return value && value.size <= 2097152; // sample, 2MB
+      }),
     name: yup.string().required(),
     unitName: yup.string().required(),
     quantity: yup.number().positive().integer().required(),
@@ -51,14 +62,14 @@ const schema = yup
     metadataFormat: yup
       .object({ label: yup.string(), value: yup.string() })
       .required(),
-    file: yup
+    /* file: yup
       .mixed()
       .test("required", "You need to provide a file", (value) => {
         return value && value.length;
       })
       .test("fileSize", "The file is too large", (value) => {
         return value && value[0] && value[0].size <= 2097152; // sample, 2MB
-      }),
+      }), */
   })
   .required();
 
@@ -97,115 +108,129 @@ export const Form: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      <div className={classes.row}>
-        <Controller
-          name="name"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              placeholder="SockHodler Genesis #001"
-              label="Name"
-              required
-              accent="purple"
-              size="large"
-              error={!!errors.name}
-              {...field}
-            />
-          )}
-        />
-
-        <Controller
-          name="unitName"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              placeholder="SOXGEN"
-              label="Unit Name"
-              required
-              accent="purple"
-              size="large"
-              error={!!errors.unitName}
-              {...field}
-            />
-          )}
-        />
-      </div>
-
-      <div className={classes.row}>
-        <Controller
-          name="quantity"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              placeholder="1"
-              label="Quantity"
-              required
-              accent="purple"
-              size="large"
-              type="number"
-              error={!!errors.quantity}
-              {...field}
-            />
-          )}
-        />
-
-        <Controller
-          name="metadataFormat"
-          control={control}
-          defaultValue={metadataItems[0]}
-          render={({ field: { onChange, value } }) => (
-            <Select
-              items={metadataItems}
-              selected={value.value}
-              onChange={(item) => {
-                onChange(item);
-                setMetadataFormat(item);
-              }}
-              label="Metadata Format"
-              error={!!errors.metadataFormat}
-            />
-          )}
-        />
-
-        <Controller
-          name="royalty"
-          control={control}
-          defaultValue="5.0"
-          render={({ field }) => (
-            <TextField
-              placeholder="5.0"
-              label="Royalty (%)"
-              accent="purple"
-              size="large"
-              type="number"
-              error={!!errors.royalty}
-              {...field}
-            />
-          )}
-        />
-      </div>
-
-      <div className={classes.row}>
-        <Controller
-          name="description"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Textarea
-              label="Description"
-              required
-              error={!!errors.description}
-              {...field}
-            />
-          )}
-        />
-
-        <div className={classes.process}>
+    <div className={classes.container}>
+      <Card className={classes.card}>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller
+            name="imagePicker"
+            control={control}
+            render={({ field }) => (
+              <ImagePicker
+                className={classes["image-picker"]}
+                error={!!errors.imagePicker}
+                {...field}
+              />
+            )}
+          />
+
+          <div className={classes.row}>
+            <Controller
+              name="name"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  placeholder="SockHodler Genesis #001"
+                  label="Name"
+                  required
+                  accent="purple"
+                  size="large"
+                  error={!!errors.name}
+                  {...field}
+                />
+              )}
+            />
+
+            <Controller
+              name="unitName"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  placeholder="SOXGEN"
+                  label="Unit Name"
+                  required
+                  accent="purple"
+                  size="large"
+                  error={!!errors.unitName}
+                  {...field}
+                />
+              )}
+            />
+          </div>
+
+          <div className={classes.row}>
+            <Controller
+              name="quantity"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  placeholder="1"
+                  label="Quantity"
+                  required
+                  accent="purple"
+                  size="large"
+                  type="number"
+                  error={!!errors.quantity}
+                  {...field}
+                />
+              )}
+            />
+
+            <Controller
+              name="metadataFormat"
+              control={control}
+              defaultValue={metadataItems[0]}
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  items={metadataItems}
+                  selected={value.value}
+                  onChange={(item) => {
+                    onChange(item);
+                    setMetadataFormat(item);
+                  }}
+                  label="Metadata Format"
+                  error={!!errors.metadataFormat}
+                />
+              )}
+            />
+
+            <Controller
+              name="royalty"
+              control={control}
+              defaultValue="5.0"
+              render={({ field }) => (
+                <TextField
+                  placeholder="5.0"
+                  label="Royalty (%)"
+                  accent="purple"
+                  size="large"
+                  type="number"
+                  error={!!errors.royalty}
+                  {...field}
+                />
+              )}
+            />
+          </div>
+
+          <div className={classes.row}>
+            <Controller
+              name="description"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Textarea
+                  label="Description"
+                  required
+                  error={!!errors.description}
+                  {...field}
+                />
+              )}
+            />
+
+            <div className={classes.process}>
+              {/* <Controller
             name="file"
             control={control}
             render={({ field }) => (
@@ -226,37 +251,39 @@ export const Form: React.FunctionComponent<Props> = ({
                 {...field}
               />
             )}
-          />
+          /> */}
 
-          <Controller
-            name="isNFT"
-            control={control}
-            defaultValue={false}
-            render={({ field }) => (
-              <Checkbox
-                label="Is Video NFT?"
-                className={classes.checkbox}
-                {...field}
+              <Controller
+                name="isNFT"
+                control={control}
+                defaultValue={false}
+                render={({ field }) => (
+                  <Checkbox
+                    label="Is Video NFT?"
+                    className={classes.checkbox}
+                    {...field}
+                  />
+                )}
               />
-            )}
-          />
 
-          <Button
-            accent="red"
-            size="large"
-            className={classes.action}
-            type="submit"
-            disabled={metadataFormat.value === "arc69"}
-            tooltip={
-              metadataFormat.value === "arc69"
-                ? "arc69 is not available for now, coming soon"
-                : ""
-            }
-          >
-            PROCEED
-          </Button>
-        </div>
-      </div>
-    </form>
+              <Button
+                accent="red"
+                size="large"
+                className={classes.action}
+                type="submit"
+                disabled={metadataFormat.value === "arc69"}
+                tooltip={
+                  metadataFormat.value === "arc69"
+                    ? "arc69 is not available for now, coming soon"
+                    : ""
+                }
+              >
+                PROCEED
+              </Button>
+            </div>
+          </div>
+        </form>
+      </Card>
+    </div>
   );
 };

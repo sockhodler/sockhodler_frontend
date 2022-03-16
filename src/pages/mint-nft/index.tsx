@@ -31,20 +31,20 @@ export const MintNFT: React.FunctionComponent = () => {
         </div>
       </div>
 
-      <MintCard img="https://unsplash.it/200/200">
-        <Carousel
-          showStatus={false}
-          showIndicators={false}
-          showThumbs={false}
-          showArrows={false}
-          selectedItem={step}
-          dynamicHeight
-        >
-          <Form onSubmit={onFormSubmit} />
-          <UploadMedia onMintClick={() => setStep(2)} />
+      <Carousel
+        showStatus={false}
+        showIndicators={false}
+        showThumbs={false}
+        showArrows={false}
+        selectedItem={step}
+        // dynamicHeight
+      >
+        <Form onSubmit={onFormSubmit} />
+        {/* <UploadMedia onMintClick={() => setStep(2)} /> */}
+        <MintCard img="https://unsplash.it/200/200">
           <Success onBackClick={() => setStep(0)} />
-        </Carousel>
-      </MintCard>
+        </MintCard>
+      </Carousel>
 
       {/* <AdminPanelLoginModal isOpen onClose={() => console.log("on close")} /> */}
     </Layout>
