@@ -10,13 +10,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SessionWallet } from "algorand-session-wallet";
 import { config } from "common/config/conf";
+import { WalletService } from "services/WalletService";
 import { AsyncThunkOptions } from "common/models/AsyncThunkOptions";
 import { DTOModel } from "common/models/DTOModel";
+import {
+  CheckUserParams,
+  CheckUserPayload,
+} from "common/models/CheckUserModel";
 import { ErrorModel } from "common/models/ErrorModel";
 
 /* ****************** Enums ****************** */
 export enum WalletLoadingId {
   GET_CONNECT_WALLET = "getConnectWallet",
+  CHECK_USER = "checkUser",
 }
 
 export enum WalletErrorId {
@@ -31,15 +37,9 @@ interface WalletStateModel {
   connected: boolean | undefined;
   accts: any[];
   selectedAccount: any;
-}
-
-interface GetConnectWalletParams {
-  authToken: string;
-  sourceFileId: string;
-}
-
-interface GetConnectWalletPayload {
-  data: any;
+  isNew: boolean;
+  loginSuccess: boolean;
+  modalStep: number;
 }
 
 const sw = new SessionWallet(config.network ? config.network : "TestNet");
@@ -58,26 +58,52 @@ const initialState: WalletStateModel = {
       ? localAddr || sw.accountList()[0]
       : ""
     : undefined,
+  isNew: false,
+  loginSuccess: false,
+  modalStep: 0,
 };
 
 /* ****************** Async Thunks ****************** */
-// export const asyncGetConnectWallet = createAsyncThunk<GetConnectWalletPayload, GetConnectWalletParams, AsyncThunkOptions>('case/getCaseInfo', async (params, thunkOptions) => {
-//     const { rejectWithValue, getState } = thunkOptions;
-//     const { wallet } = getState();
+export const asyncCheckUser = createAsyncThunk<
+  DTOModel<CheckUserPayload>,
+  CheckUserParams,
+  AsyncThunkOptions
+>("wallet/checkUser", async (params, thunkOptions) => {
+  const { rejectWithValue, getState } = thunkOptions;
+  const { wallets } = getState();
+  const { publicAddress } = params;
 
-//     if (wallet === undefined) {
-//         const error: ErrorModel = {
-//             errorMessage: 'Unable to find customer id',
-//             status: 404
-//         };
+  if (wallets === undefined) {
+    const error: ErrorModel = {
+      errorMessage: "Unable to find wallet",
+      status: 404,
+    };
 
-//         return rejectWithValue({ ...error, ...{ errorId: WalletErrorId.GET_CONNECT_WALLET } });
-//     }
+    return rejectWithValue({
+      ...error,
+      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+    });
+  }
 
-//     return {
-//         data: {}
-//     };
-// });
+  const response = await WalletService.checkUser({
+    publicAddress,
+  });
+
+  if (response.error !== null) {
+    return rejectWithValue({
+      ...response.error,
+      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+    });
+  }
+  if (response.data === null) {
+    return rejectWithValue({
+      errorMessage: "Failed to check user address.",
+      errorId: WalletErrorId.GET_CONNECT_WALLET,
+    } as ErrorModel);
+  }
+
+  return response;
+});
 
 /* ****************** Slice ****************** */
 export const walletSlice = createSlice({
@@ -97,20 +123,35 @@ export const walletSlice = createSlice({
       localStorage.setItem("selectedAccount", action.payload);
       state.selectedAccount = action.payload;
     },
+    setIsNew(state, action) {
+      state.isNew = action.payload;
+    },
+    setLoginSuccess(state, action) {
+      state.loginSuccess = action.payload;
+    },
+    setModalStep(state, action) {
+      state.modalStep = action.payload;
+    },
   },
   extraReducers: (builder) => {
     // GET Get Connect Wallet
-    // builder.addCase(asyncGetConnectWallet.fulfilled, (state, action: PayloadAction<GetConnectWalletPayload>) => {
-    //     state.data = action.payload;
-    //     state.loading = state.loading.filter((id) => id !== WalletLoadingId.GET_CONNECT_WALLET);
-    // });
-    // builder.addCase(asyncGetConnectWallet.pending, (state) => {
-    //     state.loading.push(WalletLoadingId.GET_CONNECT_WALLET);
-    // });
-    // builder.addCase(asyncGetConnectWallet.rejected, (state, action) => {
-    //     state.loading = state.loading.filter((id) => id !== WalletLoadingId.GET_CONNECT_WALLET);
-    //     state.error.push(action.payload as ErrorModel);
-    // });
+    builder.addCase(
+      asyncCheckUser.fulfilled,
+      (state, action: PayloadAction<DTOModel<CheckUserPayload>>) => {
+        state.loading = state.loading.filter(
+          (id) => id !== WalletLoadingId.CHECK_USER
+        );
+      }
+    );
+    builder.addCase(asyncCheckUser.pending, (state) => {
+      state.loading.push(WalletLoadingId.CHECK_USER);
+    });
+    builder.addCase(asyncCheckUser.rejected, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.CHECK_USER
+      );
+      state.error.push(action.payload as ErrorModel);
+    });
   },
 });
 
@@ -119,6 +160,9 @@ export const {
   setAccounts,
   setConnectedStatus,
   setSelectedAccount,
+  setIsNew,
+  setLoginSuccess,
+  setModalStep,
 } = walletSlice.actions;
 
 export const walletReducer = walletSlice.reducer;

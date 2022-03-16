@@ -14,7 +14,12 @@ import { ReactComponent as LogoutIcon } from "assets/icons/logout.svg";
 import { formatAddress } from "common/helper/FormatAddress";
 import { ConnectWalletModal, Select } from "components";
 import { RootState } from "redux/rootReducer";
-import { setSelectedAccount } from "redux/wallet/wallet-slice";
+import {
+  setSelectedAccount,
+  asyncCheckUser,
+  setModalStep,
+  setLoginSuccess,
+} from "redux/wallet/wallet-slice";
 import classes from "./AlgorandWalletConnector.module.scss";
 
 type AlgorandWalletConnectorProps = {
@@ -33,7 +38,32 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   const selectedWallet = useSelector(
     (state: RootState) => state.wallets?.selectedAccount
   );
+  const isConnected = useSelector(
+    (state: RootState) => state.wallets?.connected
+  );
+  const { modalStep, loginSuccess, isNew } = useSelector(
+    (state: RootState) => state.wallets
+  );
+
+  console.log("modalStep", modalStep);
   const [selectorOpen, setSelectorOpen] = useState(false);
+  useEffect(() => {
+    console.log("modalStep", modalStep, isNew);
+    if (modalStep !== 0 && isNew) {
+      setSelectorOpen(true);
+    } else {
+      setSelectorOpen(false);
+    }
+  }, [modalStep, loginSuccess]);
+  useEffect(() => {
+    if (isConnected && selectedWallet) {
+      dispatch(
+        asyncCheckUser({
+          publicAddress: selectedWallet,
+        })
+      );
+    }
+  }, [isConnected, selectedWallet]);
 
   useEffect(() => {
     if (accts && accts?.length > 0 && !accts.includes(selectedWallet)) {
@@ -71,12 +101,15 @@ export const AlgorandWalletConnector: React.FunctionComponent<
     updateWallet(
       new SessionWallet(sessionWallet.network, sessionWallet.permissionCallback)
     );
+    dispatch(setModalStep(0));
+    dispatch(setLoginSuccess(false));
   };
 
   const handleSelectedWallet = async (id: string) => {
+    console.log("id", id);
     if (!(id in allowedWallets)) {
       if (sessionWallet.wallet !== undefined) sessionWallet.disconnect();
-      return setSelectorOpen(false);
+      return dispatch(setModalStep(0));
     }
 
     const sw = new SessionWallet(
@@ -91,7 +124,11 @@ export const AlgorandWalletConnector: React.FunctionComponent<
 
     updateWallet(sw);
 
-    setSelectorOpen(false);
+    dispatch(setModalStep(0));
+  };
+
+  const handleConnectWalletClick = () => {
+    dispatch(setModalStep(1));
   };
 
   const walletOptions = [];
@@ -116,13 +153,10 @@ export const AlgorandWalletConnector: React.FunctionComponent<
     });
   }
 
-  if (!connected)
+  if (!loginSuccess)
     return (
       <>
-        <button
-          className={classes.wallet}
-          onClick={() => setSelectorOpen(true)}
-        >
+        <button className={classes.wallet} onClick={handleConnectWalletClick}>
           <span className={classes.wallet__text}>Connect Wallet</span>
           <div className={classes.wallet__btn}>
             <WalletIcon />
@@ -131,9 +165,10 @@ export const AlgorandWalletConnector: React.FunctionComponent<
 
         <ConnectWalletModal
           isOpen={selectorOpen}
-          onClose={() => setSelectorOpen(false)}
+          // onClose={() => setSelectorOpen(false)}
           // wallets={walletOptions}
           onWalletClick={handleSelectedWallet}
+          step={modalStep}
         />
       </>
     );
@@ -157,54 +192,9 @@ export const AlgorandWalletConnector: React.FunctionComponent<
         onChange={(item, idx) => handleWalletChange(idx, item.value)}
       />
 
-      <button className={classes.connected__logout}>
+      <button className={classes.connected__logout} onClick={disconnectWallet}>
         <LogoutIcon />
       </button>
-      {/* <div className={classes['wallets-container']}>
-        <Popover
-          minimal
-          position={Position.BOTTOM}
-          className={classes['wallet-popover']}
-        >
-          <Button
-            text={formatAddress(selectedWallet.toString())}
-            className={classes['wallets-dropdown']}
-            rightIcon="symbol-circle"
-            intent="success"
-          />
-          <div className={classes['popover-content']}>
-            {accts.map((addr, idx) => (
-              <Menu
-                // text={addr}
-                key={idx}
-                onClick={() => handleWalletChange(idx, addr)}
-                className={classNames(
-                  classes.walletMenu,
-                  addr === selectedWallet && classes.blueGlowText,
-                )}
-              >
-                {formatAddress(addr)}
-                <Button
-                  icon="arrow-right"
-                  minimal
-                  onClick={() => hadleGoClick(addr)}
-                  className={classes.linkTo}
-                />
-              </Menu>
-            ))}
-          </div>
-        </Popover>
-        <Button
-          icon="log-out"
-          minimal
-          onClick={disconnectWallet}
-          className={classNames(
-            classes.buttonPink,
-            classes.noOutline,
-            classes.disconnect,
-          )}
-        />
-      </div> */}
     </div>
   );
 };

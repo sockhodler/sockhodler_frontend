@@ -3,6 +3,8 @@ import { BaseModal, Button, TextField } from "components";
 import classes from "./ConnectWalletModal.module.scss";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { setModalStep } from "redux/wallet/wallet-slice";
+import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 
 import { ReactComponent as MyAlgoIcon } from "assets/icons/my-algo.svg";
@@ -12,28 +14,29 @@ import { ReactComponent as SockholderLogo } from "assets/icons/sockholder-logo.s
 
 interface Props {
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   onWalletClick: (id: string) => void;
+  step: number;
 }
 
 export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   isOpen,
   onClose,
   onWalletClick,
+  step,
 }) => {
-  const [step, setStep] = useState(0);
+  const dispatch = useDispatch();
 
   const handleNextStep = () => {
-    setStep((s) => s + 1);
+    dispatch(setModalStep(step + 1));
   };
 
   const handlePrevStep = () => {
-    setStep((s) => s - 1);
+    dispatch(setModalStep(step + 1));
   };
 
   const handleOnClose = () => {
-    onClose();
-    setStep(0);
+    dispatch(setModalStep(0));
   };
 
   return (
@@ -47,7 +50,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
         showIndicators={false}
         showThumbs={false}
         showArrows={false}
-        selectedItem={step}
+        selectedItem={step - 1}
       >
         {/* welcome step */}
         <div className={classNames(classes.step, classes["step-welcome"])}>
