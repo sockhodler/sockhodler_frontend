@@ -75,3 +75,15 @@
 .shape-sharp {
   border-radius: 0;
 }
+
+// disabled
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+div.tooltip {
+  font-size: 2rem;
+  padding: 1.3rem 2rem;
+  border-radius: 1rem;
+}

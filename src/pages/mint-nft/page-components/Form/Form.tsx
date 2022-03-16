@@ -74,6 +74,8 @@ export const Form: React.FunctionComponent<Props> = ({
   });
   const [meta, setMeta] = useState(new NFTMetadata());
 
+  const [metadataFormat, setMetadataFormat] = useState(metadataItems[0]);
+
   const captureMetadata = (values: FormInputs) => {
     // const eprops = values.mints.reduce(
     //   (all, ep) => ({ ...all, [ep.name]: ep.value }),
@@ -159,7 +161,10 @@ export const Form: React.FunctionComponent<Props> = ({
             <Select
               items={metadataItems}
               selected={value.value}
-              onChange={(item) => onChange(item)}
+              onChange={(item) => {
+                onChange(item);
+                setMetadataFormat(item);
+              }}
               label="Metadata Format"
               error={!!errors.metadataFormat}
             />
@@ -203,7 +208,7 @@ export const Form: React.FunctionComponent<Props> = ({
           <Controller
             name="file"
             control={control}
-            render={({ field, field: { value } }) => (
+            render={({ field }) => (
               <FilePicker
                 className={classes["file-picker"]}
                 label="Upload Traits"
@@ -241,6 +246,12 @@ export const Form: React.FunctionComponent<Props> = ({
             size="large"
             className={classes.action}
             type="submit"
+            disabled={metadataFormat.value === "arc69"}
+            tooltip={
+              metadataFormat.value === "arc69"
+                ? "arc69 is not available for now, coming soon"
+                : ""
+            }
           >
             PROCEED
           </Button>
