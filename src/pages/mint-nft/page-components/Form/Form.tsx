@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import classes from "./Form.module.scss";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
+import { imageIntegrity, NFT, NFTMetadata } from "utils/nft";
 import {
   TextField,
   Select,
@@ -37,7 +37,7 @@ export interface FormInputs {
 }
 
 interface Props {
-  onSubmit: (data: FormInputs) => void;
+  onSubmit: (data: NFTMetadata) => void;
 }
 
 const schema = yup
@@ -72,9 +72,26 @@ export const Form: React.FunctionComponent<Props> = ({
   } = useForm<FormInputs>({
     resolver: yupResolver(schema),
   });
+  const [meta, setMeta] = useState(new NFTMetadata());
 
+  const captureMetadata = (values: FormInputs) => {
+    // const eprops = values.mints.reduce(
+    //   (all, ep) => ({ ...all, [ep.name]: ep.value }),
+    //   {}
+    // )
+    return new NFTMetadata({
+      name: values.name,
+      unitName: values.unitName,
+      description: values.description,
+      royalty: values.royalty,
+      total: values.quantity,
+      isVideoNFT: values.isNFT,
+      // properties: { ...eprops, ...meta.properties },
+    });
+  };
   const onSubmit = (data: FormInputs) => {
-    onFormSuccessSubmit(data);
+    const md = captureMetadata(data);
+    onFormSuccessSubmit(md);
   };
 
   return (

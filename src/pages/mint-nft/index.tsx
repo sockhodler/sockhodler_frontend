@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { Layout, AdminPanelLoginModal } from "components";
 import { MintCard, Form, UploadMedia, Success } from "./page-components";
+import { imageIntegrity, NFT, NFTMetadata } from "utils/nft";
 import classes from "./index.module.scss";
 
 // types
@@ -11,10 +12,12 @@ import { FormInputs } from "./page-components/Form/Form";
 
 export const MintNFT: React.FunctionComponent = () => {
   const [step, setStep] = useState(0);
+  const [meta, setMeta] = useState(new NFTMetadata());
 
-  const onFormSubmit = (data: FormInputs) => {
-    console.log(data);
-    // setStep(1);
+  const onFormSubmit = (md: NFTMetadata) => {
+    console.log(md);
+    setMeta(md);
+    setStep(1);
   };
 
   return (
