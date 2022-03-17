@@ -1,27 +1,29 @@
+$height: 19.3rem;
+
 .container {
-  height: 19.3rem;
-  width: 19.3rem;
+  height: $height;
+  width: auto;
   border-radius: 3rem;
   border: 0.1rem solid var(--color-dark-violet-1);
   overflow: hidden;
   position: relative;
+  display: flex;
 }
 
 .image-preview {
   display: none;
-  position: absolute;
-  inset: 0;
 
   img,
   video {
-    height: 100%;
-    width: 100%;
+    height: $height;
+    width: auto;
+    min-width: $height;
     object-fit: cover;
     object-position: center center;
   }
 
   &--visible {
-    display: block;
+    display: flex;
 
     & + .label {
       display: none;
@@ -40,6 +42,7 @@
   padding: 0.7rem;
   border-radius: 10rem;
   transition: all 0.2s ease-in-out;
+  z-index: 2;
 
   &:hover {
     transform: scale(1.2);
@@ -53,8 +56,8 @@
 
 .label {
   cursor: pointer;
-  position: absolute;
-  inset: 0;
+  height: $height;
+  width: $height;
   display: flex;
   flex-direction: column;
   align-items: center;

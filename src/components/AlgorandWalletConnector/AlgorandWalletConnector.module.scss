@@ -33,6 +33,16 @@
       width: auto;
     }
   }
+
+  &:hover {
+    .wallet__btn {
+      background: linear-gradient(
+        to left,
+        var(--color-dark-1),
+        var(--color-dark-violet-1)
+      );
+    }
+  }
 }
 
 .connected {

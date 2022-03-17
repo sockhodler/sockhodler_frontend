@@ -16,6 +16,12 @@
 
   &:focus {
     outline: none;
+    background: linear-gradient(
+      to bottom,
+      var(--color-violet-4),
+      var(--color-dark-6)
+    );
+    border-color: var(--color-violet-4);
   }
 
   &::placeholder {
