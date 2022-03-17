@@ -25,8 +25,8 @@ const routes = [
   {
     path: "/marketplace",
     component: <Marketplace />,
-    walletAuth: true,
-    adminAuth: true,
+    walletAuth: false,
+    adminAuth: false,
   },
   {
     path: "/marketplace-details",
