@@ -20,6 +20,7 @@ import {
 } from "components";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
+import { setSendTransactionHeaders } from "algosdk/dist/types/src/client/v2/algod/sendRawTransaction";
 
 const metadataItems = [
   {
@@ -143,7 +144,6 @@ export const Form: React.FunctionComponent<Props> = ({
     });
   };
   const onSubmit = async (data: FormInputs) => {
-    console.log("data", data);
     setStatus(STATUS.pending);
 
     const md = captureMetadata(data);
@@ -154,17 +154,19 @@ export const Form: React.FunctionComponent<Props> = ({
       if (cid) {
         try {
           const nft: NFT = await NFT.create(sw.wallet, md, cid);
+          setStatus(STATUS.resolved);
           handleSetNFT(nft);
         } catch (error) {
+          setStatus(STATUS.rejected);
           console.log("error", error);
         }
       }
     }
 
-    setTimeout(() => {
-      setStatus(STATUS.resolved);
-      onFormSuccessSubmit(md);
-    }, 2000);
+    // setTimeout(() => {
+    //   setStatus(STATUS.resolved);
+    //   onFormSuccessSubmit(md);
+    // }, 2000);
   };
 
   return (
