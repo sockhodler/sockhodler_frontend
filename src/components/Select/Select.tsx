@@ -35,6 +35,21 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
     }
   };
 
+  const handleSelectItem = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    value: string
+  ) => {
+    e.preventDefault();
+    handleSelect(value);
+  };
+
+  const handleClickOnSelect = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setIsOpen((op) => !op);
+  };
+
   return (
     <div
       className={classNames(
@@ -46,7 +61,7 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
     >
       {label && <span className={classes.label}>{label}</span>}
 
-      <button className={classes.select} onClick={() => setIsOpen((op) => !op)}>
+      <button className={classes.select} onClick={handleClickOnSelect}>
         {selected ? defaultSelected?.label : placeholder} <ArrowDownIcon />
       </button>
 
@@ -55,7 +70,7 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
           <button
             className={classes.item}
             key={item.value}
-            onClick={() => handleSelect(item.value)}
+            onClick={(e) => handleSelectItem(e, item.value)}
           >
             {item.label}
           </button>

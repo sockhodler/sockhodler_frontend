@@ -16,7 +16,7 @@ import {
   Checkbox,
   Button,
   Card,
-  ImagePicker,
+  MediaPicker,
 } from "components";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
@@ -33,7 +33,7 @@ const metadataItems = [
 ];
 
 export interface FormInputs {
-  imagePicker: File;
+  mediaPicker: File;
   name: string;
   unitName: string;
   quantity: string;
@@ -49,7 +49,7 @@ interface Props {
 
 const schema = yup
   .object({
-    imagePicker: yup
+    mediaPicker: yup
       .mixed()
       .test("required", "You need to provide a file", (value) => {
         return value && value.size > 0;
@@ -86,6 +86,7 @@ export const Form: React.FunctionComponent<Props> = ({
     control,
   } = useForm<FormInputs>({
     resolver: yupResolver(schema),
+    mode: "onSubmit",
   });
   const sw: SessionWallet = useSelector(
     (state: RootState) => state.wallets.sessionWallet
@@ -153,12 +154,12 @@ export const Form: React.FunctionComponent<Props> = ({
       <Card className={classes.card}>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name="imagePicker"
+            name="mediaPicker"
             control={control}
             render={({ field }) => (
-              <ImagePicker
+              <MediaPicker
                 className={classes["image-picker"]}
-                error={!!errors.imagePicker}
+                error={!!errors.mediaPicker}
                 {...field}
               />
             )}

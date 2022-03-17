@@ -16,7 +16,7 @@ export { Select } from "./Select/Select";
 export { Textarea } from "./Textarea/Textarea";
 export { FilePicker } from "./FilePicker/FilePicker";
 export { Checkbox } from "./Checkbox/Checkbox";
-export { ImagePicker } from "./ImagePicker/ImagePicker";
+export { MediaPicker } from "./MediaPicker/MediaPicker";
 
 // nft
 export { NFT } from "./NFT/NFT";
