@@ -48,8 +48,8 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   console.log("modalStep", modalStep);
   const [selectorOpen, setSelectorOpen] = useState(false);
   useEffect(() => {
-    console.log("modalStep", modalStep, isNew);
-    if (modalStep !== 0 && isNew) {
+    console.log("modalStep", modalStep, typeof modalStep);
+    if (modalStep !== 0) {
       setSelectorOpen(true);
     } else {
       setSelectorOpen(false);
@@ -106,7 +106,6 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   };
 
   const handleSelectedWallet = async (id: string) => {
-    console.log("id", id);
     if (!(id in allowedWallets)) {
       if (sessionWallet.wallet !== undefined) sessionWallet.disconnect();
       return dispatch(setModalStep(0));

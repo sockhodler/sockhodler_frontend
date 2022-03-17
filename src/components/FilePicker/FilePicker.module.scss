@@ -35,3 +35,22 @@
     border: 0.1rem solid var(--color-red);
   }
 }
+
+.upload-details {
+  margin-top: 2rem;
+
+  & > * + * {
+    margin-top: 1rem;
+  }
+
+  &__detail {
+    display: flex;
+    flex-direction: column;
+
+    & span:first-of-type {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: var(--color-red);
+    }
+  }
+}

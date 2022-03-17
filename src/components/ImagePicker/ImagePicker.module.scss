@@ -1,0 +1,72 @@
+.container {
+  height: 19.3rem;
+  width: 19.3rem;
+  border-radius: 3rem;
+  border: 0.1rem solid var(--color-dark-violet-1);
+  overflow: hidden;
+  position: relative;
+}
+
+@mixin img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.image-preview {
+  display: none;
+  position: absolute;
+  inset: 0;
+
+  img {
+    @include img;
+  }
+
+  &--visible {
+    display: block;
+
+    & + .label {
+      display: none;
+    }
+  }
+}
+
+.remove {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  background: none;
+  border: 0.1rem solid var(--color-white);
+  color: var(--color-white);
+  padding: 0.7rem;
+  border-radius: 10rem;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    border-color: var(--color-violet);
+    color: var(--color-violet);
+    transform: scale(1.2);
+  }
+
+  svg {
+    height: 1.3rem;
+    width: 1.3rem;
+  }
+}
+
+.label {
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+
+  img {
+    @include img;
+  }
+}
+
+// error
+.error {
+  border-color: var(--color-red);
+}

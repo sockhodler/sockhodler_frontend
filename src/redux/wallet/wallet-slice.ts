@@ -17,12 +17,23 @@ import {
   CheckUserParams,
   CheckUserPayload,
 } from "common/models/CheckUserModel";
+import {
+  RegisterUserPayload,
+  RegisterUserParams,
+} from "common/models/RegisterUserModel";
+import {
+  VerifyUserPayload,
+  VerifyUserParams,
+} from "common/models/VerifyUserModel";
+
 import { ErrorModel } from "common/models/ErrorModel";
 
 /* ****************** Enums ****************** */
 export enum WalletLoadingId {
   GET_CONNECT_WALLET = "getConnectWallet",
   CHECK_USER = "checkUser",
+  REGISTER_USER = "registerUser",
+  VERIFY_USER = "verifyUser",
 }
 
 export enum WalletErrorId {
@@ -105,6 +116,84 @@ export const asyncCheckUser = createAsyncThunk<
   return response;
 });
 
+export const asyncRegisterUser = createAsyncThunk<
+  DTOModel<RegisterUserPayload>,
+  RegisterUserParams,
+  AsyncThunkOptions
+>("wallet/registerUser", async (params, thunkOptions) => {
+  const { rejectWithValue, getState } = thunkOptions;
+  const { wallets } = getState();
+  const { publicAddress, email, username } = params;
+
+  if (wallets === undefined) {
+    const error: ErrorModel = {
+      errorMessage: "Unable to find wallet",
+      status: 404,
+    };
+
+    return rejectWithValue({
+      ...error,
+      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+    });
+  }
+
+  const response = await WalletService.registerUser(params);
+
+  if (response.error !== null) {
+    return rejectWithValue({
+      ...response.error,
+      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+    });
+  }
+  if (response.data === null) {
+    return rejectWithValue({
+      errorMessage: "Failed to check user address.",
+      errorId: WalletErrorId.GET_CONNECT_WALLET,
+    } as ErrorModel);
+  }
+
+  return response;
+});
+
+export const asyncVerifyUser = createAsyncThunk<
+  DTOModel<VerifyUserPayload>,
+  VerifyUserParams,
+  AsyncThunkOptions
+>("wallet/verifyUser", async (params, thunkOptions) => {
+  const { rejectWithValue, getState } = thunkOptions;
+  const { wallets } = getState();
+  const { code } = params;
+
+  if (wallets === undefined) {
+    const error: ErrorModel = {
+      errorMessage: "Unable to find wallet",
+      status: 404,
+    };
+
+    return rejectWithValue({
+      ...error,
+      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+    });
+  }
+
+  const response = await WalletService.verifyUser(params);
+
+  if (response.error !== null) {
+    return rejectWithValue({
+      ...response.error,
+      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+    });
+  }
+  if (response.data === null) {
+    return rejectWithValue({
+      errorMessage: "Failed to check user address.",
+      errorId: WalletErrorId.GET_CONNECT_WALLET,
+    } as ErrorModel);
+  }
+
+  return response;
+});
+
 /* ****************** Slice ****************** */
 export const walletSlice = createSlice({
   name: "wallet",
@@ -149,6 +238,35 @@ export const walletSlice = createSlice({
     builder.addCase(asyncCheckUser.rejected, (state, action) => {
       state.loading = state.loading.filter(
         (id) => id !== WalletLoadingId.CHECK_USER
+      );
+      state.error.push(action.payload as ErrorModel);
+    });
+
+    builder.addCase(asyncRegisterUser.fulfilled, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.REGISTER_USER
+      );
+    });
+    builder.addCase(asyncRegisterUser.pending, (state) => {
+      state.loading.push(WalletLoadingId.REGISTER_USER);
+    });
+    builder.addCase(asyncRegisterUser.rejected, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.REGISTER_USER
+      );
+    });
+
+    builder.addCase(asyncVerifyUser.fulfilled, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.VERIFY_USER
+      );
+    });
+    builder.addCase(asyncVerifyUser.pending, (state) => {
+      state.loading.push(WalletLoadingId.VERIFY_USER);
+    });
+    builder.addCase(asyncVerifyUser.rejected, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.VERIFY_USER
       );
       state.error.push(action.payload as ErrorModel);
     });
