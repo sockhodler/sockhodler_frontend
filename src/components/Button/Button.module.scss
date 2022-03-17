@@ -11,6 +11,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: linear-gradient(
+      to left,
+      var(--color-purple-1),
+      var(--color-dark-1)
+    );
+    border-color: var(--color-purple);
+  }
 }
 
 // accent
@@ -23,16 +33,31 @@
 .color-red {
   @include base-color;
   background-color: var(--color-red);
+
+  &:hover {
+    background-color: var(--color-red);
+    background: var(--color-red);
+  }
 }
 
 .color-black {
   @include base-color;
   background-color: var(--color-dark-5);
+
+  &:hover {
+    background-color: var(--color-dark-5);
+    background: var(--color-dark-5);
+  }
 }
 
 .color-purple {
   @include base-color;
   background-color: var(--color-dark-violet-8);
+
+  &:hover {
+    background-color: var(--color-dark-violet-8);
+    background: var(--color-dark-violet-8);
+  }
 }
 
 .color-gr-top-bottom {
@@ -42,6 +67,15 @@
     var(--color-dark-violet-8) 0%,
     var(--color-dark-6) 100%
   );
+
+  &:hover {
+    background: linear-gradient(
+      to bottom,
+      var(--color-purple-1),
+      var(--color-dark-1)
+    );
+    border-color: var(--color-purple);
+  }
 }
 
 .color-grey {

@@ -31,7 +31,17 @@
     border-radius: 10rem;
     flex: 1 1 auto;
 
-    &--active {
+    &:hover {
+      border-color: var(--color-violet-3);
+      background: linear-gradient(
+        to left,
+        var(--color-dark-1),
+        var(--color-dark-violet-1)
+      );
+    }
+
+    &--active,
+    &--active:hover {
       background: linear-gradient(
         to right,
         var(--color-dark-1),
