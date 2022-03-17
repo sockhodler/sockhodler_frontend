@@ -77,6 +77,13 @@ const schema = yup
   })
   .required();
 
+const STATUS = {
+  idle: "idle",
+  pending: "pending",
+  resolved: "resolved",
+  rejected: "rejected",
+};
+
 export const Form: React.FunctionComponent<Props> = ({
   onSubmit: onFormSuccessSubmit,
 }) => {
@@ -118,7 +125,7 @@ export const Form: React.FunctionComponent<Props> = ({
     navigate(`/mint-nft/${nft.token?.id}`);
   };
   const [metadataFormat, setMetadataFormat] = useState(metadataItems[0]);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(STATUS.idle);
 
   const captureMetadata = (values: FormInputs) => {
     // const eprops = values.mints.reduce(
@@ -137,11 +144,8 @@ export const Form: React.FunctionComponent<Props> = ({
   };
   const onSubmit = async (data: FormInputs) => {
     console.log("data", data);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      onFormSuccessSubmit(md);
-    }, 2000);
+    setStatus(STATUS.pending);
+
     const md = captureMetadata(data);
     if (fileObj) {
       md.image_integrity = await imageIntegrity(fileObj);
@@ -157,7 +161,10 @@ export const Form: React.FunctionComponent<Props> = ({
       }
     }
 
-    onFormSuccessSubmit(md);
+    setTimeout(() => {
+      setStatus(STATUS.resolved);
+      onFormSuccessSubmit(md);
+    }, 2000);
   };
 
   return (
@@ -348,13 +355,15 @@ export const Form: React.FunctionComponent<Props> = ({
                 size="large"
                 className={classes.action}
                 type="submit"
-                disabled={metadataFormat.value === "arc69" || loading}
+                disabled={
+                  metadataFormat.value === "arc69" || status === STATUS.pending
+                }
                 tooltip={
                   metadataFormat.value === "arc69"
                     ? "arc69 is not available for now, coming soon"
                     : ""
                 }
-                loading={loading}
+                loading={status === STATUS.pending}
               >
                 PROCEED
               </Button>

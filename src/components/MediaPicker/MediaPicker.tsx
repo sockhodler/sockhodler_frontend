@@ -25,6 +25,7 @@ export const MediaPicker: React.FunctionComponent<Props> = forwardRef<
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event.target.files.item(0);
+      onChange?.(file);
       event.target.value = "";
 
       setFile(file);

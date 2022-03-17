@@ -23,8 +23,10 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(selectRef, () => setIsOpen(false));
+
   // find selected
-  const defaultSelected = items.find((item) => item.label === selected);
+  const defaultSelected = items.find((item) => item.value === selected);
+
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement> | string) => {
     const targetValue = typeof e === "string" ? e : e.target.value;
     // find object item index
