@@ -93,9 +93,9 @@ export const Form: React.FunctionComponent<Props> = ({
   );
   const navigate = useNavigate();
   const [meta, setMeta] = useState(new NFTMetadata());
-  const [fileObj, setFileObj] = useState<File>();
+  const [fileObj, setFileObj] = useState<File | null>();
 
-  const setFile = (file: File) => {
+  const setFile = (file: File | null) => {
     setFileObj(file);
 
     if (file) {
@@ -109,6 +109,10 @@ export const Form: React.FunctionComponent<Props> = ({
           })
       );
     }
+  };
+  const clearFile = () => {
+    setFileObj(null);
+    setMeta(new NFTMetadata());
   };
   const handleSetNFT = (nft: NFT) => {
     navigate(`/mint-nft/${nft.token?.id}`);
@@ -131,11 +135,12 @@ export const Form: React.FunctionComponent<Props> = ({
     });
   };
   const onSubmit = async (data: FormInputs) => {
+    console.log("data", data);
     const md = captureMetadata(data);
     if (fileObj) {
       md.image_integrity = await imageIntegrity(fileObj);
       setMeta(md);
-      const cid = await putToPinata(fileObj, md);
+      const cid = await putToIPFS(fileObj, md);
       if (cid) {
         try {
           const nft: NFT = await NFT.create(sw.wallet, md, cid);
@@ -148,11 +153,13 @@ export const Form: React.FunctionComponent<Props> = ({
 
     onFormSuccessSubmit(md);
   };
-
+  const handleClick = (data: FormInputs) => {
+    console.log("data", data);
+  };
   return (
     <div className={classes.container}>
       <Card className={classes.card}>
-        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <form className={classes.form} onSubmit={handleSubmit(handleClick)}>
           <Controller
             name="mediaPicker"
             control={control}
@@ -160,6 +167,8 @@ export const Form: React.FunctionComponent<Props> = ({
               <MediaPicker
                 className={classes["image-picker"]}
                 error={!!errors.mediaPicker}
+                clearFile={clearFile}
+                setFile={setFile}
                 {...field}
               />
             )}
@@ -307,7 +316,29 @@ export const Form: React.FunctionComponent<Props> = ({
                   />
                 )}
               />
-
+              <Controller
+                name="isNFT"
+                control={control}
+                defaultValue={false}
+                render={({ field }) => (
+                  <Button
+                    accent="red"
+                    size="large"
+                    className={classes.action}
+                    type="submit"
+                    disabled={metadataFormat.value === "arc69"}
+                    tooltip={
+                      metadataFormat.value === "arc69"
+                        ? "arc69 is not available for now, coming soon"
+                        : ""
+                    }
+                    {...field}
+                  >
+                    PROCEED
+                  </Button>
+                )}
+              />
+              <input type="submit" />
               <Button
                 accent="red"
                 size="large"

@@ -10,12 +10,14 @@ interface Props {
   onChange: (file: File | null) => void;
   className?: string;
   error?: boolean;
+  clearFile: () => void;
+  setFile: (file: File | null) => void;
 }
 
 export const MediaPicker: React.FunctionComponent<Props> = forwardRef<
   HTMLInputElement,
   Props
->(({ onChange, className, error }, ref) => {
+>(({ onChange, className, error, clearFile, setFile }, ref) => {
   const randomId = `image-picker-${Math.random()}`;
   const [img, setImg] = useState("");
   const [mediaType, setMediaType] = useState("image");
@@ -25,7 +27,7 @@ export const MediaPicker: React.FunctionComponent<Props> = forwardRef<
       const file = event.target.files.item(0);
       event.target.value = "";
 
-      onChange(file);
+      setFile(file);
       const reader = new FileReader();
       reader.onload = (e: any) => {
         setImg(e.target.result);
@@ -40,7 +42,7 @@ export const MediaPicker: React.FunctionComponent<Props> = forwardRef<
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    onChange(null);
+    clearFile();
     setImg("");
     setMediaType("image");
   };
