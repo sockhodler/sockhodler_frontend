@@ -28,6 +28,9 @@
   &__subtitle {
     font-size: 1.6rem;
     font-weight: 300;
+    span {
+      text-transform: lowercase;
+    }
   }
 
   &__action {

@@ -51,6 +51,7 @@ interface WalletStateModel {
   isNew: boolean;
   loginSuccess: boolean;
   modalStep: number;
+  userInfo: RegisterUserPayload;
 }
 
 const sw = new SessionWallet(config.network ? config.network : "TestNet");
@@ -72,6 +73,7 @@ const initialState: WalletStateModel = {
   isNew: false,
   loginSuccess: false,
   modalStep: 0,
+  userInfo: {},
 };
 
 /* ****************** Async Thunks ****************** */
@@ -124,7 +126,7 @@ export const asyncRegisterUser = createAsyncThunk<
   const { rejectWithValue, getState } = thunkOptions;
   const { wallets } = getState();
   const { publicAddress, email, username } = params;
-
+  localStorage.setItem("email", email);
   if (wallets === undefined) {
     const error: ErrorModel = {
       errorMessage: "Unable to find wallet",
@@ -221,6 +223,9 @@ export const walletSlice = createSlice({
     setModalStep(state, action) {
       state.modalStep = action.payload;
     },
+    setUserInfo(state, action) {
+      state.userInfo = action.payload;
+    },
   },
   extraReducers: (builder) => {
     // GET Get Connect Wallet
@@ -251,6 +256,7 @@ export const walletSlice = createSlice({
       state.loading.push(WalletLoadingId.REGISTER_USER);
     });
     builder.addCase(asyncRegisterUser.rejected, (state) => {
+      localStorage.removeItem("email");
       state.loading = state.loading.filter(
         (id) => id !== WalletLoadingId.REGISTER_USER
       );
@@ -281,6 +287,7 @@ export const {
   setIsNew,
   setLoginSuccess,
   setModalStep,
+  setUserInfo,
 } = walletSlice.actions;
 
 export const walletReducer = walletSlice.reducer;

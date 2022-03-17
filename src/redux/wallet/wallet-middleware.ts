@@ -4,9 +4,11 @@ import { RootState } from "../rootReducer";
 import { ThunkAppDispatch } from "../store";
 import {
   asyncCheckUser,
+  asyncRegisterUser,
   setIsNew,
   setLoginSuccess,
   setModalStep,
+  setUserInfo,
 } from "./wallet-slice";
 
 export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
@@ -21,7 +23,13 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
       } else if (action.payload.data?.email) {
         dispatch(setIsNew(false));
         dispatch(setLoginSuccess(true));
+        dispatch(setUserInfo(action.payload.data));
       }
+    }
+
+    if (asyncRegisterUser.fulfilled.match(action)) {
+      console.log("asyncRegisterUser action payload", action.payload);
+      dispatch(setModalStep(3));
     }
 
     return result;

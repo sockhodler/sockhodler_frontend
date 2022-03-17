@@ -3,9 +3,15 @@ import { BaseModal, Button, TextField } from "components";
 import classes from "./ConnectWalletModal.module.scss";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import { setModalStep } from "redux/wallet/wallet-slice";
+import {
+  setModalStep,
+  asyncRegisterUser,
+  WalletLoadingId,
+  asyncVerifyUser,
+} from "redux/wallet/wallet-slice";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
+import { RootState } from "redux/rootReducer";
 
 import { ReactComponent as MyAlgoIcon } from "assets/icons/my-algo.svg";
 import { ReactComponent as AlgoSignerIcon } from "assets/icons/algosigner.svg";
@@ -26,7 +32,36 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   step,
 }) => {
   const dispatch = useDispatch();
-
+  const { loading, userInfo } = useSelector(
+    (state: RootState) => state.wallets
+  );
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [code, setCode] = useState<string>("");
+  const cacheEmail = localStorage.getItem("email");
+  console.log("cacheEmail", cacheEmail);
+  const handleContinueClick = () => {
+    const publicAddress = localStorage.getItem("selectedAccount");
+    if (publicAddress) {
+      dispatch(
+        asyncRegisterUser({
+          email,
+          username,
+          publicAddress,
+        })
+      );
+    }
+  };
+  const handleVerifyCode = () => {
+    if (userInfo.email) {
+      dispatch(
+        asyncVerifyUser({
+          email: userInfo.email,
+          code,
+        })
+      );
+    }
+  };
   const handleNextStep = () => {
     dispatch(setModalStep(step + 1));
   };
@@ -100,15 +135,23 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
           </div>
 
           <div className={classes["step-info__form"]}>
-            <TextField placeholder="Username" />
-            <TextField placeholder="Email" />
+            <TextField
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <Button
               size="small"
               accent="gr-top-bottom"
               className={classes.step__action}
-              onClick={handleNextStep}
+              onClick={handleContinueClick}
             >
-              Continue
+              {loading.includes(WalletLoadingId.REGISTER_USER)
+                ? "Registering..."
+                : "Continue"}
             </Button>
           </div>
         </div>
@@ -118,19 +161,24 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
           <div className={classes.step__header}>
             <h3 className={classes.step__title}>ENTER THE 6 DIGIT CODE</h3>
             <h4 className={classes.step__subtitle}>
-              EMAILED TO TEST@TESTAPP.COM
+              EMAILED TO <span>{cacheEmail}</span>
             </h4>
           </div>
 
           <div className={classes["step-verify__form"]}>
-            <TextField placeholder="Enter Verification Code" />
+            <TextField
+              placeholder="Enter Verification Code"
+              onChange={(e) => setCode(e.target.value)}
+            />
             <Button
               size="small"
               accent="gr-top-bottom"
               className={classes.step__action}
-              onClick={handleNextStep}
+              onClick={handleVerifyCode}
             >
-              Continue
+              {loading.includes(WalletLoadingId.VERIFY_USER)
+                ? "Verifying..."
+                : "Continue"}
             </Button>
           </div>
         </div>
