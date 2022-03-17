@@ -87,6 +87,7 @@ export const Form: React.FunctionComponent<Props> = ({
   const [meta, setMeta] = useState(new NFTMetadata());
 
   const [metadataFormat, setMetadataFormat] = useState(metadataItems[0]);
+  const [loading, setLoading] = useState(false);
 
   const captureMetadata = (values: FormInputs) => {
     // const eprops = values.mints.reduce(
@@ -104,8 +105,13 @@ export const Form: React.FunctionComponent<Props> = ({
     });
   };
   const onSubmit = (data: FormInputs) => {
+    setLoading(true);
     const md = captureMetadata(data);
-    onFormSuccessSubmit(md);
+
+    setTimeout(() => {
+      setLoading(false);
+      onFormSuccessSubmit(md);
+    }, 2000);
   };
 
   return (
@@ -272,12 +278,13 @@ export const Form: React.FunctionComponent<Props> = ({
                 size="large"
                 className={classes.action}
                 type="submit"
-                disabled={metadataFormat.value === "arc69"}
+                disabled={metadataFormat.value === "arc69" || loading}
                 tooltip={
                   metadataFormat.value === "arc69"
                     ? "arc69 is not available for now, coming soon"
                     : ""
                 }
+                loading
               >
                 PROCEED
               </Button>
