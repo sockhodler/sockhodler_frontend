@@ -8,6 +8,7 @@ import {
   asyncRegisterUser,
   WalletLoadingId,
   asyncVerifyUser,
+  setLoginSuccess,
 } from "redux/wallet/wallet-slice";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
@@ -32,15 +33,14 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   step,
 }) => {
   const dispatch = useDispatch();
-  const { loading, userInfo } = useSelector(
+  const { loading, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
   );
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const cacheEmail = localStorage.getItem("email");
-  console.log("cacheEmail", cacheEmail);
-  const handleContinueClick = () => {
+  const handleRegisterClick = () => {
     const publicAddress = localStorage.getItem("selectedAccount");
     if (publicAddress) {
       dispatch(
@@ -50,17 +50,30 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
           publicAddress,
         })
       );
+    } else if (selectedAccount) {
+      dispatch(
+        asyncRegisterUser({
+          email,
+          username,
+          publicAddress: selectedAccount,
+        })
+      );
     }
   };
   const handleVerifyCode = () => {
-    if (userInfo.email) {
+    if (cacheEmail) {
       dispatch(
         asyncVerifyUser({
-          email: userInfo.email,
+          email: cacheEmail,
           code,
         })
       );
     }
+  };
+  const handleCongratsClick = () => {
+    dispatch(setModalStep(0));
+    dispatch(setLoginSuccess(true));
+    localStorage.removeItem("email");
   };
   const handleNextStep = () => {
     dispatch(setModalStep(step + 1));
@@ -147,7 +160,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
               size="small"
               accent="gr-top-bottom"
               className={classes.step__action}
-              onClick={handleContinueClick}
+              onClick={handleRegisterClick}
             >
               {loading.includes(WalletLoadingId.REGISTER_USER)
                 ? "Registering..."
@@ -198,8 +211,10 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
             size="small"
             accent="gr-top-bottom"
             className={classes.step__action}
+            onClick={handleCongratsClick}
           >
-            Let&apos;s Get Scanning
+            Go
+            {/* Let&apos;s Get Scanning */}
           </Button>
         </div>
       </Carousel>

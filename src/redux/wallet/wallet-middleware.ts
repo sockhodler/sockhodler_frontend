@@ -5,6 +5,7 @@ import { ThunkAppDispatch } from "../store";
 import {
   asyncCheckUser,
   asyncRegisterUser,
+  asyncVerifyUser,
   setIsNew,
   setLoginSuccess,
   setModalStep,
@@ -17,7 +18,7 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
     const result = next(action);
 
     if (asyncCheckUser.fulfilled.match(action)) {
-      if (action.payload.data?.message) {
+      if (action.payload.data?.status === "not found") {
         dispatch(setIsNew(true));
         dispatch(setModalStep(2));
       } else if (action.payload.data?.email) {
@@ -28,8 +29,11 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
     }
 
     if (asyncRegisterUser.fulfilled.match(action)) {
-      console.log("asyncRegisterUser action payload", action.payload);
       dispatch(setModalStep(3));
+    }
+
+    if (asyncVerifyUser.fulfilled.match(action)) {
+      dispatch(setModalStep(4));
     }
 
     return result;
