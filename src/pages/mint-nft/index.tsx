@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import { Layout, AdminPanelLoginModal } from "components";
+import { Layout } from "components";
 import { MintCard, Form, UploadMedia, Success } from "./page-components";
 import { imageIntegrity, NFT, NFTMetadata } from "utils/nft";
 import classes from "./index.module.scss";
@@ -45,8 +45,6 @@ export const MintNFT: React.FunctionComponent = () => {
           <Success onBackClick={() => setStep(0)} />
         </MintCard>
       </Carousel>
-
-      {/* <AdminPanelLoginModal isOpen onClose={() => console.log("on close")} /> */}
     </Layout>
   );
 };
