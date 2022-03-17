@@ -47,12 +47,12 @@ export const Button: React.FunctionComponent<Props> = ({
         type={type}
         data-tip={tooltip}
       >
-        {children}
         {loading && (
           <div className={classes.loading}>
             <LoadingIcon />
           </div>
         )}
+        {children}
       </button>
 
       {tooltip && (

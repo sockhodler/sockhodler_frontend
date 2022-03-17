@@ -118,6 +118,7 @@ export const Form: React.FunctionComponent<Props> = ({
     navigate(`/mint-nft/${nft.token?.id}`);
   };
   const [metadataFormat, setMetadataFormat] = useState(metadataItems[0]);
+  const [loading, setLoading] = useState(false);
 
   const captureMetadata = (values: FormInputs) => {
     // const eprops = values.mints.reduce(
@@ -136,6 +137,11 @@ export const Form: React.FunctionComponent<Props> = ({
   };
   const onSubmit = async (data: FormInputs) => {
     console.log("data", data);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      onFormSuccessSubmit(md);
+    }, 2000);
     const md = captureMetadata(data);
     if (fileObj) {
       md.image_integrity = await imageIntegrity(fileObj);
@@ -153,13 +159,11 @@ export const Form: React.FunctionComponent<Props> = ({
 
     onFormSuccessSubmit(md);
   };
-  const handleClick = (data: FormInputs) => {
-    console.log("data", data);
-  };
+
   return (
     <div className={classes.container}>
       <Card className={classes.card}>
-        <form className={classes.form} onSubmit={handleSubmit(handleClick)}>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="mediaPicker"
             control={control}
@@ -316,7 +320,7 @@ export const Form: React.FunctionComponent<Props> = ({
                   />
                 )}
               />
-              <Controller
+              {/* <Controller
                 name="isNFT"
                 control={control}
                 defaultValue={false}
@@ -338,18 +342,19 @@ export const Form: React.FunctionComponent<Props> = ({
                   </Button>
                 )}
               />
-              <input type="submit" />
+              <input type="submit" /> */}
               <Button
                 accent="red"
                 size="large"
                 className={classes.action}
                 type="submit"
-                disabled={metadataFormat.value === "arc69"}
+                disabled={metadataFormat.value === "arc69" || loading}
                 tooltip={
                   metadataFormat.value === "arc69"
                     ? "arc69 is not available for now, coming soon"
                     : ""
                 }
+                loading={loading}
               >
                 PROCEED
               </Button>
