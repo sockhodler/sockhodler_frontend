@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 6rem;
+  margin-bottom: 3rem;
+  font-family: var(--fonts-made-soulmaze);
+  font-weight: normal;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 2.6rem;
+  text-align: center;
+  color: var(--color-red);
+  margin-bottom: 6rem;
+}

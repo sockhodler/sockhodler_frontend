@@ -1,0 +1,103 @@
+.solid-body {
+  background: linear-gradient(
+    to bottom,
+    var(--color-dark-violet),
+    var(--color-dark-3)
+  );
+}
+
+.container {
+  margin: 0 auto;
+  padding-top: 1rem;
+  max-width: 56.8rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 3rem;
+  border: 0.1rem solid var(--color-dark-violet-8);
+  background: linear-gradient(
+    180deg,
+    var(--color-dark-6) 0%,
+    var(--color-dark-7) 100%
+  );
+  padding: 5.1rem 5rem 4rem 5rem;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 3.6rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-family: var(--fonts-made-soulmaze);
+  font-weight: 400;
+}
+
+.subtitle {
+  color: var(--color-red);
+  margin-bottom: 4.2rem;
+  font-size: 2.6rem;
+}
+
+.info {
+  font-weight: 300;
+  font-size: 1.6rem;
+  margin-bottom: 3.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 28.4rem;
+  width: 100%;
+  margin: 0 auto;
+
+  input {
+    width: 100%;
+  }
+
+  button {
+    min-width: 18rem;
+  }
+
+  & > * + * {
+    margin-top: 3rem;
+  }
+}
+
+.wallets {
+  display: flex;
+  flex-direction: column;
+
+  & > * + * {
+    margin-top: 3.5rem;
+  }
+
+  button {
+    border: none;
+    display: flex;
+    background: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & button:nth-child(1) svg {
+    height: 4.8rem;
+    width: auto;
+  }
+
+  & button:nth-child(2) svg {
+    height: 2.4rem;
+    width: auto;
+  }
+
+  & button:nth-child(3) svg {
+    height: 6.4rem;
+    width: auto;
+  }
+}

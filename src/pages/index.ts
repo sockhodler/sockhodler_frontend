@@ -9,3 +9,5 @@ export { MarketplaceDetails } from "./marketplace-details/index";
 export { MintNFT } from "./mint-nft/index";
 export { NFTDetails } from "./nft-details/index";
 export { MintedAssets } from "./minted-assets/index";
+export { ConnectWallet } from "./connect-wallet/index";
+export { AdminLogin } from "./admin-login/index";
