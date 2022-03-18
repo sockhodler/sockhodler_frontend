@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,6 +13,11 @@
   border-radius: 0 0 3rem 3rem;
   margin-bottom: 10.5rem;
   z-index: 10;
+
+  @include respond(xs) {
+    background: none;
+    margin-bottom: 2.7rem;
+  }
 }
 
 // header
@@ -19,6 +26,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @include respond(lg) {
+    padding: 3rem 4rem;
+  }
+
+  @include respond(sm) {
+    padding: 2rem 3rem;
+  }
+
+  @include respond(xs) {
+    padding: 3.8rem 1.5rem;
+    background: linear-gradient(
+      to bottom,
+      var(--color-dark-violet),
+      var(--color-dark-3)
+    );
+  }
 }
 
 .logo {
@@ -26,6 +50,18 @@
   font-size: 5.4rem;
   font-family: var(--fonts-made-soulmaze-outline);
   line-height: 1;
+
+  @include respond(lg) {
+    font-size: 4.5rem;
+  }
+
+  @include respond(sm) {
+    font-size: 3rem;
+  }
+
+  @include respond(xs) {
+    font-size: 2rem;
+  }
 
   span {
     font-family: var(--fonts-made-soulmaze);
@@ -46,6 +82,20 @@
   border: 0.2rem solid var(--color-dark-violet-2);
   border-radius: 0 0 3rem 3rem;
   padding: 1.2rem 3.2rem;
+
+  @include respond(lg) {
+    padding: 0.8rem 2.5rem;
+  }
+
+  @include respond(md) {
+    flex-direction: column;
+  }
+
+  @include respond(xs) {
+    padding: 0;
+    background: none;
+    border: none;
+  }
 }
 
 @mixin active-link-label {
@@ -55,6 +105,14 @@
   transform: translateX(0);
   opacity: 1;
   pointer-events: all;
+
+  @include respond(lg) {
+    margin-left: 2.5rem;
+  }
+
+  @include respond(xs) {
+    margin-left: 1.4rem;
+  }
 }
 
 .page-nav {
@@ -66,6 +124,30 @@
   grid-gap: 3rem;
   transition: all 0.3s ease-in-out;
 
+  @include respond(md) {
+    flex: 0 1 auto;
+  }
+
+  @include respond(sm) {
+    grid-gap: 1rem;
+  }
+
+  @include respond(xs) {
+    position: fixed;
+    bottom: 0;
+    padding: 1.5rem 1rem 2.2rem 1rem;
+    border: 0.1rem solid var(--color-dark-violet-1);
+    width: 100%;
+    border-radius: 1.5rem 1.5rem 0 0;
+    backdrop-filter: blur(1rem);
+    background: linear-gradient(
+      90deg,
+      rgba(27, 8, 51, 0.8) 0%,
+      rgba(80, 22, 89, 0.8) 100%
+    );
+    justify-content: center;
+  }
+
   &__link {
     display: flex;
     align-items: center;
@@ -73,6 +155,28 @@
     padding: 2.1rem 2rem;
     // grid-gap: 4rem;
     transition: all 0.3s ease-in-out;
+
+    svg {
+      height: 4.6rem;
+      width: auto;
+    }
+
+    @include respond(lg) {
+      padding: 1.2rem 1.8rem;
+
+      svg {
+        height: 3.4rem;
+      }
+    }
+
+    @include respond(xs) {
+      padding: 0.7rem;
+
+      svg {
+        height: 2.2rem;
+        width: auto;
+      }
+    }
 
     &:hover,
     &--active {
@@ -82,11 +186,10 @@
         var(--color-dark-violet-1)
       );
       padding: 2.1rem 4.4rem;
-    }
 
-    svg {
-      height: 4.6rem;
-      width: auto;
+      @include respond(xs) {
+        padding: 0.7rem 2.3rem;
+      }
     }
 
     &:hover {
@@ -106,6 +209,15 @@
     transition: all 0.3s ease-in-out;
     pointer-events: none;
     white-space: nowrap;
+
+    @include respond(lg) {
+      font-size: 1.8rem;
+    }
+
+    @include respond(xs) {
+      font-size: 1rem;
+      font-weight: 400;
+    }
 
     &--active {
       @include active-link-label;
@@ -130,6 +242,30 @@
   margin-left: 6rem;
   flex-shrink: 0;
 
+  @include respond(lg) {
+    padding: 0.8rem 1.4rem;
+  }
+
+  @include respond(md) {
+    margin-left: 0;
+    margin-top: 2rem;
+  }
+
+  @include respond(xs) {
+    margin: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: calc(100% - 2rem);
+    padding: 0.5rem 1.7rem;
+    grid-gap: 1rem;
+    border: 0.1rem solid var(--color-dark-violet-1);
+    background: linear-gradient(
+      to left,
+      var(--color-dark-violet-1),
+      var(--color-dark-1)
+    );
+  }
+
   &__item {
     padding: 2.2rem 3.2rem;
     font-size: 2.2rem;
@@ -142,6 +278,16 @@
     flex: 1 1 auto;
     transition: all 0.2s ease-in-out;
 
+    @include respond(lg) {
+      padding: 1.3rem 2.5rem;
+      font-size: 1.8rem;
+    }
+
+    @include respond(xs) {
+      font-size: 1.6rem;
+      padding: 1rem;
+    }
+
     &:hover {
       border-color: var(--color-violet-3);
       background: linear-gradient(
@@ -149,6 +295,14 @@
         var(--color-dark-1),
         var(--color-dark-violet-1)
       );
+
+      @include respond(xs) {
+        background: linear-gradient(
+          to left,
+          var(--color-dark-violet-1),
+          var(--color-dark-1)
+        );
+      }
     }
 
     &--active,
@@ -159,6 +313,14 @@
         var(--color-dark-1)
       );
       border-color: var(--color-dark-violet-1);
+
+      @include respond(xs) {
+        background: linear-gradient(
+          to left,
+          var(--color-dark-violet-1),
+          var(--color-dark-1)
+        );
+      }
     }
   }
 }

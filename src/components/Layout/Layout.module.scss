@@ -1,7 +1,17 @@
+@import "styles/abstract/mixins";
+
 .layout {
   min-height: 100vh;
 }
 
 .main {
   padding: 0 6.4rem 4rem 6.4rem;
+
+  @include respond(sm) {
+    padding: 0 4rem 3rem 4rem;
+  }
+
+  @include respond(xs) {
+    padding: 0 1.5rem 8rem 1.5rem;
+  }
 }

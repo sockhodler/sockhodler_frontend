@@ -75,16 +75,17 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
           </div>
         </div>
 
-        <div className={classes.details}>
+        {/* <div className={classes.details}>
           {details.map((detail) => (
             <NFTInfo
               key={detail.value}
               name={detail.name}
               value={detail.value}
               to={detail.to}
+              className={classes.detail}
             />
           ))}
-        </div>
+        </div> */}
       </section>
     </LayoutTab>
   );
