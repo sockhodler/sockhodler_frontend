@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/rootReducer";
 import { LoadingIndicator, Layout } from "components";
 import {
   Home,
@@ -21,7 +23,7 @@ const App: React.FunctionComponent = () => {
   // auth guard => connect wallet status, admin guard => boolean: isAdmin
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const { loginSuccess } = useSelector((state: RootState) => state.wallets);
   const routes = [
     {
       path: "/",
@@ -68,11 +70,11 @@ const App: React.FunctionComponent = () => {
     {
       path: "/mint-nft",
       component: <MintNFT />,
-      walletAuth: false,
+      walletAuth: true,
       adminAuth: false,
     },
     {
-      path: "/nft-details",
+      path: "/nft-details/:assetId",
       component: <NFTDetails />,
       walletAuth: false,
       adminAuth: false,
@@ -102,7 +104,7 @@ const App: React.FunctionComponent = () => {
       >
         <Routes>
           {routes.map((route) => {
-            if (route.walletAuth && !isWalletConnected) {
+            if (route.walletAuth && !loginSuccess) {
               /* Connect wallet page */
               return (
                 <Route

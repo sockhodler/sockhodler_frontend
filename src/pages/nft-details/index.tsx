@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Layout, Card, Button } from "components";
+import { useParams } from "react-router-dom";
+import { NFT, NFTMetadata } from "utils/nft";
 import classes from "./index.module.scss";
 import classNames from "classnames";
+import { validateArc3 } from "utils/validator";
+import { Icon } from "@blueprintjs/core";
 
+interface InfoDetailProps {
+  title: string;
+  value: string | number;
+}
 interface ListProps {
   title: string;
-  items: { title: string; value: string }[];
+  items: InfoDetailProps[];
 }
 
 const List: React.FunctionComponent<ListProps> = ({ title, items }) => {
@@ -26,61 +34,134 @@ const List: React.FunctionComponent<ListProps> = ({ title, items }) => {
 };
 
 export const NFTDetails: React.FunctionComponent = () => {
-  const infoDetails = [
-    {
-      title: "Description",
-      value:
-        "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet.  Lorem ipsum dolor sit amet.",
-    },
-    {
-      title: "Unit Name",
-      value: "SOXGEN00",
-    },
-    {
-      title: "Creator Address",
-      value: "SOCKSV3B6CDAE5R4BS5RZYEVMC3UGR4N76C3C7UZQ6KTTPLTI7DSXWMX6Y",
-    },
-    {
-      title: "Owner Address",
-      value: "SOCKSV3B6CDAE5R4BS5RZYEVMC3UGR4N76C3C7UZQ6KTTPLTI7DSXWMX6Y",
-    },
-    {
-      title: "Total Supply",
-      value: "1",
-    },
-    {
-      title: "Circulating Supply",
-      value: "1",
-    },
-  ];
+  const { assetId } = useParams();
+  const [nft, setNFT] = useState(new NFT(new NFTMetadata()));
+  const [loaded, setLoaded] = useState(false);
 
-  const metadataDetails = [
-    {
-      title: "Royalty",
-      value: "5%",
-    },
-    {
-      title: "File Integrity",
-      value: "sha-256-D0gC4Y0yihoK6cnVRqlrVX6nyLYR6DWgf71LQNZmAw=",
-    },
-    {
-      title: "File Mime Type",
-      value: "image/jpeg",
-    },
-    {
-      title: "Asset URL",
-      value:
-        "https://sockhodler.mypinata.cloud/ipfs/QmYKd5A3ftcoiBz8hV6EF174GNeGDcmV2pi6xFKVTZrRxM",
-    },
-    {
-      title: "Properties",
-      value: "{“size”:60424}",
-    },
-    {
-      title: "ASA Spec",
-      value: "ARC3",
-    },
-  ];
+  React.useEffect(() => {
+    setLoaded(false);
+
+    let subscribed = true;
+    if (assetId) {
+      NFT.fromAssetId(Number(assetId))
+        .then((nft) => {
+          if (!subscribed) return;
+
+          setNFT(nft);
+          setLoaded(true);
+        })
+        .catch((err) => {
+          console.log("error", err);
+          setLoaded(true);
+        });
+
+      return () => {
+        subscribed = false;
+      };
+    }
+  }, [assetId]);
+
+  let img = <div />;
+  let meta = <div />;
+  let arc3Tests = <div />;
+  let infoHero = <div />;
+
+  if (loaded) {
+    img = <img alt="nft" src={nft.imgURL()} className={classes.right__img} />;
+    if (nft.token) {
+      const { name, unitName, total, creator } = nft.token;
+      const details = [
+        {
+          title: "Name",
+          value: name,
+        },
+        {
+          title: "Unit Name",
+          value: unitName,
+        },
+        {
+          title: "Creator Address",
+          value: creator,
+        },
+        {
+          title: "Owner Address",
+          value: creator,
+        },
+        {
+          title: "Total Supply",
+          value: total,
+        },
+        {
+          title: "Circulating Supply",
+          value: "1",
+        },
+      ];
+
+      infoHero = (
+        <div className={classes.info}>
+          <h2 className={classes.info__title}>Hero Details</h2>
+          <ul className={classes.info__list}>
+            {details.map((item) => (
+              <li className={classes.info__item}>
+                <span>{item.title}</span>
+                <span>{item.value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    const mdProps = nft.metadata
+      ? Object.keys(nft.metadata).map((key, idx) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          let prop = (nft.metadata as any)[key];
+          if (prop === undefined) {
+            prop = "";
+          }
+          if (typeof prop === "object") {
+            prop = JSON.stringify(prop);
+          }
+          return (
+            <li className={classes.info__item} key={idx}>
+              <span>{key}</span>
+              <span>{prop.toString()}</span>
+            </li>
+          );
+        })
+      : [<li key="none">No metadata</li>];
+
+    const arc3Invalids = validateArc3(nft).map((test) => {
+      if (test.pass)
+        return (
+          <li key={test.name}>
+            {" "}
+            <Icon icon="tick" intent="success" /> <b>{test.name}</b>
+          </li>
+        );
+
+      return (
+        <li key={test.name}>
+          {" "}
+          <Icon icon="cross" intent="danger" /> <b>{test.name}</b>{" "}
+        </li>
+      );
+    });
+
+    arc3Tests = (
+      <div className={classes["list-container"]}>
+        <h5 className={classes["list-title"]}>ARC3 Tests</h5>{" "}
+        <ul className={classes.list}>{arc3Invalids}</ul>
+      </div>
+    );
+
+    meta = (
+      <div className={classes.info}>
+        <h2 className={classes.info__title}>Metadata</h2>
+        <ul className={classes.info__list}>{mdProps}</ul>
+      </div>
+    );
+  }
 
   return (
     <Layout>
@@ -88,15 +169,11 @@ export const NFTDetails: React.FunctionComponent = () => {
 
       <div className={classes.grid}>
         <Card className={classNames(classes.left, classes.card)}>
-          <List title="Diamond Retro Genesis" items={infoDetails} />
+          {infoHero}
         </Card>
 
         <div className={classes.right}>
-          <img
-            src="https:/unsplash.it/500/500"
-            alt=""
-            className={classes.right__img}
-          />
+          {img}
           <div className={classes.right__divider} />
 
           <Button className={classes.right__btn} accent="red">
@@ -108,9 +185,7 @@ export const NFTDetails: React.FunctionComponent = () => {
         </div>
       </div>
 
-      <Card className={classes.card}>
-        <List title="Metadata" items={metadataDetails} />
-      </Card>
+      <Card className={classes.card}>{meta}</Card>
     </Layout>
   );
 };

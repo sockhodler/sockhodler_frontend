@@ -123,7 +123,7 @@ export const Form: React.FunctionComponent<Props> = ({
     setMeta(new NFTMetadata());
   };
   const handleSetNFT = (nft: NFT) => {
-    navigate(`/mint-nft/${nft.token?.id}`);
+    navigate(`/nft-details/${nft.token?.id}`);
   };
   const [metadataFormat, setMetadataFormat] = useState(metadataItems[0]);
   const [status, setStatus] = useState(STATUS.idle);
