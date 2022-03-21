@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .wallet {
   display: flex;
   align-items: center;
@@ -11,6 +13,16 @@
   &__text {
     margin-right: 2rem;
     font-size: 2.2rem;
+
+    @include respond(lg) {
+      font-size: 1.8rem;
+      margin-right: 1.5rem;
+    }
+
+    @include respond(xs) {
+      font-size: 1.2rem;
+      margin-right: 1.2rem;
+    }
   }
 
   &__btn {
@@ -31,6 +43,27 @@
     svg {
       height: 3.5rem;
       width: auto;
+    }
+
+    @include respond(lg) {
+      height: 5rem;
+      width: 5rem;
+
+      svg {
+        height: 2.5rem;
+        width: auto;
+      }
+    }
+
+    @include respond(xs) {
+      height: 3.4rem;
+      width: 3.4rem;
+      border-radius: 0.5rem;
+
+      svg {
+        width: 2.2rem;
+        height: auto;
+      }
     }
   }
 

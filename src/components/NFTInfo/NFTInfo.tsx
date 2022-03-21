@@ -9,6 +9,7 @@ interface Props {
   name: string;
   to: string;
   size?: "small";
+  className?: string;
 }
 
 export const NFTInfo: React.FunctionComponent<Props> = ({
@@ -16,10 +17,11 @@ export const NFTInfo: React.FunctionComponent<Props> = ({
   name,
   to,
   size,
+  className,
 }) => {
   return (
     <div
-      className={classNames(classes.info, size && classes[size])}
+      className={classNames(classes.info, size && classes[size], className)}
       key={value}
     >
       <span className={classes.name}>{name}</span>

@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .content {
   display: flex;
   flex-direction: column;
@@ -8,13 +10,24 @@
   height: 15rem;
   width: 15rem;
   margin-bottom: 3.2rem;
+
+  @include respond(xs) {
+    height: 6.6rem;
+    width: 6.6rem;
+  }
 }
 
 .title {
   font-size: 6rem;
+  margin: 0;
   margin-bottom: 0.5rem;
   font-family: var(--fonts-made-soulmaze);
   font-weight: normal;
+
+  @include respond(xs) {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .subtitle {
@@ -24,6 +37,11 @@
   a {
     color: var(--color-red);
     margin: 0 0.5rem;
+  }
+
+  @include respond(xs) {
+    font-size: 1.2rem;
+    margin-bottom: 4.7rem;
   }
 }
 
@@ -73,9 +91,13 @@
 }
 
 .details {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   grid-column-gap: 5.6rem;
   grid-row-gap: 3.3rem;
   align-self: stretch;
+}
+
+.detail {
+  flex: 1 1 calc(50% - 5.6rem);
 }
