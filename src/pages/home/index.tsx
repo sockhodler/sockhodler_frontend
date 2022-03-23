@@ -1,6 +1,10 @@
 import React from "react";
 import { Layout } from "components";
-import { AuthenticateTab, DashboardTab } from "./page-components";
+import {
+  AuthenticateTab,
+  AuthenticateTabError,
+  DashboardTab,
+} from "./page-components";
 
 export const Home: React.FunctionComponent = () => {
   console.log("process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL);
@@ -17,7 +21,8 @@ export const Home: React.FunctionComponent = () => {
         },
       ]}
     >
-      <AuthenticateTab for="authenticate" />
+      {/* <AuthenticateTab for="authenticate" /> */}
+      <AuthenticateTabError for="authenticate" type="auth-code-not-valid" />
       <DashboardTab for="dashboard" />
     </Layout>
   );

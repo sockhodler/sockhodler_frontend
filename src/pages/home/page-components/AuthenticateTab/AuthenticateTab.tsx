@@ -65,8 +65,8 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
             className={classes.nft__img}
           />
 
+          <span className={classes.nft__title}>SockHodler 1/250</span>
           <div className={classes.nft__info}>
-            <span className={classes.nft__title}>SockHodler 1/250</span>
             <p className={classes.nft__details}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Suspendisse bibendum tortor ac auctor sollicitudin. Aliquam
@@ -74,11 +74,13 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
               vulputate velit esse molestie consequat, vel illum dolore eu
               feugiat nulla facilisis at vero
             </p>
-            <Button size="huge">REDEEM NFT</Button>
           </div>
+          <Button size="huge" className={classes.nft__action}>
+            REDEEM NFT
+          </Button>
         </div>
 
-        {/* <div className={classes.details}>
+        <div className={classes.details}>
           {details.map((detail) => (
             <NFTInfo
               key={detail.value}
@@ -88,7 +90,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
               className={classes.detail}
             />
           ))}
-        </div> */}
+        </div>
       </section>
     </LayoutTab>
   );

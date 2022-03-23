@@ -1,0 +1,28 @@
+<svg viewBox="0 0 152 152" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path fill-rule="evenodd" clip-rule="evenodd"
+    d="M110.56 16.1679C89.176 3.85595 62.824 3.85595 41.44 16.1679C20.056 28.4799 6.88002 51.3759 6.88002 75.9999C6.88002 100.624 20.056 123.52 41.44 135.832C62.824 148.144 89.176 148.144 110.56 135.832C131.944 123.52 145.12 100.624 145.12 75.9999C145.12 51.3759 131.944 28.4799 110.56 16.1679ZM113.8 10.5519C90.472 -3.05605 61.528 -3.05605 38.2 10.5519C14.872 24.16 0.400024 48.9999 0.400024 75.9999C0.400024 103 14.872 128.056 38.2 141.448C61.528 155.056 90.472 155.056 113.8 141.448C137.128 128.056 151.6 103 151.6 75.9999C151.6 48.9999 137.128 23.9439 113.8 10.5519Z"
+    fill="url(#paint0_linear_190_275)" stroke="white" stroke-width="0.25" stroke-miterlimit="10" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M76.0001 23.0798L25.8881 109.912H126.112L76.0001 23.0798Z"
+    fill="url(#paint1_linear_190_275)" stroke="white" stroke-width="0.25" stroke-miterlimit="10" />
+  <rect x="60.88" y="43.5999" width="30.24" height="66.96" fill="url(#pattern0)" />
+  <path
+    d="M68.872 86.5838L67.792 51.5918H83.776L82.696 86.5838H68.872ZM83.344 95.8718C83.344 99.9758 79.888 103.432 75.784 103.432C71.68 103.432 68.224 99.9758 68.224 95.8718C68.224 91.7678 71.68 88.3118 75.784 88.3118C79.888 88.3118 83.344 91.7678 83.344 95.8718Z"
+    fill="white" />
+  <defs>
+    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+      <use xlink:href="#image0_190_275" transform="scale(0.0714286 0.0322581)" />
+    </pattern>
+    <linearGradient id="paint0_linear_190_275" x1="23.2118" y1="123.772" x2="128.39" y2="28.6707"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#61ADFA" />
+      <stop offset="1" stop-color="#FFADFA" />
+    </linearGradient>
+    <linearGradient id="paint1_linear_190_275" x1="41.5612" y1="122.465" x2="131.911" y2="37.4691"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#61ADFA" />
+      <stop offset="1" stop-color="#FFADFA" />
+    </linearGradient>
+    <image id="image0_190_275" width="14" height="31"
+      xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAfCAYAAADXwvzvAAAACXBIWXMAAAsSAAALEgHS3X78AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYxJREFUeNrslTFPwzAQhW3jQJFAoEIlEIihAwj+AFMHfnmHbkiAxMAAUxEwUIFogUBIk/JOehddA2VgrqWvds/37hwnZ3vH1tnveA61r7eJ/PSue5PKCaKALoIG+1ATlWAMPqWHuPTMlIANsAeaYNFklgxf4BncgieQR042KDoBR2ClJnwDV6AL3lXouTzJeAiOwbpZrizzhQEu6es1Y+ByVylq1oSOc4nao9kAT4LBmcDe7nhw/2xz4Vw4VaiWP+32Q85ZMinHpbGnWk760QdGGbN0+izWESjIiLY+fcR3ohmlwgfghg6vdBhz3OfcgL5VWWk5NVh30i+Y00FtWl7VM0qBtsABaIM1Bo0ctznXoq/ToyOhwzbYNNE1oxwrWyagD2apYliacTz+aNG8K9mIjFtemNeUclMewFB3NVKU03hHB31ucXoE5+AM3DN4lTGj8ZT/d7lstYvogplzuQbsFbDMXdvhERmZcUixiD4gKqYuGIoTZko4p4+RMVPpfruZZtxYU7eUtm8BBgDRAITGGbimXQAAAABJRU5ErkJggg==" />
+  </defs>
+</svg>

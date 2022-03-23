@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .btn {
   padding: 1.5rem 3rem;
   background: linear-gradient(
@@ -106,6 +108,18 @@
   font-size: 2.6rem;
   padding: 3.2rem 5rem;
   border-radius: 3rem;
+
+  @include respond(md) {
+    font-size: 2.3rem;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+  }
+
+  @include respond(xs) {
+    font-size: 1.4rem;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
 }
 
 // shapes
