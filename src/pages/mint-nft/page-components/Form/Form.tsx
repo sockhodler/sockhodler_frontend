@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { SessionWallet } from "algorand-session-wallet";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { imageIntegrity, NFT, NFTMetadata } from "utils/nft";
+import {
+  imageIntegrity,
+  NFT,
+  NFTMetadata,
+  ProgressStatusType,
+} from "utils/nft";
 import { putToPinata, putToIPFS } from "utils/ipfs";
 import {
   TextField,
@@ -21,6 +26,7 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
 import { setSendTransactionHeaders } from "algosdk/dist/types/src/client/v2/algod/sendRawTransaction";
+import { MINT_PROGRESS_STEPS } from "utils/constants";
 
 const metadataItems = [
   {
@@ -102,6 +108,9 @@ export const Form: React.FunctionComponent<Props> = ({
   const navigate = useNavigate();
   const [meta, setMeta] = useState(new NFTMetadata());
   const [fileObj, setFileObj] = useState<File | null>();
+  const [progressStatus, setProgressStatus] = useState<ProgressStatusType>(
+    MINT_PROGRESS_STEPS.INITIAL
+  );
 
   const setFile = (file: File | null) => {
     setFileObj(file);
@@ -144,21 +153,30 @@ export const Form: React.FunctionComponent<Props> = ({
     });
   };
   const onSubmit = async (data: FormInputs) => {
+    setProgressStatus(MINT_PROGRESS_STEPS.CONNECT_WALLET);
     setStatus(STATUS.pending);
 
+    setProgressStatus(MINT_PROGRESS_STEPS.CAPTURE_METADATA);
     const md = captureMetadata(data);
     if (fileObj) {
+      setProgressStatus(MINT_PROGRESS_STEPS.IMAGE_INTEGRITY);
       md.image_integrity = await imageIntegrity(fileObj);
       setMeta(md);
+      setProgressStatus(MINT_PROGRESS_STEPS.PUT_TO_IPFS);
       const cid = await putToIPFS(fileObj, md);
       if (cid) {
         try {
-          const nft: NFT = await NFT.create(sw.wallet, md, cid);
+          const nft: NFT = await NFT.create(
+            sw.wallet,
+            md,
+            cid,
+            setProgressStatus
+          );
           setStatus(STATUS.resolved);
           handleSetNFT(nft);
         } catch (error) {
           setStatus(STATUS.rejected);
-          console.log("error", error);
+          setProgressStatus(MINT_PROGRESS_STEPS.INITIAL);
         }
       }
     }
@@ -352,6 +370,19 @@ export const Form: React.FunctionComponent<Props> = ({
                 )}
               />
               <input type="submit" /> */}
+              <div
+                className={`${classes.progress} ${
+                  progressStatus.status ? classes.visible : classes.hidden
+                }`}
+              >
+                <p className={classes.progress__note}>{progressStatus.note}</p>
+                <div className={classes.progress__bar}>
+                  <div
+                    className={classes.progress__status}
+                    style={{ width: `${progressStatus.status}%` }}
+                  />
+                </div>
+              </div>
               <Button
                 accent="red"
                 size="large"

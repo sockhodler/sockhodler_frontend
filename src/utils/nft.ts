@@ -3,6 +3,7 @@ import { getMimeTypeFromIpfs, getMetaFromIpfs } from "./ipfs";
 import { sha256 } from "js-sha256";
 import { Wallet } from "algorand-session-wallet";
 import { conf } from "./config";
+import { MINT_PROGRESS_STEPS } from "utils/constants";
 
 /*
 
@@ -12,6 +13,10 @@ set forth by the Algorand Foundation and Community
 https://github.com/algorandfoundation/ARCs/blob/main/ARCs/arc-0003.md
 
 */
+export interface ProgressStatusType {
+  status: number;
+  note: string;
+}
 
 export const ARC3_NAME_SUFFIX = "@arc3";
 export const ARC3_URL_SUFFIX = "#arc3";
@@ -124,9 +129,18 @@ export class NFT {
   static async create(
     wallet: Wallet,
     md: NFTMetadata,
-    cid: string
+    cid: string,
+    setProgressStatus: any
   ): Promise<NFT> {
-    const asset_id = await createToken(wallet, md, asaURL(cid), md.decimals);
+    const asset_id = await createToken(
+      wallet,
+      md,
+      asaURL(cid),
+      md.decimals,
+      setProgressStatus
+    );
+
+    setProgressStatus(MINT_PROGRESS_STEPS.GET_ASSET_IDENTIFIER);
     return await NFT.fromAssetId(asset_id);
   }
 

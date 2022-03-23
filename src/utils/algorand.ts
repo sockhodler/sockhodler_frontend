@@ -2,6 +2,7 @@ import { Wallet } from "algorand-session-wallet";
 import algosdk, { Transaction } from "algosdk";
 import { NFT, NFTMetadata } from "./nft";
 import { conf } from "./config";
+import { MINT_PROGRESS_STEPS } from "utils/constants";
 
 const client = new algosdk.Algodv2("", conf.algod, "");
 
@@ -9,11 +10,12 @@ export async function createToken(
   wallet: Wallet,
   md: NFTMetadata,
   url: string,
-  decimals: number | undefined
+  decimals: number | undefined,
+  setProgressStatus: any
 ): Promise<number> {
   const addr = wallet.getDefaultAccount();
   const suggested = await getSuggested(10);
-
+  setProgressStatus(MINT_PROGRESS_STEPS.PREPARE_ASSET_PARAM);
   const create_txn = getAsaCreateTxn(
     suggested,
     addr,
@@ -24,8 +26,10 @@ export async function createToken(
     decimals
   );
 
+  setProgressStatus(MINT_PROGRESS_STEPS.SIGN_TXN);
   const [create_txn_s] = await wallet.signTxn([create_txn]);
 
+  setProgressStatus(MINT_PROGRESS_STEPS.AWAIT_CONFIRM);
   const result = await sendWait([create_txn_s]);
   return result["asset-index"];
 }

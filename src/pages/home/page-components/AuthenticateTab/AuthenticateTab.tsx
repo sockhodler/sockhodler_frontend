@@ -46,6 +46,11 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   for: tabFor,
 }) => {
   const query = useQuery();
+
+  const tid = query.get("tid");
+  const cid = query.get("cid");
+  const pl = query.get("pl");
+
   console.log("query", query.get("tab"));
   return (
     <LayoutTab for={tabFor}>
@@ -78,17 +83,16 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
           </div>
         </div>
 
-        {/* <div className={classes.details}>
+        <div className={classes.details}>
           {details.map((detail) => (
             <NFTInfo
               key={detail.value}
               name={detail.name}
               value={detail.value}
               to={detail.to}
-              className={classes.detail}
             />
           ))}
-        </div> */}
+        </div>
       </section>
     </LayoutTab>
   );

@@ -58,4 +58,37 @@
 
 .action {
   width: 100%;
+  margin-top: 1rem;
+}
+
+.progress {
+  &__bar {
+    margin-top: 2rem;
+    height: 0.4rem;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: #464646;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  &__status {
+    width: 0%;
+    height: 100%;
+    background-color: var(--color-red);
+    display: block;
+    transition: width 0.5s;
+  }
+
+  &__note {
+    margin-top: 10rem;
+    text-align: center;
+  }
+}
+.visible {
+  visibility: visible;
+}
+.hidden {
+  visibility: hidden;
 }

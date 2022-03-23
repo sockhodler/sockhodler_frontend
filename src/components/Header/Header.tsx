@@ -53,6 +53,11 @@ const navItems = [
     to: "/portfolio",
     icon: <PortfolioIcon />,
   },
+  {
+    label: "Mint",
+    to: "/mint-nft",
+    icon: <NFTAuctionsIcon />,
+  },
 ];
 
 export const Header: React.FunctionComponent<Props> = ({
