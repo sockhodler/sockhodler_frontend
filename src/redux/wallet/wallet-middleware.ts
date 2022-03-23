@@ -22,9 +22,11 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
         dispatch(setIsNew(true));
         dispatch(setModalStep(2));
       } else if (action.payload.data?.email) {
-        dispatch(setIsNew(false));
-        dispatch(setLoginSuccess(true));
-        dispatch(setUserInfo(action.payload.data));
+        if (action.payload.data?.verified === true) {
+          dispatch(setIsNew(false));
+          dispatch(setLoginSuccess(true));
+          dispatch(setUserInfo(action.payload.data));
+        }
       }
     }
 

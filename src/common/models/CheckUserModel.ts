@@ -7,4 +7,5 @@ export interface CheckUserPayload {
   username?: string;
   status: string;
   message?: string;
+  verified?: boolean;
 }
