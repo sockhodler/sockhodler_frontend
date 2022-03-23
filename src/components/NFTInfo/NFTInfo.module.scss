@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .info {
   display: flex;
   align-items: center;
@@ -10,17 +12,41 @@
   );
   border-radius: 3rem;
   border: 0.1rem solid var(--color-violet);
+
+  @include respond(md) {
+    border-radius: 1.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.7rem;
+  }
+
+  @include respond(xs) {
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
 }
 
 .name {
   flex: 0 1 26.3rem;
   margin-right: 6rem;
+
+  @include respond(md) {
+    flex: 0 0 auto;
+    margin-right: 1.7rem;
+  }
 }
 
 .divider {
   height: 7rem;
   width: 0.1rem;
   background-color: var(--color-dark-violet-3);
+
+  @include respond(md) {
+    height: 5rem;
+  }
+
+  @include respond(xs) {
+    height: 2.4rem;
+  }
 
   &:last-of-type {
     background-color: var(--color-dark-violet-4);
@@ -33,6 +59,10 @@
   text-align: right;
   color: var(--color-cyan);
   text-decoration: underline;
+
+  @include respond(xs) {
+    margin: 0 1.4rem;
+  }
 }
 
 .action {
@@ -49,6 +79,18 @@
   svg {
     width: 2.9rem;
     height: auto;
+
+    @include respond(md) {
+      width: 2rem;
+    }
+
+    @include respond(xs) {
+      width: 1.3rem;
+    }
+  }
+
+  @include respond(xs) {
+    margin-left: 1.2rem;
   }
 }
 
