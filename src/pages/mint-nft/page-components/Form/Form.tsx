@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
+import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import classes from "./Form.module.scss";
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SessionWallet } from "algorand-session-wallet";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -189,6 +190,11 @@ export const Form: React.FunctionComponent<Props> = ({
 
   return (
     <div className={classes.container}>
+      <Link to="/" className={classes.back}>
+        <ArrowRightIcon />
+        <span>Back to home</span>
+      </Link>
+
       <Card className={classes.card}>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller

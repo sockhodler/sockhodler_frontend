@@ -2,6 +2,29 @@
   padding-top: calc((20rem / 2));
 }
 
+.back {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  color: var(--color-dark-violet-4);
+  margin-bottom: 2rem;
+
+  span {
+    text-decoration: underline;
+    text-decoration-color: var(--color-dark-violet-4);
+    color: var(--color-cyan);
+    text-underline-offset: 0.6rem;
+  }
+
+  svg {
+    transform: rotate(180deg) translateY(-0.25rem);
+    margin-right: 1rem;
+    height: 1.4rem;
+    width: auto;
+  }
+}
+
 .card {
   border-radius: 3rem;
   position: relative;

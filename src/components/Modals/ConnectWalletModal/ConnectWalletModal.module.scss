@@ -126,6 +126,36 @@
   }
 }
 
+.step-not-verified {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 3rem;
+
+  &__text {
+    margin-bottom: 4rem;
+    font-size: 2rem;
+    line-height: 1.4;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1rem;
+    margin-bottom: auto;
+    font-size: 1.7rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    grid-gap: 2rem;
+  }
+}
+
 .step-congrats {
   & > svg {
     height: 5rem;

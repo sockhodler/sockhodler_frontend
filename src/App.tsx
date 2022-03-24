@@ -70,7 +70,7 @@ const App: React.FunctionComponent = () => {
     {
       path: "/mint-nft",
       component: <MintNFT />,
-      walletAuth: true,
+      walletAuth: false,
       adminAuth: false,
     },
     {

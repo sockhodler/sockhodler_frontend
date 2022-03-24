@@ -80,6 +80,7 @@
 
 .connected {
   display: flex;
+  align-items: center;
 
   &__logout {
     @extend .wallet__btn;
@@ -88,6 +89,49 @@
     svg {
       height: 2.8rem;
       width: auto;
+    }
+
+    @include respond(lg) {
+      margin-left: 2rem;
+    }
+
+    @include respond(xs) {
+      margin-left: 1rem;
+
+      svg {
+        height: 1.5rem;
+      }
+    }
+  }
+
+  &__select {
+    & > button {
+      padding-top: 2.2rem;
+      padding-bottom: 2.2rem;
+
+      @include respond(lg) {
+        padding: 1.5rem;
+        font-size: 1.4rem;
+
+        svg {
+          width: 1.3rem;
+        }
+      }
+
+      @include respond(xs) {
+        padding: 0.8rem;
+        border-radius: 0.5rem;
+
+        svg {
+          height: 1rem;
+        }
+      }
+    }
+
+    & > div {
+      @include respond(xs) {
+        margin-top: -3rem;
+      }
     }
   }
 }

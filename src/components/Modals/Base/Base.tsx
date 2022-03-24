@@ -31,7 +31,7 @@ export const BaseModal: React.FunctionComponent<Props> = ({
 
   const handleCloseModal = (e: React.MouseEvent): void => {
     if ((e.target as Element).className.includes("ReactModal__Overlay")) {
-      onClose();
+      // onClose();
     }
   };
 

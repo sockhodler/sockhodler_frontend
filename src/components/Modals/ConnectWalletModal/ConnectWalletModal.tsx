@@ -18,6 +18,9 @@ import { ReactComponent as MyAlgoIcon } from "assets/icons/my-algo.svg";
 import { ReactComponent as AlgoSignerIcon } from "assets/icons/algosigner.svg";
 import { ReactComponent as PeraIcon } from "assets/icons/pera.svg";
 import { ReactComponent as SockholderLogo } from "assets/icons/sockholder-logo.svg";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 interface Props {
   isOpen: boolean;
@@ -26,12 +29,33 @@ interface Props {
   step: number;
 }
 
+export interface enterInfoForm {
+  username: string;
+  email: string;
+}
+
+const enterInfoSchema = yup
+  .object({
+    username: yup.string().required(),
+    email: yup.string().email().required(),
+  })
+  .required();
+
 export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   isOpen,
   onClose,
   onWalletClick,
   step,
 }) => {
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm<enterInfoForm>({
+    resolver: yupResolver(enterInfoSchema),
+    mode: "onSubmit",
+  });
+
   const dispatch = useDispatch();
   const { loading, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
@@ -40,26 +64,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const cacheEmail = localStorage.getItem("email");
-  const handleRegisterClick = () => {
-    const publicAddress = localStorage.getItem("selectedAccount");
-    if (publicAddress) {
-      dispatch(
-        asyncRegisterUser({
-          email,
-          username,
-          publicAddress,
-        })
-      );
-    } else if (selectedAccount) {
-      dispatch(
-        asyncRegisterUser({
-          email,
-          username,
-          publicAddress: selectedAccount,
-        })
-      );
-    }
-  };
+
   const handleVerifyCode = () => {
     if (cacheEmail) {
       dispatch(
@@ -87,6 +92,30 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
     dispatch(setModalStep(0));
   };
 
+  const onEnterInfoSubmit = (data: enterInfoForm) => {
+    setUsername(data.username);
+    setEmail(data.email);
+
+    const publicAddress = localStorage.getItem("selectedAccount");
+    if (publicAddress) {
+      dispatch(
+        asyncRegisterUser({
+          email: data.email,
+          username: data.username,
+          publicAddress,
+        })
+      );
+    } else if (selectedAccount) {
+      dispatch(
+        asyncRegisterUser({
+          email: data.email,
+          username: data.username,
+          publicAddress: selectedAccount,
+        })
+      );
+    }
+  };
+
   return (
     <BaseModal
       isOpen={isOpen}
@@ -99,6 +128,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
         showThumbs={false}
         showArrows={false}
         selectedItem={step - 1}
+        swipeable={false}
       >
         {/* welcome step */}
         <div className={classNames(classes.step, classes["step-welcome"])}>
@@ -147,29 +177,52 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
             </h4>
           </div>
 
-          <div className={classes["step-info__form"]}>
-            <TextField
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+          <form
+            className={classes["step-info__form"]}
+            onSubmit={handleSubmit(onEnterInfoSubmit)}
+          >
+            <Controller
+              name="username"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  placeholder="Username"
+                  required
+                  error={!!errors.username}
+                  {...field}
+                />
+              )}
             />
-            <TextField
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
+
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  placeholder="Email"
+                  required
+                  error={!!errors.email}
+                  {...field}
+                />
+              )}
             />
+
             <Button
               size="small"
               accent="gr-top-bottom"
               className={classes.step__action}
-              onClick={handleRegisterClick}
+              type="submit"
             >
               {loading.includes(WalletLoadingId.REGISTER_USER)
                 ? "Registering..."
                 : "Continue"}
             </Button>
-          </div>
+          </form>
         </div>
 
-        {/* enter info step */}
+        {/* verify step */}
         <div className={classNames(classes.step, classes["step-verify"])}>
           <div className={classes.step__header}>
             <h3 className={classes.step__title}>ENTER THE 6 DIGIT CODE</h3>
@@ -196,7 +249,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
           </div>
         </div>
 
-        {/* enter info step */}
+        {/* congrats step */}
         <div className={classNames(classes.step, classes["step-congrats"])}>
           <SockholderLogo />
 
@@ -216,6 +269,27 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
             Go
             {/* Let&apos;s Get Scanning */}
           </Button>
+        </div>
+
+        {/* not verified step */}
+        <div className={classNames(classes.step, classes["step-not-verified"])}>
+          <p className={classes["step-not-verified__text"]}>
+            The wallet is registered by following user but not verified.
+          </p>
+
+          <div className={classes["step-not-verified__info"]}>
+            <span>Username: igor</span>
+            <span>Email: igor@gmail.com</span>
+          </div>
+
+          <div className={classes["step-not-verified__actions"]}>
+            <Button size="small" accent="gr-top-bottom">
+              Clear user
+            </Button>
+            <Button size="small" accent="gr-top-bottom">
+              Verify user
+            </Button>
+          </div>
         </div>
       </Carousel>
     </BaseModal>
