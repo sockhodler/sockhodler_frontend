@@ -27,6 +27,10 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
           dispatch(setIsNew(false));
           dispatch(setLoginSuccess(true));
           dispatch(setUserInfo(action.payload.data));
+        } else {
+          dispatch(setIsNew(false));
+          dispatch(setUserInfo(action.payload.data));
+          // dispatch(setModalStep(2));
         }
       }
     }
