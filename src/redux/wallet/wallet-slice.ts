@@ -304,6 +304,17 @@ export const walletSlice = createSlice({
     setUserInfo(state, action) {
       state.userInfo = action.payload;
     },
+    setInitWallet(state) {
+      sw.disconnect();
+      localStorage.removeItem("selectedAccount");
+      const swk = new SessionWallet(sw.network, sw.permissionCallback);
+      state.selectedAccount = "";
+      state.loginSuccess = false;
+      state.accts = swk.accountList();
+      state.connected = swk.connected();
+      state.sessionWallet = swk;
+      state.isNew = false;
+    },
   },
   extraReducers: (builder) => {
     // GET Get Connect Wallet
@@ -396,6 +407,7 @@ export const {
   setLoginSuccess,
   setModalStep,
   setUserInfo,
+  setInitWallet,
 } = walletSlice.actions;
 
 export const walletReducer = walletSlice.reducer;

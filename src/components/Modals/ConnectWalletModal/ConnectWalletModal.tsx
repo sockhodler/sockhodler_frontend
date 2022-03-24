@@ -11,6 +11,7 @@ import {
   setLoginSuccess,
   asyncReverifyUser,
   asyncClearUser,
+  setInitWallet,
 } from "redux/wallet/wallet-slice";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
@@ -84,6 +85,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
   };
 
   const handleOnClose = () => {
+    dispatch(setInitWallet());
     dispatch(setModalStep(0));
   };
 

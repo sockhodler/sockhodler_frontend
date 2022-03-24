@@ -47,6 +47,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<
 
   console.log("modalStep", modalStep);
   const [selectorOpen, setSelectorOpen] = useState(false);
+
   useEffect(() => {
     console.log("modalStep", modalStep, typeof modalStep);
     if (modalStep !== 0) {
