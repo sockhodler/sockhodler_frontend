@@ -35,6 +35,8 @@ export enum WalletLoadingId {
   CHECK_USER = "checkUser",
   REGISTER_USER = "registerUser",
   VERIFY_USER = "verifyUser",
+  CLEAR_USER = "clearUser",
+  REVERIFY_USER = "reverifyUser",
 }
 
 export enum WalletErrorId {
@@ -42,6 +44,8 @@ export enum WalletErrorId {
   CLEAR_USER = "clearUser",
   REVERIFY_USER = "reverifyUser",
   REGISTER_USER = "registerUser",
+  CHECK_USER = "checkUser",
+  VERIFY_USER = "verifyUser",
 }
 
 /* ****************** Slice Interfaces ****************** */
@@ -98,7 +102,7 @@ export const asyncCheckUser = createAsyncThunk<
 
     return rejectWithValue({
       ...error,
-      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+      ...{ errorId: WalletErrorId.CHECK_USER },
     });
   }
 
@@ -109,13 +113,13 @@ export const asyncCheckUser = createAsyncThunk<
   if (response.error !== null) {
     return rejectWithValue({
       ...response.error,
-      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+      ...{ errorId: WalletErrorId.CHECK_USER },
     });
   }
   if (response.data === null) {
     return rejectWithValue({
       errorMessage: "Failed to check user address.",
-      errorId: WalletErrorId.GET_CONNECT_WALLET,
+      errorId: WalletErrorId.CHECK_USER,
     } as ErrorModel);
   }
 
@@ -216,7 +220,7 @@ export const asyncClearUser = createAsyncThunk<
 
   //   return rejectWithValue({
   //     ...error,
-  //     ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+  //     ...{ errorId: WalletErrorId.CLEAR_USER },
   //   });
   // }
 
@@ -255,7 +259,7 @@ export const asyncVerifyUser = createAsyncThunk<
 
     return rejectWithValue({
       ...error,
-      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+      ...{ errorId: WalletErrorId.VERIFY_USER },
     });
   }
 
@@ -264,13 +268,13 @@ export const asyncVerifyUser = createAsyncThunk<
   if (response.error !== null) {
     return rejectWithValue({
       ...response.error,
-      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+      ...{ errorId: WalletErrorId.VERIFY_USER },
     });
   }
   if (response.data === null) {
     return rejectWithValue({
-      errorMessage: "Failed to check user address.",
-      errorId: WalletErrorId.GET_CONNECT_WALLET,
+      errorMessage: "Failed to verify user address.",
+      errorId: WalletErrorId.VERIFY_USER,
     } as ErrorModel);
   }
 
@@ -354,6 +358,36 @@ export const walletSlice = createSlice({
     builder.addCase(asyncVerifyUser.rejected, (state, action) => {
       state.loading = state.loading.filter(
         (id) => id !== WalletLoadingId.VERIFY_USER
+      );
+      state.error.push(action.payload as ErrorModel);
+    });
+    // Clear user
+    builder.addCase(asyncClearUser.fulfilled, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.CLEAR_USER
+      );
+    });
+    builder.addCase(asyncClearUser.pending, (state) => {
+      state.loading.push(WalletLoadingId.CLEAR_USER);
+    });
+    builder.addCase(asyncClearUser.rejected, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.CLEAR_USER
+      );
+      state.error.push(action.payload as ErrorModel);
+    });
+    // Reverify User
+    builder.addCase(asyncReverifyUser.fulfilled, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.REVERIFY_USER
+      );
+    });
+    builder.addCase(asyncReverifyUser.pending, (state) => {
+      state.loading.push(WalletLoadingId.REVERIFY_USER);
+    });
+    builder.addCase(asyncReverifyUser.rejected, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.REVERIFY_USER
       );
       state.error.push(action.payload as ErrorModel);
     });

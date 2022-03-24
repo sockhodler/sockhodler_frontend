@@ -57,8 +57,8 @@ const clearUser = async (
     headers: {
       "Content-Type": "application/json",
     },
-    method: "delete",
-    url: `${BaseAPI}/auth/clear`,
+    method: "post",
+    url: `${BaseAPI}/auth/remove`,
     data: clearUserParams,
   };
 

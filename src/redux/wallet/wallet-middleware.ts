@@ -6,6 +6,7 @@ import {
   asyncCheckUser,
   asyncRegisterUser,
   asyncVerifyUser,
+  asyncReverifyUser,
   setIsNew,
   setLoginSuccess,
   setModalStep,
@@ -31,6 +32,10 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
     }
 
     if (asyncRegisterUser.fulfilled.match(action)) {
+      dispatch(setModalStep(3));
+    }
+
+    if (asyncReverifyUser.fulfilled.match(action)) {
       dispatch(setModalStep(3));
     }
 
