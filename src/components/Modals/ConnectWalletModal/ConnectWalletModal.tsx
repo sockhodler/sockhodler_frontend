@@ -314,6 +314,11 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
             <Button
               size="small"
               accent="gr-top-bottom"
+              loading={loading.includes(WalletLoadingId.CLEAR_USER)}
+              disabled={
+                loading.includes(WalletLoadingId.CLEAR_USER) ||
+                loading.includes(WalletLoadingId.REVERIFY_USER)
+              }
               onClick={handleClearUserClick}
             >
               Clear user
@@ -321,6 +326,11 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
             <Button
               size="small"
               accent="gr-top-bottom"
+              loading={loading.includes(WalletLoadingId.REVERIFY_USER)}
+              disabled={
+                loading.includes(WalletLoadingId.CLEAR_USER) ||
+                loading.includes(WalletLoadingId.REVERIFY_USER)
+              }
               onClick={handleVerifyUserClick}
             >
               Verify user

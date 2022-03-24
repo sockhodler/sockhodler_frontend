@@ -225,18 +225,11 @@ export const asyncClearUser = createAsyncThunk<
   // }
 
   const response = await WalletService.clearUser(params);
-
   if (response.error !== null) {
     return rejectWithValue({
       ...response.error,
       ...{ errorId: WalletErrorId.CLEAR_USER },
     });
-  }
-  if (response.data === null) {
-    return rejectWithValue({
-      errorMessage: "Failed to clear user address.",
-      errorId: WalletErrorId.CLEAR_USER,
-    } as ErrorModel);
   }
 
   return response;
