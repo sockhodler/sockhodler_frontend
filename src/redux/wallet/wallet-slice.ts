@@ -41,6 +41,7 @@ export enum WalletErrorId {
   GET_CONNECT_WALLET = "getConnectWallet",
   CLEAR_USER = "clearUser",
   REVERIFY_USER = "reverifyUser",
+  REGISTER_USER = "registerUser",
 }
 
 /* ****************** Slice Interfaces ****************** */
@@ -138,7 +139,7 @@ export const asyncRegisterUser = createAsyncThunk<
 
     return rejectWithValue({
       ...error,
-      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+      ...{ errorId: WalletErrorId.REGISTER_USER },
     });
   }
 
@@ -147,13 +148,13 @@ export const asyncRegisterUser = createAsyncThunk<
   if (response.error !== null) {
     return rejectWithValue({
       ...response.error,
-      ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+      ...{ errorId: WalletErrorId.REGISTER_USER },
     });
   }
   if (response.data === null) {
     return rejectWithValue({
       errorMessage: "Failed to check user address.",
-      errorId: WalletErrorId.GET_CONNECT_WALLET,
+      errorId: WalletErrorId.REGISTER_USER,
     } as ErrorModel);
   }
 
