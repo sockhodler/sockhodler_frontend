@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as WalletIcon } from "assets/icons/wallet.svg";
 import { ReactComponent as LogoutIcon } from "assets/icons/logout.svg";
 import { formatAddress } from "common/helper/FormatAddress";
-import { ConnectWalletModal, Select } from "components";
+import { ConnectWalletModal, LoadingModal, Select } from "components";
 import { RootState } from "redux/rootReducer";
 import {
   setSelectedAccount,
@@ -168,6 +168,8 @@ export const AlgorandWalletConnector: React.FunctionComponent<
           onWalletClick={handleSelectedWallet}
           step={modalStep}
         />
+
+        <LoadingModal isOpen={false} onClose={() => console.log("false")} />
       </>
     );
 

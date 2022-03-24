@@ -1,0 +1,19 @@
+.modal {
+  & > div {
+    padding: 0;
+  }
+}
+
+.content {
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.5rem;
+
+  svg {
+    height: 6rem;
+    width: 6rem;
+    margin-bottom: 2rem;
+  }
+}
