@@ -45,11 +45,9 @@ export const AlgorandWalletConnector: React.FunctionComponent<
     (state: RootState) => state.wallets
   );
 
-  console.log("modalStep", modalStep);
   const [selectorOpen, setSelectorOpen] = useState(false);
 
   useEffect(() => {
-    console.log("modalStep", modalStep, typeof modalStep);
     if (modalStep !== 0) {
       setSelectorOpen(true);
     } else {
@@ -177,11 +175,6 @@ export const AlgorandWalletConnector: React.FunctionComponent<
     dispatch(setSelectedAccount(addr));
     sessionWallet.setAccountIndex(index);
     updateWallet(sessionWallet);
-  };
-
-  const hadleGoClick = (addr: string) => {
-    console.log("addr", addr);
-    // history.push(`/creators/${addr}`)
   };
 
   return (
