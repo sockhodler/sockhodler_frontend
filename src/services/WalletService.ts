@@ -13,6 +13,7 @@ import {
   VerifyUserParams,
 } from "common/models/VerifyUserModel";
 import { ErrorModel } from "common/models/ErrorModel";
+import { ClearUserParams } from "common/models/ClearUserModel";
 
 const BaseAPI = process.env.REACT_APP_API_URL;
 
@@ -37,6 +38,70 @@ const checkUser = async (
   try {
     const resp: AxiosResponse<CheckUserPayload> = await axios(axiosOptions);
 
+    response.data = resp.data;
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+
+  return response;
+};
+
+const clearUser = async (
+  clearUserParams: ClearUserParams
+): Promise<DTOModel<null>> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "delete",
+    url: `${BaseAPI}/auth/clear`,
+    data: clearUserParams,
+  };
+
+  const response: DTOModel<null> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<null> = await axios(axiosOptions);
+
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+
+  return response;
+};
+
+const reverifyUser = async (
+  reverifyUserParams: ClearUserParams
+): Promise<DTOModel<RegisterUserPayload>> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    url: `${BaseAPI}/auth/reverify`,
+    data: reverifyUserParams,
+  };
+
+  const response: DTOModel<RegisterUserPayload> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<null> = await axios(axiosOptions);
     response.data = resp.data;
     response.status = resp.status;
   } catch (err: any) {
@@ -119,4 +184,6 @@ export const WalletService = {
   checkUser,
   registerUser,
   verifyUser,
+  reverifyUser,
+  clearUser,
 };

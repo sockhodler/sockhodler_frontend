@@ -25,6 +25,7 @@ import {
   VerifyUserPayload,
   VerifyUserParams,
 } from "common/models/VerifyUserModel";
+import { ClearUserParams } from "common/models/ClearUserModel";
 
 import { ErrorModel } from "common/models/ErrorModel";
 
@@ -38,6 +39,8 @@ export enum WalletLoadingId {
 
 export enum WalletErrorId {
   GET_CONNECT_WALLET = "getConnectWallet",
+  CLEAR_USER = "clearUser",
+  REVERIFY_USER = "reverifyUser",
 }
 
 /* ****************** Slice Interfaces ****************** */
@@ -151,6 +154,83 @@ export const asyncRegisterUser = createAsyncThunk<
     return rejectWithValue({
       errorMessage: "Failed to check user address.",
       errorId: WalletErrorId.GET_CONNECT_WALLET,
+    } as ErrorModel);
+  }
+
+  return response;
+});
+
+export const asyncReverifyUser = createAsyncThunk<
+  DTOModel<RegisterUserPayload>,
+  RegisterUserParams,
+  AsyncThunkOptions
+>("wallet/reverifyUser", async (params, thunkOptions) => {
+  const { rejectWithValue, getState } = thunkOptions;
+  const { wallets } = getState();
+  const { publicAddress, email, username } = params;
+  localStorage.setItem("email", email);
+  if (wallets === undefined) {
+    const error: ErrorModel = {
+      errorMessage: "Unable to find wallet",
+      status: 404,
+    };
+
+    return rejectWithValue({
+      ...error,
+      ...{ errorId: WalletErrorId.REVERIFY_USER },
+    });
+  }
+
+  const response = await WalletService.reverifyUser(params);
+
+  if (response.error !== null) {
+    return rejectWithValue({
+      ...response.error,
+      ...{ errorId: WalletErrorId.REVERIFY_USER },
+    });
+  }
+  if (response.data === null) {
+    return rejectWithValue({
+      errorMessage: "Failed to reverify user address.",
+      errorId: WalletErrorId.REVERIFY_USER,
+    } as ErrorModel);
+  }
+
+  return response;
+});
+
+export const asyncClearUser = createAsyncThunk<
+  DTOModel<null>,
+  ClearUserParams,
+  AsyncThunkOptions
+>("wallet/clearUser", async (params, thunkOptions) => {
+  const { rejectWithValue, getState } = thunkOptions;
+  const { wallets } = getState();
+  const { publicAddress, email, username } = params;
+  // if (wallets === undefined) {
+  //   const error: ErrorModel = {
+  //     errorMessage: "Unable to find wallet",
+  //     status: 404,
+  //   };
+
+  //   return rejectWithValue({
+  //     ...error,
+  //     ...{ errorId: WalletErrorId.GET_CONNECT_WALLET },
+  //   });
+  // }
+
+  const response = await WalletService.clearUser(params);
+
+  if (response.error !== null) {
+    return rejectWithValue({
+      ...response.error,
+      ...{ errorId: WalletErrorId.CLEAR_USER },
+    });
+  }
+  if (response.data === null) {
+    return rejectWithValue({
+      errorMessage: "Failed to clear user address.",
+      errorId: WalletErrorId.CLEAR_USER,
     } as ErrorModel);
   }
 
