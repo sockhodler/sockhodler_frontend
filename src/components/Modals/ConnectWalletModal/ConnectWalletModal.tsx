@@ -9,6 +9,8 @@ import {
   WalletLoadingId,
   asyncVerifyUser,
   setLoginSuccess,
+  asyncReverifyUser,
+  asyncClearUser,
 } from "redux/wallet/wallet-slice";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
@@ -116,6 +118,32 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
     }
   };
 
+  const handleClearUserClick = () => {
+    const publicAddress = localStorage.getItem("selectedAccount");
+    if (publicAddress && userInfo.username && userInfo.email) {
+      dispatch(
+        asyncClearUser({
+          email: userInfo.email,
+          username: userInfo.username,
+          publicAddress,
+        })
+      );
+    }
+  };
+
+  const handleVerifyUserClick = () => {
+    const publicAddress = localStorage.getItem("selectedAccount");
+    if (publicAddress && userInfo.username && userInfo.email) {
+      dispatch(
+        asyncReverifyUser({
+          email: userInfo.email,
+          username: userInfo.username,
+          publicAddress,
+        })
+      );
+    }
+  };
+
   return (
     <BaseModal
       isOpen={isOpen}
@@ -160,7 +188,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
                 size="small"
                 accent="gr-top-bottom"
                 className={classes.step__action}
-                onClick={handleNextStep}
+                // onClick={handleNextStep}
               >
                 Learn More
               </Button>
@@ -278,15 +306,23 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
           </p>
 
           <div className={classes["step-not-verified__info"]}>
-            <span>Username: igor</span>
-            <span>Email: igor@gmail.com</span>
+            <span>Username: {userInfo.username}</span>
+            <span>Email: {userInfo.email}</span>
           </div>
 
           <div className={classes["step-not-verified__actions"]}>
-            <Button size="small" accent="gr-top-bottom">
+            <Button
+              size="small"
+              accent="gr-top-bottom"
+              onClick={handleClearUserClick}
+            >
               Clear user
             </Button>
-            <Button size="small" accent="gr-top-bottom">
+            <Button
+              size="small"
+              accent="gr-top-bottom"
+              onClick={handleVerifyUserClick}
+            >
               Verify user
             </Button>
           </div>

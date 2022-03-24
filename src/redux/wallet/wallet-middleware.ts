@@ -30,7 +30,7 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
         } else {
           dispatch(setIsNew(false));
           dispatch(setUserInfo(action.payload.data));
-          // dispatch(setModalStep(2));
+          dispatch(setModalStep(5));
         }
       }
     }
