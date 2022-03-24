@@ -82,13 +82,6 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
     dispatch(setLoginSuccess(true));
     localStorage.removeItem("email");
   };
-  const handleNextStep = () => {
-    dispatch(setModalStep(step + 1));
-  };
-
-  const handlePrevStep = () => {
-    dispatch(setModalStep(step + 1));
-  };
 
   const handleOnClose = () => {
     dispatch(setModalStep(0));
