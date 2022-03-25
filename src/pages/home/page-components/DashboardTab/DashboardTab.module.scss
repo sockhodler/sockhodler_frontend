@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .content {
   display: flex;
   flex-direction: column;
@@ -9,11 +11,28 @@
   margin-bottom: 6.2rem;
   font-family: var(--fonts-made-soulmaze);
   font-weight: normal;
+
+  @include respond(md) {
+    font-size: 4rem;
+  }
+
+  @include respond(xs) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
 .daily__action {
   min-width: 44.2rem;
   margin-bottom: 7.5rem;
+
+  @include respond(md) {
+    min-width: unset;
+  }
+
+  @include respond(xs) {
+    padding: 1.9rem 2.3rem;
+  }
 }
 
 .nft {
@@ -22,10 +41,29 @@
   margin-bottom: 2.1rem;
   width: 100%;
 
+  @include respond(md) {
+    grid-column-gap: 3rem;
+  }
+
+  @include respond(xs) {
+    grid-column-gap: 2rem;
+  }
+
   &__img {
     height: 56rem;
     width: 56rem;
     border-radius: 3rem;
+
+    @include respond(md) {
+      height: 30rem;
+      width: 30rem;
+      border-radius: 1.5rem;
+    }
+
+    @include respond(xs) {
+      width: 14.7rem;
+      height: 14.7rem;
+    }
   }
 
   &__info {
@@ -37,12 +75,22 @@
     font-size: 3.6rem;
     margin-bottom: 1.84rem;
     font-family: var(--fonts-made-soulmaze);
+
+    @include respond(xs) {
+      font-size: 1.7rem;
+      margin-bottom: 1.1rem;
+    }
   }
 
   &__subtitle {
     margin-bottom: 2.6rem;
     font-family: var(--fonts-made-soulmaze-outline);
     font-size: 2.8rem;
+
+    @include respond(xs) {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
   }
 
   &__details {
@@ -50,6 +98,10 @@
     line-height: 1.5;
     padding-bottom: 3rem;
     margin-bottom: auto;
+
+    @include respond(xs) {
+      font-size: 1.4rem;
+    }
 
     /* button {
       background: none;
@@ -94,7 +146,7 @@
   background-size: cover;
 
   &::before {
-    content: ' ';
+    content: " ";
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -289,7 +341,7 @@
     & div:nth-child(3n + 2) {
       &::before,
       &::after {
-        content: ' ';
+        content: " ";
         height: 85%;
         width: 0.1rem;
         background-color: var(--color-dark-violet-1);
