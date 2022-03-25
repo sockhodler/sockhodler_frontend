@@ -19,6 +19,7 @@ import {
   asyncCheckUser,
   setModalStep,
   setLoginSuccess,
+  WalletLoadingId,
 } from "redux/wallet/wallet-slice";
 import classes from "./AlgorandWalletConnector.module.scss";
 
@@ -41,7 +42,7 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   const isConnected = useSelector(
     (state: RootState) => state.wallets?.connected
   );
-  const { modalStep, loginSuccess, isNew } = useSelector(
+  const { modalStep, loginSuccess, loading } = useSelector(
     (state: RootState) => state.wallets
   );
 
@@ -160,7 +161,6 @@ export const AlgorandWalletConnector: React.FunctionComponent<
             <WalletIcon />
           </div>
         </button>
-
         <ConnectWalletModal
           isOpen={selectorOpen}
           // onClose={() => setSelectorOpen(false)}
@@ -169,7 +169,10 @@ export const AlgorandWalletConnector: React.FunctionComponent<
           step={modalStep}
         />
 
-        <LoadingModal isOpen={false} onClose={() => console.log("false")} />
+        <LoadingModal
+          isOpen={loading.includes(WalletLoadingId.CHECK_USER)}
+          onClose={() => console.log("false")}
+        />
       </>
     );
 
