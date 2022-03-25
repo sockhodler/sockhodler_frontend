@@ -237,10 +237,10 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
               accent="gr-top-bottom"
               className={classes.step__action}
               type="submit"
+              loading={loading.includes(WalletLoadingId.REGISTER_USER)}
+              disabled={loading.includes(WalletLoadingId.REGISTER_USER)}
             >
-              {loading.includes(WalletLoadingId.REGISTER_USER)
-                ? "Registering..."
-                : "Continue"}
+              Continue
             </Button>
           </form>
         </div>
@@ -264,10 +264,10 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
               accent="gr-top-bottom"
               className={classes.step__action}
               onClick={handleVerifyCode}
+              loading={loading.includes(WalletLoadingId.VERIFY_USER)}
+              disabled={loading.includes(WalletLoadingId.VERIFY_USER)}
             >
-              {loading.includes(WalletLoadingId.VERIFY_USER)
-                ? "Verifying..."
-                : "Continue"}
+              Continue
             </Button>
           </div>
         </div>
