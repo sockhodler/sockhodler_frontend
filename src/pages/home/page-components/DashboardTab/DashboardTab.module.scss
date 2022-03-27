@@ -123,11 +123,20 @@
   grid-template-columns: 37rem 1fr;
   grid-gap: 2.4rem;
 
+  @include respond(md) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
   &__left,
   &__right {
     & > * + * {
       margin-top: 3.8rem;
     }
+  }
+
+  &__right {
+    overflow: hidden;
   }
 }
 
@@ -136,6 +145,10 @@
   font-size: 2.2rem;
   text-transform: uppercase;
   display: block;
+
+  @include respond(xs) {
+    font-size: 2rem;
+  }
 }
 
 .release {
@@ -167,9 +180,18 @@
     align-items: center;
     text-align: center;
 
+    @include respond(xs) {
+      padding: 2rem 1.6rem 1.4rem 1.6rem;
+    }
+
     & > svg {
       width: 13.5rem;
       margin-bottom: 3.5rem;
+
+      @include respond(xs) {
+        width: 7rem;
+        margin-bottom: 1rem;
+      }
     }
 
     & > span {
@@ -178,6 +200,12 @@
       line-height: 1.5;
       margin-bottom: 3.7rem;
       display: block;
+
+      @include respond(xs) {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+        max-width: 15.3rem;
+      }
     }
 
     & > button {
@@ -187,6 +215,11 @@
       background: none;
       background-color: var(--color-red);
       padding: 1rem 3rem;
+
+      @include respond(xs) {
+        padding: 0.8rem 1.6rem;
+        font-size: 0.9rem;
+      }
     }
   }
 }
@@ -197,16 +230,39 @@
 
   &__content {
     padding: 3.3rem 3.7rem;
+
+    @include respond(xs) {
+      padding: 2.6rem 2rem 1.7rem 0.5rem;
+    }
   }
 
   &__title {
     @include grid-item-title;
     margin-bottom: 2.1rem;
+
+    @include respond(xs) {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+
+      &::after {
+        content: " ";
+        border: 0.1rem solid var(--color-dark-violet-1);
+        width: 11.5rem;
+        margin-top: 1.6rem;
+      }
+    }
   }
 
   &__grid {
     display: flex;
     grid-gap: 2.9rem;
+
+    @include respond(xs) {
+      grid-gap: 1rem;
+    }
   }
 
   &__img {
@@ -214,6 +270,12 @@
     height: 24.5rem;
     border-radius: 3rem;
     flex-shrink: 0;
+
+    @include respond(xs) {
+      width: 14.7rem;
+      height: 14.7rem;
+      border-radius: 1.5rem;
+    }
   }
 
   &__info {
@@ -225,6 +287,11 @@
   &__name {
     font-size: 1.8rem;
     margin-bottom: 0.9rem;
+
+    @include respond(xs) {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
   }
 
   &__details {
@@ -239,6 +306,11 @@
 
     li {
       font-size: 1.6rem;
+
+      @include respond(xs) {
+        font-size: 1.4rem;
+        font-weight: 300;
+      }
     }
   }
 
@@ -250,16 +322,30 @@
   &__action {
     border-radius: 1.5rem;
     padding: 2.7rem;
+
+    @include respond(xs) {
+      padding: 1rem;
+      font-size: 1.4rem;
+      border-radius: 1rem;
+    }
   }
 }
 
 .price {
   padding: 2rem 1.6rem 2.7rem 1.6rem;
 
+  @include respond(xs) {
+    padding: 1.6rem 2.3rem 1.7rem 2.3rem;
+  }
+
   &__title {
     @include grid-item-title;
     margin-bottom: 2.7rem;
     text-align: center;
+
+    @include respond(xs) {
+      margin-bottom: 1.6rem;
+    }
   }
 
   &__tabs {
@@ -281,6 +367,11 @@
     grid-row-gap: 0.7rem;
     margin: 0 auto;
     margin-bottom: 1.7rem;
+
+    @include respond(xs) {
+      grid-column-gap: 1.8rem;
+      grid-row-gap: 0.3rem;
+    }
 
     & > svg {
       width: 5.5rem;
@@ -314,9 +405,18 @@
     justify-content: center;
     margin-bottom: 2.1rem;
 
+    @include respond(xs) {
+      margin-bottom: 1.9rem;
+    }
+
     & span:first-of-type {
       font-size: 2.3rem;
       margin-right: 1.6rem;
+
+      @include respond(xs) {
+        font-size: 1.6rem;
+        margin-right: 1.2rem;
+      }
     }
 
     & span:last-of-type {
@@ -325,18 +425,28 @@
       display: flex;
       align-items: center;
 
+      @include respond(xs) {
+        font-size: 1.2rem;
+      }
+
       & > svg {
         height: 1.3rem;
         width: 1.3rem;
         margin-right: 0.5rem;
         transform: rotate(-55deg);
+
+        @include respond(xs) {
+          height: 0.7rem;
+          width: 0.7rem;
+          margin-right: 0.3rem;
+        }
       }
     }
   }
 
   &__sockholder-details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
 
     & div:nth-child(3n + 2) {
       &::before,
@@ -371,10 +481,18 @@
       margin-bottom: 0.5rem;
       font-size: 1.3rem;
       // white-space: nowrap;
+
+      @include respond(xs) {
+        font-size: 1.4rem;
+      }
     }
 
     & span:last-of-type {
       font-size: 1.5rem;
+
+      @include respond(xs) {
+        font-size: 1.4rem;
+      }
     }
   }
 }
@@ -382,10 +500,18 @@
 .news {
   padding: 1.5rem 2.5rem 3rem 2.5rem;
 
+  @include respond(xs) {
+    padding: 1.6rem 0.8rem 1.7rem 0.8rem;
+  }
+
   &__title {
     @include grid-item-title;
     margin-bottom: 5.5rem;
     text-align: center;
+
+    @include respond(xs) {
+      margin-bottom: 1.6rem;
+    }
   }
 
   &__arrow {
@@ -418,10 +544,18 @@
     min-height: 12rem;
     padding: 0 6.5rem;
 
+    @include respond(xs) {
+      padding: 0 5.5rem;
+    }
+
     & p {
       font-size: 1.8rem;
       line-height: 1.6;
       text-align: left;
+
+      @include respond(xs) {
+        font-size: 1.4rem;
+      }
     }
   }
 }

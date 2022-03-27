@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .grid {
   display: flex;
   flex-direction: column;
@@ -8,9 +10,17 @@
   display: flex;
   justify-content: space-between;
 
+  @include respond(xs) {
+    margin-bottom: 1rem;
+  }
+
   &__search {
     max-width: 18.3rem;
     width: 100%;
+
+    @include respond(xs) {
+      max-width: 8.3rem;
+    }
   }
 }
 

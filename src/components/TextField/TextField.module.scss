@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -47,6 +49,10 @@
     border: none;
     border-bottom: 0.1rem solid var(--color-dark-violet-4);
     border-radius: 0;
+
+    @include respond(xs) {
+      padding: 0.4rem 0;
+    }
   }
 
   & .input::placeholder {
