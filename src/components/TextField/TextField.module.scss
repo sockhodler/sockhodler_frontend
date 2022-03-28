@@ -16,6 +16,11 @@
   background-color: (--color-dark-6);
   padding: 2rem;
 
+  @include respond(xs) {
+    padding: 1.2rem 1.8rem;
+    border-radius: 1rem;
+  }
+
   &:focus {
     outline: none;
     background: linear-gradient(

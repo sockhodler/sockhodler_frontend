@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .modal {
   max-width: 60rem;
   width: 100%;
@@ -17,17 +19,27 @@
     text-align: center;
     margin-bottom: 4.4rem;
     text-transform: uppercase;
+
+    @include respond(xs) {
+      margin-bottom: 2.5rem;
+    }
   }
 
   &__title {
     font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 1rem;
+
+    @include respond(xs) {
+      font-size: 2rem;
+      font-weight: 400;
+    }
   }
 
   &__subtitle {
     font-size: 1.6rem;
     font-weight: 300;
+
     span {
       text-transform: lowercase;
     }
@@ -44,6 +56,10 @@
   &__grid {
     display: flex;
     padding-top: 1.5rem;
+
+    @include respond(xs) {
+      padding-top: 0;
+    }
   }
 
   &__logos {
@@ -52,6 +68,10 @@
 
     & > * + * {
       margin-top: 4.5rem;
+
+      @include respond(xs) {
+        margin-top: 3.3rem;
+      }
     }
 
     button {
@@ -67,16 +87,28 @@
     & button:nth-child(1) svg {
       height: 4.8rem;
       width: auto;
+
+      @include respond(xs) {
+        height: 3rem;
+      }
     }
 
     & button:nth-child(2) svg {
       height: 2.4rem;
       width: auto;
+
+      @include respond(xs) {
+        height: 1.5rem;
+      }
     }
 
     & button:nth-child(3) svg {
       height: 6.4rem;
       width: auto;
+
+      @include respond(xs) {
+        height: 4rem;
+      }
     }
   }
 
@@ -85,6 +117,11 @@
     width: 0.1rem;
     background-color: var(--color-dark-violet-9);
     margin: 0 3.6rem;
+
+    @include respond(xs) {
+      height: 14.9rem;
+      margin: 0 2rem;
+    }
   }
 
   &__actions {
@@ -97,6 +134,15 @@
       font-size: 1.6rem;
       margin-bottom: 1.9rem;
       font-weight: 300;
+      line-height: 1.5;
+    }
+
+    button {
+      @include respond(xs) {
+        min-width: unset;
+        padding: 1.6rem 1.4rem;
+        white-space: nowrap;
+      }
     }
   }
 }
@@ -110,12 +156,20 @@
     width: 100%;
     margin: 0 auto;
 
+    @include respond(xs) {
+      margin-bottom: 2.1rem;
+    }
+
     input {
       width: 100%;
     }
 
     & > * + * {
       margin-top: 3rem;
+
+      @include respond(xs) {
+        margin-top: 2.1rem;
+      }
     }
   }
 }
@@ -137,6 +191,11 @@
     margin-bottom: 4rem;
     font-size: 2rem;
     line-height: 1.4;
+
+    @include respond(xs) {
+      margin-bottom: 2rem;
+      font-size: 1.6rem;
+    }
   }
 
   &__info {
@@ -145,6 +204,11 @@
     grid-gap: 1rem;
     margin-bottom: auto;
     font-size: 1.7rem;
+
+    @include respond(xs) {
+      margin-bottom: 3rem;
+      font-size: 1.4rem;
+    }
   }
 
   &__actions {
@@ -161,5 +225,11 @@
     height: 5rem;
     width: auto;
     margin-bottom: 5.5rem;
+
+    @include respond(xs) {
+      height: auto;
+      width: 100%;
+      margin-bottom: 4.5rem;
+    }
   }
 }

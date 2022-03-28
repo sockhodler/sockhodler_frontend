@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .overlay {
   position: fixed;
   top: 0;
@@ -10,6 +12,10 @@
   justify-content: center;
   z-index: 100;
   padding: 2rem 1.6rem;
+
+  @include respond(xs) {
+    padding: 2.4rem;
+  }
 }
 
 .modal {
@@ -39,6 +45,10 @@
   justify-content: flex-end;
   padding: 2.3rem 2.7rem 3.4rem 2.7rem;
 
+  @include respond(xs) {
+    padding: 1.4rem 1.6rem;
+  }
+
   button {
     border: none;
     background: none;
@@ -51,6 +61,11 @@
     svg {
       height: 2.1rem;
       width: 2.1rem;
+
+      @include respond(xs) {
+        height: 1.3rem;
+        width: 1.3rem;
+      }
     }
   }
 }
@@ -58,7 +73,15 @@
 .content {
   padding: 0 6rem 6rem 6rem;
 
+  @include respond(xs) {
+    padding: 0 3.5rem 1.7rem 3.5rem;
+  }
+
   &--no-header {
     padding: 6rem;
+
+    @include respond(xs) {
+      padding: 3rem;
+    }
   }
 }
