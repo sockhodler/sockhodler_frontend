@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .wallet {
   display: flex;
   flex-direction: column;
@@ -5,6 +7,11 @@
   margin: 0 auto 7rem auto;
   border-radius: 3rem;
   border: 0.1rem solid var(--color-dark-violet-1);
+
+  @include respond(xs) {
+    border-radius: 1rem;
+    margin: 0 auto 3rem auto;
+  }
 }
 
 .header {
@@ -14,9 +21,17 @@
   align-items: flex-end;
   justify-content: center;
 
+  @include respond(xs) {
+    padding: 1rem;
+  }
+
   strong {
     font-size: 1.6rem;
     margin-right: 0.5rem;
+
+    @include respond(xs) {
+      font-size: 1.4rem;
+    }
   }
 
   span {
@@ -26,6 +41,10 @@
 
 .content {
   padding: 1.5rem 5rem 2.7rem 5rem;
+
+  @include respond(xs) {
+    padding: 1rem 3rem 1.5rem 3rem;
+  }
 }
 
 .info {
@@ -44,10 +63,19 @@
       font-size: 2.2rem;
       font-weight: 700;
       margin-bottom: 1rem;
+
+      @include respond(xs) {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
     }
 
     & span:last-of-type {
       font-size: 1.6rem;
+
+      @include respond(xs) {
+        font-size: 1.3rem;
+      }
     }
   }
 }
@@ -57,6 +85,10 @@
   width: 0.1rem;
   background-color: var(--color-dark-violet-4);
   margin: 0 5rem;
+
+  @include respond(xs) {
+    height: 4rem;
+  }
 }
 
 .actions {

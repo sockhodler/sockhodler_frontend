@@ -1,33 +1,67 @@
-$card-width: 30.7rem;
+@import "styles/abstract/mixins";
 
 .nft {
-  max-width: $card-width;
+  --cart-width: 30.7rem;
+
+  max-width: var(--cart-width);
   width: 100%;
   border-radius: 3rem;
+
+  @include respond(xs) {
+    --cart-width: 17.3rem;
+    border-radius: 1rem;
+  }
+
+  /* @media screen and (max-width: 390px) {
+    --cart-width: 100%;
+  } */
 }
 
 .img {
-  width: $card-width;
-  height: $card-width;
+  width: var(--cart-width);
+  height: var(--cart-width);
   border-radius: 3rem;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.3);
+
+  @include respond(xs) {
+    border-radius: 1rem;
+  }
+
+  /* @media screen and (max-width: 390px) {
+    width: 100%;
+    height: auto;
+  } */
 }
 
 .content {
   padding: 3.5rem 2.2rem 2.3rem 2.2rem;
   display: flex;
   flex-direction: column;
+
+  @include respond(xs) {
+    padding: 1.4rem 0.7rem 1.3rem 0.7rem;
+  }
 }
 
 .title {
   font-family: var(--fonts-made-soulmaze);
   font-size: 1.8rem;
   margin-bottom: 0.3rem;
+
+  @include respond(xs) {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
 }
 
 .subtitle {
   color: var(--color-violet-1);
   margin-bottom: 1rem;
+
+  @include respond(xs) {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
 }
 
 .price {
@@ -38,9 +72,18 @@ $card-width: 30.7rem;
   margin-bottom: 0.8rem;
   font-weight: 700;
 
+  @include respond(xs) {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+  }
+
   svg {
     height: 1.9rem;
     width: auto;
+
+    @include respond(xs) {
+      height: 1.1rem;
+    }
   }
 }
 
@@ -49,12 +92,19 @@ $card-width: 30.7rem;
   margin-bottom: 3.1rem;
   font-size: 1.6rem;
   font-weight: 700;
+
+  @include respond(xs) {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .current-bid {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  grid-gap: 1rem;
 }
 
 .info {
@@ -69,6 +119,10 @@ $card-width: 30.7rem;
     border-bottom: 0.1rem solid var(--color-dark-violet-4);
     text-transform: uppercase;
 
+    @include respond(xs) {
+      padding: 1rem 0;
+    }
+
     &:last-of-type {
       border-bottom: none;
       padding-bottom: 0;
@@ -78,6 +132,11 @@ $card-width: 30.7rem;
       font-size: 1.6rem;
       font-weight: 700;
       margin-bottom: 0.7rem;
+
+      @include respond(xs) {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+      }
     }
 
     & span:last-of-type {

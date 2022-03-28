@@ -64,3 +64,14 @@
     }
   }
 }
+
+.mobile-size-small {
+  @include respond(xs) {
+    grid-gap: 0.3rem;
+
+    button {
+      font-size: 1.3rem;
+      padding: 0.8rem 1.4rem;
+    }
+  }
+}

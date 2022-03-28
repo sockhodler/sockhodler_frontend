@@ -8,6 +8,7 @@ interface Props {
   tabs: { label: string; value: string | number }[];
   className?: string;
   selected?: string;
+  mobileSize?: "small";
 }
 
 export const Tabs: React.FunctionComponent<Props> = ({
@@ -15,13 +16,20 @@ export const Tabs: React.FunctionComponent<Props> = ({
   children,
   className,
   selected: selectedTab,
+  mobileSize,
 }) => {
   const defaultTab = selectedTab || (tabs.length > 0 ? tabs[0].value : "");
   const [selected, setSelected] = useState(defaultTab);
 
   return (
     <div className={classes.tabs}>
-      <nav className={classNames(classes.tape, className)}>
+      <nav
+        className={classNames(
+          classes.tape,
+          mobileSize && classes[`mobile-size-${mobileSize}`],
+          className
+        )}
+      >
         {tabs.map((tab) => (
           <button
             key={tab.value}

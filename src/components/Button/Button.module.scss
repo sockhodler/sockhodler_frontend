@@ -101,6 +101,10 @@
   font-size: 1.4rem;
   padding: 1rem 3rem;
   border-radius: 1.5rem;
+
+  @include respond(xs) {
+    padding: 1rem;
+  }
 }
 
 .size-small {
@@ -119,6 +123,12 @@
   font-size: 1.8rem;
   padding: 1.2rem 3rem;
   border-radius: 1.5rem;
+
+  @include respond(xs) {
+    font-size: 1.4rem;
+    padding: 0.7rem 2rem;
+    border-radius: 1rem;
+  }
 }
 
 .size-huge {

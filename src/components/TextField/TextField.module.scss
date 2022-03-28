@@ -58,6 +58,12 @@
     @include respond(xs) {
       padding: 0.4rem 0;
     }
+
+    &:focus {
+      outline: none;
+      background: none;
+      border-color: none;
+    }
   }
 
   & .input::placeholder {

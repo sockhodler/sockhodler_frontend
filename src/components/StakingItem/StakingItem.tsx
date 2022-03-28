@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card } from "components";
 import classes from "./StakingItem.module.scss";
+import classNames from "classnames";
 
 export interface StakingItemProps {
   title: string;
@@ -50,24 +51,16 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
           ))}
         </div>
         <div className={classes.divider} />
-        <div className={classes.column}>
-          <Button
-            size="tiny"
-            accent="red"
-            sharp
-            className={classes.action}
-            onClick={onWithdrawClick}
-          >
+        <div className={classNames(classes.column, classes.actions)}>
+          <Button size="tiny" accent="red" sharp onClick={onWithdrawClick}>
             WITHDRAW
           </Button>
-          <div className={classes.actions}>
-            <Button size="tiny" accent="purple" sharp onClick={onWebsiteClick}>
-              WEBSITE
-            </Button>
-            <Button size="tiny" accent="black" sharp onClick={onExplorerClick}>
-              EXPLORER
-            </Button>
-          </div>
+          <Button size="tiny" accent="purple" sharp onClick={onWebsiteClick}>
+            WEBSITE
+          </Button>
+          <Button size="tiny" accent="black" sharp onClick={onExplorerClick}>
+            EXPLORER
+          </Button>
         </div>
       </div>
     </Card>
