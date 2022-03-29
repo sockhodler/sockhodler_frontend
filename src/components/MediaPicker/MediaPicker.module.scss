@@ -1,13 +1,20 @@
-$height: 19.3rem;
+@import "styles/abstract/mixins";
 
 .container {
-  height: $height;
+  --height: 19.3rem;
+
+  height: var(--height);
   width: auto;
   border-radius: 3rem;
   border: 0.1rem solid var(--color-dark-violet-1);
   overflow: hidden;
   position: relative;
   display: flex;
+
+  @include respond(md) {
+    --height: 15rem;
+    border-radius: 1.5rem;
+  }
 }
 
 .image-preview {
@@ -15,9 +22,9 @@ $height: 19.3rem;
 
   img,
   video {
-    height: $height;
+    height: var(--height);
     width: auto;
-    min-width: $height;
+    min-width: var(--height);
     object-fit: cover;
     object-position: center center;
   }
@@ -56,8 +63,8 @@ $height: 19.3rem;
 
 .label {
   cursor: pointer;
-  height: $height;
-  width: $height;
+  height: var(--height);
+  width: var(--height);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,10 +76,20 @@ $height: 19.3rem;
   );
   padding: 2rem;
 
+  @include respond(md) {
+    padding: 1rem;
+  }
+
   svg {
     height: 6rem;
     width: 6rem;
     margin-bottom: 1.5rem;
+
+    @include respond(md) {
+      height: 4rem;
+      width: 4rem;
+      margin-bottom: 1rem;
+    }
   }
 
   span {
@@ -80,6 +97,10 @@ $height: 19.3rem;
     line-height: 1.6;
     text-align: center;
     text-transform: capitalize;
+
+    @include respond(md) {
+      font-size: 1.4rem;
+    }
   }
 }
 

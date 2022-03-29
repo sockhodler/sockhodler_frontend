@@ -42,6 +42,11 @@
   font-size: 2rem;
   margin-bottom: 1.4rem;
 
+  @include respond(md) {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
   span {
     color: var(--color-cyan);
   }
@@ -92,6 +97,15 @@
   .input {
     padding: 2.1rem 1.7rem;
     font-size: 2rem;
+
+    @include respond(md) {
+      padding: 1.4rem 1.7rem;
+      font-size: 1.8rem;
+    }
+
+    @include respond(xs) {
+      font-size: 1.6rem;
+    }
 
     &::placeholder {
       font-weight: 400;

@@ -1,9 +1,20 @@
+@import "styles/abstract/mixins";
+
 .title {
   font-size: 6rem;
   margin-bottom: 8rem;
   font-family: var(--fonts-made-soulmaze);
   font-weight: normal;
   text-align: center;
+
+  @include respond(md) {
+    font-size: 4rem;
+  }
+
+  @include respond(xs) {
+    font-size: 2rem;
+    margin-bottom: 4rem;
+  }
 }
 
 .action {
@@ -12,4 +23,12 @@
   min-width: 40rem;
   display: block;
   margin: 0 auto 9.1rem auto;
+
+  @include respond(xs) {
+    font-size: 1.6rem;
+    padding: 1.6rem 3rem;
+    min-width: unset;
+    width: 100%;
+    margin-bottom: 5rem;
+  }
 }

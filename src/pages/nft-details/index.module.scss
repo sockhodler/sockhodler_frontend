@@ -1,23 +1,48 @@
+@import "styles/abstract/mixins";
+
 .title {
   font-size: 6rem;
   margin-bottom: 5rem;
   font-family: var(--fonts-made-soulmaze);
   font-weight: normal;
   text-align: center;
+
+  @include respond(md) {
+    font-size: 4rem;
+  }
+
+  @include respond(xs) {
+    font-size: 2rem;
+    margin-bottom: 4rem;
+  }
 }
 
 .grid {
   display: flex;
   margin-bottom: 5.9rem;
+
+  @include respond(sm) {
+    flex-direction: column-reverse;
+    margin-bottom: 4rem;
+  }
 }
 
 .left {
   flex: 1 1 auto;
   margin-right: 6.5rem;
+
+  @include respond(sm) {
+    margin-right: 0;
+    margin-top: 3rem;
+  }
 }
 
 .card {
   padding: 4rem;
+
+  @include respond(sm) {
+    padding: 2.2rem;
+  }
 }
 
 .info {
@@ -29,6 +54,11 @@
     font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 3rem;
+
+    @include respond(xs) {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 
   &__list {
@@ -45,6 +75,10 @@
     display: flex;
     flex-direction: column;
     font-size: 2.4rem;
+
+    @include respond(xs) {
+      font-size: 1.6rem;
+    }
 
     & span:nth-child(1) {
       margin-bottom: 1rem;
@@ -68,6 +102,18 @@
     width: 40rem;
     border-radius: 3rem;
     border: 0.1rem solid var(--color-dark-violet-1);
+
+    @include respond(sm) {
+      margin: 0 auto;
+      height: 30rem;
+      width: 30rem;
+    }
+
+    @include respond(xs) {
+      height: 15rem;
+      width: 15rem;
+      border-radius: 1.5rem;
+    }
   }
 
   &__divider {
@@ -75,14 +121,27 @@
     height: 0.1rem;
     width: 100%;
     background-color: var(--color-dark-violet-4);
+
+    @include respond(sm) {
+      margin: 3rem 0;
+    }
   }
 
   &__btn {
     font-size: 2rem;
     padding: 3rem 5rem;
 
+    @include respond(xs) {
+      font-size: 1.6rem;
+      padding: 1.6rem 3rem;
+    }
+
     &:first-of-type {
       margin-bottom: 2.1rem;
+
+      @include respond(xs) {
+        margin-bottom: 1.1rem;
+      }
     }
   }
 }

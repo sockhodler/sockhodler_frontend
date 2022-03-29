@@ -23,16 +23,14 @@ export const AssetsList: React.FunctionComponent<Props> = ({ items }) => {
         {items.map((item) => (
           <li className={classes.item} key={item.title}>
             <img src={item.img} alt="" className={classes.img} />
-            <div className={classes.info}>
-              <span className={classes.info__title}>{item.title}</span>
-              <div className={classes.info__details}>
-                {item.details.map((detail) => (
-                  <div className={classes.info__detail} key={detail.label}>
-                    <span>{detail.label}</span>
-                    <span>{detail.value}</span>
-                  </div>
-                ))}
-              </div>
+            <span className={classes.title}>{item.title}</span>
+            <div className={classes.details}>
+              {item.details.map((detail) => (
+                <div className={classes.detail} key={detail.label}>
+                  <span>{detail.label}</span>
+                  <span>{detail.value}</span>
+                </div>
+              ))}
             </div>
             <Button accent="red" className={classes.btn}>
               View NFT
