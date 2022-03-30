@@ -21,8 +21,8 @@ export const Home: React.FunctionComponent = () => {
         },
       ]}
     >
-      {/* <AuthenticateTab for="authenticate" /> */}
-      <AuthenticateTabError for="authenticate" type="auth-code-not-valid" />
+      <AuthenticateTab for="authenticate" />
+      {/* <AuthenticateTabError for="authenticate" type="auth-code-not-valid" /> */}
       <DashboardTab for="dashboard" />
     </Layout>
   );

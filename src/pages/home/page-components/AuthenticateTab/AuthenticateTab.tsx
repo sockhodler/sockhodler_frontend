@@ -4,6 +4,9 @@ import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import { ReactComponent as CheckCircleIcon } from "assets/icons/check-circle.svg";
 import { LayoutTab, Button, NFTInfo } from "components";
 import classes from "./AuthenticateTab.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { setModalStep } from "redux/wallet/wallet-slice";
+import { RootState } from "redux/rootReducer";
 
 interface Props {
   for: string;
@@ -46,12 +49,23 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   for: tabFor,
 }) => {
   const query = useQuery();
+  const dispatch = useDispatch();
+  const { connected } = useSelector((state: RootState) => state.wallets);
 
   const tid = query.get("tid");
   const cid = query.get("cid");
   const pl = query.get("pl");
 
   console.log("query", query.get("tab"));
+
+  const handleRedeemNFTClick = () => {
+    if (connected) {
+      console.log("redeem click");
+    } else {
+      dispatch(setModalStep(1));
+    }
+  };
+
   return (
     <LayoutTab for={tabFor}>
       <section className={classes.content}>
@@ -80,7 +94,11 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
               feugiat nulla facilisis at vero
             </p>
           </div>
-          <Button size="huge" className={classes.nft__action}>
+          <Button
+            size="huge"
+            className={classes.nft__action}
+            onClick={handleRedeemNFTClick}
+          >
             REDEEM NFT
           </Button>
         </div>
