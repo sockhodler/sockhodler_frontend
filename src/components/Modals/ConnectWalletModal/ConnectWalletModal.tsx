@@ -150,7 +150,7 @@ export const ConnectWalletModal: React.FunctionComponent<Props> = ({
         showIndicators={false}
         showThumbs={false}
         showArrows={false}
-        selectedItem={step - 1}
+        selectedItem={0} /* {step - 1} */
         swipeable={false}
       >
         {/* welcome step */}

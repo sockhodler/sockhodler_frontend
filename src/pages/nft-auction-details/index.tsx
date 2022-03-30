@@ -60,6 +60,13 @@ const details = [
   },
 ];
 
+const faqItems = [
+  {
+    title: "This is a test",
+    body: "lorem ipsum dollar emit",
+  },
+];
+
 export const NFTAuctionDetails: React.FunctionComponent = () => {
   return (
     <Layout>
@@ -74,6 +81,7 @@ export const NFTAuctionDetails: React.FunctionComponent = () => {
         onActionClick={() => console.log("on action click")}
         info={infoItems}
         details={details}
+        faqItems={faqItems}
       />
     </Layout>
   );

@@ -1,6 +1,13 @@
+@import "styles/abstract/mixins";
+
 .card {
   padding: 0 4rem;
   border-radius: 3rem;
+
+  @include respond(xs) {
+    padding: 0 1.6rem;
+    border-radius: 1.5rem;
+  }
 }
 
 .list {
@@ -12,8 +19,20 @@
 .item {
   padding: 4rem 0;
   border-bottom: 0.1rem solid var(--color-dark-violet-4);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
   align-items: center;
+
+  @include respond(md) {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(3, auto);
+  }
+
+  @include respond(xs) {
+    padding: 1.6rem;
+    padding: 1.6rem 0;
+  }
 
   &:last-of-type {
     border-bottom: none;
@@ -26,44 +45,76 @@
   border-radius: 1.5rem;
   border: 0.1rem solid var(--color-dark-violet-1);
   margin-right: 3rem;
+  grid-row: 1 / -1;
+
+  @include respond(md) {
+    grid-row: 1 / span 1;
+    margin-bottom: 1.2rem;
+    margin-right: 2.7rem;
+  }
+
+  @include respond(xs) {
+    height: 7.5rem;
+    width: 7.5rem;
+    border-radius: 1.5rem;
+  }
 }
 
-.info {
+.title {
+  margin-bottom: 2rem;
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-red);
+  grid-column: 2 / span 1;
+  align-self: flex-end;
+
+  @include respond(md) {
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  @include respond(sm) {
+    font-size: 1.6rem;
+  }
+}
+
+.details {
+  display: flex;
+  align-items: flex-start;
+  grid-column: 2 / span 1;
+  align-self: flex-start;
+
+  & > * + * {
+    margin-left: 3rem;
+  }
+
+  @include respond(md) {
+    grid-column: 1 / -1;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3.7rem;
+  }
+}
+
+.detail {
   display: flex;
   flex-direction: column;
-  margin-right: auto;
+  font-size: 2.4rem;
+  font-weight: 700;
 
-  &__title {
-    margin-bottom: 2rem;
-    font-size: 2.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
+  @include respond(sm) {
+    font-size: 1.6rem;
+  }
+
+  & span:first-of-type {
     color: var(--color-red);
+    margin-bottom: 1rem;
   }
 
-  &__details {
-    display: flex;
-    align-items: flex-start;
-
-    & > * + * {
-      margin-left: 3rem;
-    }
-  }
-
-  &__detail {
-    display: flex;
-    flex-direction: column;
-    font-size: 2.4rem;
-    font-weight: 700;
-
-    & span:first-of-type {
-      color: var(--color-red);
-      margin-bottom: 1rem;
-    }
-
-    & span:last-of-type {
-      font-weight: 400;
-    }
+  & span:last-of-type {
+    font-weight: 400;
   }
 }
 
@@ -72,4 +123,17 @@
   padding: 3rem 5rem;
   flex: 0 1 25.4rem;
   margin-left: 14rem;
+  grid-row: 1 / -1;
+  grid-column: -2 / -1;
+
+  @include respond(md) {
+    grid-column: 1 / -1;
+    grid-row: -2 / -1;
+    margin-left: 0;
+  }
+
+  @include respond(sm) {
+    font-size: 1.6rem;
+    padding: 1.6rem 3rem;
+  }
 }

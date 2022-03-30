@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -13,6 +15,11 @@
   border-radius: 1.5rem;
   background-color: (--color-dark-6);
   padding: 2rem;
+
+  @include respond(xs) {
+    padding: 1.2rem 1.8rem;
+    border-radius: 1rem;
+  }
 
   &:focus {
     outline: none;
@@ -35,6 +42,11 @@
   font-size: 2rem;
   margin-bottom: 1.4rem;
 
+  @include respond(md) {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
   span {
     color: var(--color-cyan);
   }
@@ -47,6 +59,16 @@
     border: none;
     border-bottom: 0.1rem solid var(--color-dark-violet-4);
     border-radius: 0;
+
+    @include respond(xs) {
+      padding: 0.4rem 0;
+    }
+
+    &:focus {
+      outline: none;
+      background: none;
+      border-color: none;
+    }
   }
 
   & .input::placeholder {
@@ -75,6 +97,15 @@
   .input {
     padding: 2.1rem 1.7rem;
     font-size: 2rem;
+
+    @include respond(md) {
+      padding: 1.4rem 1.7rem;
+      font-size: 1.8rem;
+    }
+
+    @include respond(xs) {
+      font-size: 1.6rem;
+    }
 
     &::placeholder {
       font-weight: 400;

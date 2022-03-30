@@ -61,6 +61,7 @@ export const NftStaking: React.FunctionComponent = () => {
             value: "partner-pools",
           },
         ]}
+        mobileSize="small"
       >
         <Tab for="base-collection">
           <StakingGrid list={items} />

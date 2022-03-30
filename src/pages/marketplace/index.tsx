@@ -36,6 +36,7 @@ export const Marketplace: React.FunctionComponent = () => {
             value: "collabs",
           },
         ]}
+        mobileSize="small"
       >
         <Tab for="base-collection">
           <NFTGrid

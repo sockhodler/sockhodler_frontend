@@ -1,7 +1,14 @@
+@import "styles/abstract/mixins";
+
 .container {
   padding: 3.2rem 3.5rem;
   border-radius: 3rem;
   border: 0.1rem solid var(--color-dark-violet-1);
+
+  @include respond(xs) {
+    padding: 0.9rem 1.2rem 1.7rem 1.2rem;
+    border-radius: 1.5rem;
+  }
 }
 
 .header {
@@ -9,6 +16,14 @@
   border-bottom: 0.1rem solid var(--color-dark-violet-4);
   margin-bottom: 3.2rem;
   font-size: 2.2rem;
+
+  @include respond(xs) {
+    font-size: 1.6rem;
+    padding: 0 1.2rem 0.9rem 1.2rem;
+    margin-bottom: 1.2rem;
+    margin-left: -1.2rem;
+    margin-right: -1.2rem;
+  }
 }
 
 .row {
@@ -16,25 +31,53 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  @include respond(md) {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: repeat(3, auto);
+  }
 }
 
 .column {
   &:nth-child(1) {
     margin-right: 4.1rem;
+
+    @include respond(md) {
+      margin-right: 0;
+      grid-row: 1 / span 2;
+    }
   }
 
   &:nth-child(3) {
     margin-left: 4.5rem;
     margin-right: 4.5rem;
+
+    @include respond(md) {
+      grid-column: 3 / -1;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   &:nth-child(5) {
     margin-left: 7.4rem;
     margin-right: 7.4rem;
+
+    @include respond(md) {
+      grid-column: 3 / -1;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   &:nth-child(7) {
     margin-left: 9.7rem;
+
+    @include respond(md) {
+      grid-column: 1 / -1;
+      margin-left: 0;
+    }
   }
 }
 
@@ -42,12 +85,28 @@
   width: 17rem;
   height: 17rem;
   border-radius: 3rem;
+
+  @include respond(xs) {
+    width: 12.8rem;
+    height: 12.8rem;
+    border-radius: 1.5rem;
+  }
 }
 
 .divider {
   height: 13.1rem;
   width: 0.1rem;
   background-color: var(--color-dark-violet-4);
+
+  @include respond(md) {
+    display: none;
+
+    &:nth-child(2) {
+      display: block;
+      margin: 0 1.8rem 0 1.5rem;
+      grid-row: 1 / span 2;
+    }
+  }
 }
 
 .details {
@@ -58,12 +117,28 @@
   & > * + * {
     margin-top: 0.7rem;
   }
+
+  @include respond(md) {
+    margin-bottom: 2rem;
+
+    & > * + * {
+      margin-top: 0.4rem;
+    }
+  }
+
+  @include respond(xs) {
+    margin-bottom: 1rem;
+  }
 }
 
 .detail {
   display: flex;
   align-items: baseline;
   font-size: 1.4rem;
+
+  @include respond(xs) {
+    font-size: 1.2rem;
+  }
 
   & span:first-of-type {
     font-weight: 700;
@@ -77,22 +152,38 @@
   font-size: 1.4rem;
   margin-bottom: 2rem;
 
+  @include respond(md) {
+    margin-bottom: 1rem;
+  }
+
+  @include respond(xs) {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
   & span:first-of-type {
     font-weight: 700;
     margin-bottom: 0.4rem;
   }
 }
 
-.action {
-  margin-bottom: 1.4rem;
-  width: 100%;
-}
-
 .actions {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+  grid-row-gap: 1.4rem;
+
+  @include respond(md) {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 2rem;
+  }
 
   button {
-    font-size: 1.2rem;
+    &:nth-child(1) {
+      grid-column: 1 / -1;
+    }
   }
 }

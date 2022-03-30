@@ -37,25 +37,24 @@ export const NFTDetails: React.FunctionComponent<Props> = ({
       <Card className={classes.nft}>
         <div className={classes.header}>{title}</div>
 
-        <div className={classes.left}>
-          <img src={imgSrc} alt="" className={classes.img} />
-          {faqItems && faqItems.length > 0 ? (
-            <div className={classes["faq-list"]}>
-              {faqItems.map((faq) => (
-                <Accordion
-                  title={faq.title}
-                  body={faq.body}
-                  isOpen={faq.isOpen}
-                />
-              ))}
-            </div>
-          ) : null}
-        </div>
+        <img src={imgSrc} alt="" className={classes.img} />
+        {faqItems && faqItems.length > 0 ? (
+          <div className={classes["faq-list"]}>
+            {faqItems.map((faq) => (
+              <Accordion
+                title={faq.title}
+                body={faq.body}
+                isOpen={faq.isOpen}
+              />
+            ))}
+          </div>
+        ) : null}
 
-        <div className={classes.right}>
+        <div className={classes["info-container"]}>
           <Button size="large" accent="red" onClick={onActionClick}>
             {actionLabel}
           </Button>
+
           <Card className={classes.info}>
             {info.map((item) => (
               <div className={classes.info__item} key={item.title}>
@@ -80,18 +79,18 @@ export const NFTDetails: React.FunctionComponent<Props> = ({
               </div>
             ))}
           </Card>
+        </div>
 
-          <div className={classes.details}>
-            {details.map((detail) => (
-              <NFTInfo
-                key={detail.name}
-                name={detail.name}
-                value={detail.value}
-                to={detail.to}
-                size="small"
-              />
-            ))}
-          </div>
+        <div className={classes.details}>
+          {details.map((detail) => (
+            <NFTInfo
+              key={detail.name}
+              name={detail.name}
+              value={detail.value}
+              to={detail.to}
+              size="small"
+            />
+          ))}
         </div>
       </Card>
     </div>

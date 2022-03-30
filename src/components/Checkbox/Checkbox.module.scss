@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .container {
   display: flex;
   align-items: center;
@@ -31,6 +33,13 @@
   margin-right: 1.9rem;
   border: 0.1rem solid var(--color-dark-violet-4);
 
+  @include respond(xs) {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+  }
+
   svg {
     height: 100%;
     width: auto;
@@ -47,4 +56,8 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  @include respond(xs) {
+    margin-right: 1.6rem;
+  }
 }

@@ -22,13 +22,13 @@
 
 // header
 .header {
-  padding: 3.7rem 6.4rem 5.4rem 6.4rem;
+  padding: 3rem 6.4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   @include respond(lg) {
-    padding: 3rem 4rem;
+    padding: 2rem 4rem;
   }
 
   @include respond(sm) {
@@ -36,7 +36,7 @@
   }
 
   @include respond(xs) {
-    padding: 3.8rem 1.5rem;
+    padding: 2rem 1.5rem;
     background: linear-gradient(
       to bottom,
       var(--color-dark-violet),

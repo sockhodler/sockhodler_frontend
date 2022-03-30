@@ -40,6 +40,11 @@ input {
 
 button {
   cursor: pointer;
+  color: inherit;
+
+  * {
+    color: inherit;
+  }
 }
 
 img {

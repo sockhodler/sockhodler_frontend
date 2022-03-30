@@ -1,3 +1,5 @@
+@import "styles/abstract/mixins";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -13,6 +15,10 @@
   border: none;
   color: var(--color-dark-violet-4);
 
+  @include respond(xs) {
+    padding: 1rem;
+  }
+
   &:focus {
     outline: none;
   }
@@ -22,6 +28,10 @@
     font-size: 1.8rem;
     text-align: left;
     color: var(--color-white);
+
+    @include respond(xs) {
+      font-size: 1.4rem;
+    }
   }
 
   &__divider {
@@ -36,6 +46,10 @@
     height: 1.4rem;
     width: auto;
     transition: all 0.3s ease-in-out;
+
+    @include respond(xs) {
+      margin-left: 1.3rem;
+    }
   }
 
   &--open {

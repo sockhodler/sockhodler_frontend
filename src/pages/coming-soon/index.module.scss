@@ -1,7 +1,13 @@
+@import "styles/abstract/mixins";
+
 .container {
   display: flex;
   flex-direction: column;
   padding: 10rem 0;
+
+  @include respond(xs) {
+    padding: 2rem 0;
+  }
 }
 
 .title {
@@ -10,9 +16,18 @@
   font-family: var(--fonts-made-soulmaze);
   font-weight: normal;
   text-align: center;
+
+  @include respond(xs) {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+  }
 }
 
 .info {
   font-size: 3rem;
   text-align: center;
+
+  @include respond(xs) {
+    font-size: 2rem;
+  }
 }

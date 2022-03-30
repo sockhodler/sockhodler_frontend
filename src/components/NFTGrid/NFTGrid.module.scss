@@ -1,6 +1,12 @@
+@import "styles/abstract/mixins";
+
 .grid {
   &__header {
     margin-bottom: 2.6rem;
+
+    @include respond(xs) {
+      margin-bottom: 1.2rem;
+    }
 
     a {
       display: flex;
@@ -8,6 +14,10 @@
       font-size: 1.6rem;
       text-transform: uppercase;
       color: var(--color-dark-violet-4);
+
+      @include respond(xs) {
+        font-size: 1.4rem;
+      }
 
       span {
         text-decoration: underline;
@@ -21,6 +31,11 @@
         margin-right: 1rem;
         height: 1.4rem;
         width: auto;
+
+        @include respond(xs) {
+          height: 1rem;
+          margin-right: 0.4rem;
+        }
       }
     }
   }
@@ -31,6 +46,11 @@
     grid-gap: 7.8rem;
     justify-content: center;
     margin-bottom: 8.5rem;
+
+    @include respond(xs) {
+      margin-bottom: 4rem;
+      grid-gap: 1.7rem;
+    }
   }
 
   &__load-more {
@@ -38,5 +58,9 @@
     margin: 0 auto;
     width: 100%;
     display: block;
+
+    @include respond(xs) {
+      max-width: 16.5rem;
+    }
   }
 }
