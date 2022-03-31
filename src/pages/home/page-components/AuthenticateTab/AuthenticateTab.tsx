@@ -7,6 +7,10 @@ import classes from "./AuthenticateTab.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalStep } from "redux/wallet/wallet-slice";
 import { RootState } from "redux/rootReducer";
+import {
+  asyncRedeemNFTSendEmail,
+  EmailLoadingId,
+} from "redux/email/email-slice";
 
 interface Props {
   for: string;
@@ -50,7 +54,12 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
 }) => {
   const query = useQuery();
   const dispatch = useDispatch();
-  const { connected } = useSelector((state: RootState) => state.wallets);
+  const { connected, userInfo, selectedAccount } = useSelector(
+    (state: RootState) => state.wallets
+  );
+  const { loading: emailLoading } = useSelector(
+    (state: RootState) => state.email
+  );
 
   const tid = query.get("tid");
   const cid = query.get("cid");
@@ -59,8 +68,15 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   console.log("query", query.get("tab"));
 
   const handleRedeemNFTClick = () => {
-    if (connected) {
-      console.log("redeem click");
+    if (connected && userInfo.username && userInfo.email) {
+      const params = {
+        publicAddress: selectedAccount,
+        username: userInfo.username,
+        email: userInfo.email,
+        nftName: "comingSoon",
+        asaId: "comingSoon",
+      };
+      dispatch(asyncRedeemNFTSendEmail(params));
     } else {
       dispatch(setModalStep(1));
     }
@@ -99,7 +115,9 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
             className={classes.nft__action}
             onClick={handleRedeemNFTClick}
           >
-            REDEEM NFT
+            {emailLoading.includes(EmailLoadingId.REDEEM_NFT_EMAIL)
+              ? "Loading..."
+              : "REDEEM NFT"}
           </Button>
         </div>
 

@@ -1,6 +1,5 @@
-
 export interface ClearUserParams {
-    email: string;
-    username: string;
-    publicAddress?: string;
+  email: string;
+  username: string;
+  publicAddress?: string;
 }
