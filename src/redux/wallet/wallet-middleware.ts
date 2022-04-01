@@ -22,6 +22,7 @@ export const walletMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
     if (asyncCheckUser.fulfilled.match(action)) {
       if (action.payload.data?.status === "not found") {
         dispatch(setIsNew(true));
+        console.log("not found");
         dispatch(setModalStep(2));
       } else if (action.payload.data?.email) {
         if (action.payload.data?.verified === true) {
