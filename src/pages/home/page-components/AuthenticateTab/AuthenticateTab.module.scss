@@ -29,7 +29,7 @@
   }
 
   @include respond(xs) {
-    font-size: 2rem;
+    font-size: 3rem;
     margin-bottom: 1rem;
   }
 }
@@ -48,7 +48,7 @@
   }
 
   @include respond(xs) {
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     margin-bottom: 4.7rem;
   }
 }
@@ -108,7 +108,7 @@
     }
 
     @include respond(xs) {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       margin-bottom: 1.7rem;
     }
   }
@@ -120,7 +120,7 @@
     margin-bottom: auto;
 
     @include respond(xs) {
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       padding-bottom: 0;
       margin-bottom: 0;
     }

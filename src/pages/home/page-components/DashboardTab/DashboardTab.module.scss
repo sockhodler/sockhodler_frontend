@@ -17,8 +17,9 @@
   }
 
   @include respond(xs) {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 3rem;
+    margin: 2rem 0;
+
   }
 }
 
@@ -77,7 +78,7 @@
     font-family: var(--fonts-made-soulmaze);
 
     @include respond(xs) {
-      font-size: 1.7rem;
+      font-size: 2.4rem;
       margin-bottom: 1.1rem;
     }
   }
@@ -88,7 +89,7 @@
     font-size: 2.8rem;
 
     @include respond(xs) {
-      font-size: 1.6rem;
+      font-size: 2rem;
       margin-bottom: 1.5rem;
     }
   }
@@ -100,7 +101,7 @@
     margin-bottom: auto;
 
     @include respond(xs) {
-      font-size: 1.4rem;
+      font-size: 1.8rem;
     }
 
     /* button {
@@ -289,7 +290,7 @@
     margin-bottom: 0.9rem;
 
     @include respond(xs) {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       margin-bottom: 0.5rem;
     }
   }
@@ -308,14 +309,14 @@
       font-size: 1.6rem;
 
       @include respond(xs) {
-        font-size: 1.4rem;
-        font-weight: 300;
+        font-size: 1.7rem;
+        font-weight: 400;
       }
     }
   }
 
   &__text {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     line-height: 1.5;
   }
 

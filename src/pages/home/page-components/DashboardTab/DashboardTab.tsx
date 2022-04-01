@@ -62,10 +62,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
             <span className={classes.nft__subtitle}>Algopard #488</span>
             <p className={classes.nft__details}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse bibendum tortor ac auctor sollicitudin. Aliquam
-              sodales interdum Duis autem vel eum iriure dolor in hendrerit in
-              vulputate velit esse molestie consequat, vel illum dolore eu
-              feugiat nulla facilisis at vero
+              Suspendisse bibendum tortor ac auctor sollicitudin.
             </p>
             <Button size="huge">BID ON ALGOXNFT</Button>
           </div>

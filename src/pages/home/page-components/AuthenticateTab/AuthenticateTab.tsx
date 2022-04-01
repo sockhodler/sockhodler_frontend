@@ -105,9 +105,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
             <p className={classes.nft__details}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Suspendisse bibendum tortor ac auctor sollicitudin. Aliquam
-              sodales interdum Duis autem vel eum iriure dolor in hendrerit in
-              vulputate velit esse molestie consequat, vel illum dolore eu
-              feugiat nulla facilisis at vero
+              sodales interdum.
             </p>
           </div>
           <Button
