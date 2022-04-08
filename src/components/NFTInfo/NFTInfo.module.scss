@@ -17,6 +17,7 @@
     border-radius: 1.5rem;
     padding: 1rem 2rem;
     font-size: 1.7rem;
+    height: 6rem; // Added by Coco - Height was incorrect on mobile device
   }
 
   @include respond(xs) {

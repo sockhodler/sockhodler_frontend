@@ -28,13 +28,13 @@ const details = [
     to: "/",
   },
   {
-    name: "Owner Address",
-    value: "SOCKSV3B6CDAE5R4BS5...",
+    name: "Owner",
+    value: "SOCKSV3B6CDAE...",
     to: "/",
   },
   {
-    name: "Creator Address",
-    value: "SOCKSV3B6CDAE5R4BS53...",
+    name: "Creator",
+    value: "SOCKSV3B6CDAE...",
     to: "/",
   },
   {
@@ -43,7 +43,7 @@ const details = [
     to: "/",
   },
   {
-    name: "Circulating Supply",
+    name: "Circ. Supply",
     value: "2",
     to: "/",
   },
@@ -100,8 +100,8 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
             className={classes.nft__img}
           />
 
-          <span className={classes.nft__title}>SockHodler 1/250</span>
           <div className={classes.nft__info}>
+            <span className={classes.nft__title}>SockHodler 1/250</span>
             <p className={classes.nft__details}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Suspendisse bibendum tortor ac auctor sollicitudin. Aliquam

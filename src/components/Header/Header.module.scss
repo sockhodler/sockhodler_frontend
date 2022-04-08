@@ -276,7 +276,7 @@
     white-space: nowrap;
     border-radius: 10rem;
     flex: 1 1 auto;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.35s ease-in-out;
 
     @include respond(lg) {
       padding: 1.3rem 2.5rem;

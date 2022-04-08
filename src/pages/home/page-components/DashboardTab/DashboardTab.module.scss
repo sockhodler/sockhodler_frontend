@@ -18,7 +18,7 @@
 
   @include respond(xs) {
     font-size: 3rem;
-    margin: 2rem 0;
+    margin: 4rem 0;
 
   }
 }
@@ -47,7 +47,9 @@
   }
 
   @include respond(xs) {
-    grid-column-gap: 2rem;
+    grid-gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__img {
@@ -62,14 +64,22 @@
     }
 
     @include respond(xs) {
-      width: 14.7rem;
-      height: 14.7rem;
+      width: 30rem;
+      height: 30rem;
+      display: block;
+      margin: 0 auto 1rem auto;
     }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
+
+    @include respond(xs) {
+      margin: auto;
+      width: 30rem;
+      text-align: center;
+    }
   }
 
   &__title {
@@ -159,6 +169,10 @@
   background-position: center;
   background-size: cover;
 
+  @include respond(xs) {
+    margin-top: 4rem;
+  }
+
   &::before {
     content: " ";
     position: absolute;
@@ -229,6 +243,10 @@
   display: flex;
   flex-direction: column;
 
+  @include respond(xs) {
+    margin-top: 2em;
+  }
+
   &__content {
     padding: 3.3rem 3.7rem;
 
@@ -263,6 +281,8 @@
 
     @include respond(xs) {
       grid-gap: 1rem;
+      flex-direction: column;
+      padding: 2rem;
     }
   }
 
@@ -273,9 +293,10 @@
     flex-shrink: 0;
 
     @include respond(xs) {
-      width: 14.7rem;
-      height: 14.7rem;
+      width: 30rem;
+      height: 30rem;
       border-radius: 1.5rem;
+      margin: auto;
     }
   }
 
@@ -283,15 +304,20 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+
+    @include respond(xs) {
+      margin-top: 2em;
+    }
   }
 
   &__name {
     font-size: 1.8rem;
     margin-bottom: 0.9rem;
+    font-weight: 800;
 
     @include respond(xs) {
-      font-size: 1.7rem;
-      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
   }
 
@@ -520,7 +546,7 @@
     top: 0;
     bottom: 0;
     z-index: 2;
-    right: 0;
+    right: .5rem;
     background: none;
     border: none;
 
@@ -530,7 +556,7 @@
 
     &[data-prev] {
       transform: rotate(180deg);
-      left: 0;
+      left: .5rem;
       right: unset;
     }
 
@@ -538,6 +564,10 @@
       width: 3.2rem;
       height: auto;
       display: flex;
+
+      @include respond(xs) {
+        width: 2.5rem;
+      }
     }
   }
 
@@ -546,7 +576,7 @@
     padding: 0 6.5rem;
 
     @include respond(xs) {
-      padding: 0 5.5rem;
+      padding: 0 4rem;
     }
 
     & p {
@@ -555,7 +585,7 @@
       text-align: left;
 
       @include respond(xs) {
-        font-size: 1.4rem;
+        font-size: 1.7rem;
       }
     }
   }

@@ -1,5 +1,17 @@
 @import "styles/abstract/mixins";
 
+
+@keyframes glow {
+  from {
+    filter: drop-shadow( 0 0 .25rem rgba(138, 38, 153, 1));
+    -webkit-filter: drop-shadow( 0 0 .25rem rgba(138, 38, 153, 1));
+  }
+  to {
+    filter: drop-shadow( 0 0 1rem rgba(252, 1, 116, 0.75));
+    -webkit-filter: drop-shadow( 0 0 1rem rgba(252, 1, 116, .5));
+  }
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -10,10 +22,11 @@
   height: 15rem;
   width: 15rem;
   margin-bottom: 3.2rem;
+  animation: glow 3s ease-in-out infinite alternate;
 
   @include respond(xs) {
-    height: 6.6rem;
-    width: 6.6rem;
+    height: 10rem;
+    width: 10rem;
   }
 }
 
@@ -54,11 +67,9 @@
 }
 
 .nft {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-column-gap: 6.4rem;
-  margin-bottom: 4.1rem;
+  display: flex;
+  grid-gap: 6.4rem;
+  margin-bottom: 2.1rem;
   width: 100%;
 
   @include respond(md) {
@@ -66,63 +77,63 @@
   }
 
   @include respond(xs) {
-    grid-column-gap: 1.7rem;
+    grid-gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 4.7rem;
   }
 
   &__img {
-    height: 54.7rem;
-    width: 54.7rem;
+    height: 56rem;
+    width: 56rem;
     border-radius: 3rem;
-    flex-shrink: 0;
-    grid-column: 1 / span 1;
-    grid-row: 1 / -1;
 
     @include respond(md) {
       height: 30rem;
       width: 30rem;
       border-radius: 1.5rem;
-      grid-row: 2 / -1;
     }
 
     @include respond(xs) {
-      width: 17.5rem;
-      height: 17.5rem;
+      width: 30rem;
+      height: 30rem;
+      display: block;
+      margin: 0 auto 1rem auto;
     }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
-    flex: 1 1 auto;
+
+    @include respond(xs) {
+      margin: auto;
+      width: 30rem;
+      text-align: center;
+    }
   }
 
   &__title {
-    font-size: 3.2rem;
-    margin-bottom: 1.8rem;
+    font-size: 3.6rem;
+    margin-bottom: 1.84rem;
     font-family: var(--fonts-made-soulmaze);
 
-    @include respond(md) {
-      grid-column: 1 / -1;
-      grid-row: 1 / span 1;
-      text-align: center;
-    }
-
     @include respond(xs) {
-      font-size: 2.2rem;
-      margin-bottom: 1.7rem;
+      font-size: 2.4rem;
+      margin-bottom: 1.1rem;
     }
   }
 
   &__details {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     line-height: 1.5;
     padding-bottom: 3rem;
     margin-bottom: auto;
 
     @include respond(xs) {
       font-size: 1.8rem;
+      margin-bottom: 1rem;
       padding-bottom: 0;
-      margin-bottom: 0;
     }
 
     /* button {
@@ -139,9 +150,14 @@
   }
 
   &__action {
+
     @include respond(md) {
       grid-column: 1 / -1;
       margin-top: 2rem;
+    }
+
+    @include respond(xs) {
+      margin-top: 0;
     }
   }
 }
