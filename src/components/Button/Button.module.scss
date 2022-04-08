@@ -9,7 +9,9 @@
   padding: 1.5rem 3rem;
   background: linear-gradient(
     -45deg,
-    var(--color-dark-1),
+    var(--color-violet-1),
+    var(--color-hot-pink),
+    var(--color-purple-1),
     var(--color-dark-violet-1)
   );
   background-size: 400%, 400%;
@@ -19,12 +21,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.1s ease-in-out;
-  animation: gradientanimation 5s ease-in-out infinite;
+  transition: all 0.35s ease-in-out;
+  animation: gradientanimation 10s ease-in-out infinite;
 
   &:hover {
     background: linear-gradient(
-      to left,
+      -45deg,
       var(--color-purple-1),
       var(--color-dark-1)
     );
@@ -151,8 +153,8 @@
 
   @include respond(xs) {
     font-size: 1.7rem;
-    padding: 1rem;
-    border-radius: 1rem;
+    padding: 2rem;
+    border-radius: 1.5rem;
   }
 }
 
