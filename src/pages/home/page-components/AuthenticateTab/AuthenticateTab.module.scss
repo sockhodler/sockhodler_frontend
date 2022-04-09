@@ -69,11 +69,18 @@
 .nft {
   display: flex;
   grid-gap: 6.4rem;
-  margin-bottom: 2.1rem;
+  margin-bottom: 4rem;
   width: 100%;
 
   @include respond(md) {
     grid-column-gap: 3rem;
+  }
+
+  @include respond(sm) {
+    grid-gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 4.7rem;
   }
 
   @include respond(xs) {
@@ -84,9 +91,10 @@
   }
 
   &__img {
-    height: 56rem;
-    width: 56rem;
+    height: 40rem;
+    width: 40rem;
     border-radius: 3rem;
+    margin: auto;
 
     @include respond(md) {
       height: 30rem;
@@ -94,22 +102,37 @@
       border-radius: 1.5rem;
     }
 
+    @include respond(sm) {
+      width: 30rem;
+      height: 30rem;
+      display: block;
+      margin: 0 auto 2rem auto;
+    }
+
     @include respond(xs) {
       width: 30rem;
       height: 30rem;
       display: block;
-      margin: 0 auto 1rem auto;
+      margin: 0 auto 2rem auto;
     }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
+    width: 60rem;
+    margin:auto auto auto 0;
+
+    @include respond(sm) {
+      margin: auto;
+      text-align: center;
+      width: 100%;
+    }
 
     @include respond(xs) {
       margin: auto;
-      width: 30rem;
       text-align: center;
+      width: 100%;
     }
   }
 
@@ -132,8 +155,20 @@
 
     @include respond(xs) {
       font-size: 1.8rem;
-      margin-bottom: 1rem;
+      margin-bottom: 4rem;
       padding-bottom: 0;
+    }
+
+    &__action {
+
+
+      @include respond(md) {
+
+      }
+
+      @include respond(xs) {
+
+      }
     }
 
     /* button {
@@ -149,29 +184,20 @@
     } */
   }
 
-  &__action {
-
-    @include respond(md) {
-      grid-column: 1 / -1;
-      margin-top: 2rem;
-    }
-
-    @include respond(xs) {
-      margin-top: 0;
-    }
-  }
 }
 
 .details {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   grid-column-gap: 5.6rem;
   grid-row-gap: 3.3rem;
   align-self: stretch;
+  margin-top: 4rem;
 
   @include respond(xs) {
     flex-direction: column;
   }
+
 }
 
 .detail {
