@@ -78,9 +78,15 @@
       border: none;
       display: flex;
       background: none;
+      transition: all .35s ease-out;
 
       &:focus {
         outline: none;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+
       }
     }
 
