@@ -99,16 +99,16 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
               Suspendisse bibendum tortor ac auctor sollicitudin. Aliquam
               sodales interdum.
             </p>
+            <Button
+              size="huge"
+              className={classes.nft__action}
+              onClick={handleRedeemNFTClick}
+            >
+              {emailLoading.includes(EmailLoadingId.REDEEM_NFT_EMAIL)
+                ? "Loading..."
+                : "REDEEM NFT"}
+            </Button>
           </div>
-          <Button
-            size="huge"
-            className={classes.nft__action}
-            onClick={handleRedeemNFTClick}
-          >
-            {emailLoading.includes(EmailLoadingId.REDEEM_NFT_EMAIL)
-              ? "Loading..."
-              : "REDEEM NFT"}
-          </Button>
         </div>
 
         <div className={classes.details}>

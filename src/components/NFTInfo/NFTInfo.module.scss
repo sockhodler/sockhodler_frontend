@@ -1,7 +1,6 @@
 @import "styles/abstract/mixins";
 
 .info {
-  display: flex;
   align-items: center;
   padding: 1.9rem 3.2rem;
   font-size: 1.8rem;
@@ -10,8 +9,10 @@
     var(--color-dark-1),
     var(--color-dark-violet-1)
   );
-  border-radius: 3rem;
+  border-radius: 2rem;
   border: 0.1rem solid var(--color-violet);
+  flex: 1 1 calc(50% - 5.6rem);
+  display: flex;
 
   @include respond(md) {
     border-radius: 1.5rem;
@@ -37,12 +38,12 @@
 }
 
 .divider {
-  height: 7rem;
+  height: 4rem;
   width: 0.1rem;
   background-color: var(--color-dark-violet-3);
 
   @include respond(md) {
-    height: 5rem;
+    height: 4rem;
   }
 
   @include respond(xs) {
@@ -61,6 +62,10 @@
   color: var(--color-cyan);
   text-decoration: underline;
 
+  &:hover {
+    color: var(--color-white);
+  }
+
   @include respond(xs) {
     margin: 0 1.4rem;
   }
@@ -75,6 +80,10 @@
 
   &:focus {
     outline: none;
+  }
+
+  &:hover {
+    color: var(--color-white);
   }
 
   svg {
