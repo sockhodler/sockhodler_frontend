@@ -16,7 +16,7 @@ export const tagsMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
 
     if (asyncAuthenticateData.fulfilled.match(action)) {
       const { data } = action.payload;
-      if (data?.scan.auth_stat) {
+      if (data?.scan?.auth_stat) {
         switch (data.scan.auth_stat) {
           case 0:
             dispatch(

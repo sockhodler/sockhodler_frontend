@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   TagModel,
+  ScanTagModel,
   GetTagsDataParams,
   ErrorModel,
   DTOModel,
@@ -25,7 +26,7 @@ interface TagsStateModel {
   loading: TagsLoadingId[];
   tags: TagModel[];
   authStatus: AuthStatusModel;
-  authenticatedTag: TagModel | null;
+  authenticatedTag: AuthenticateTagPayload | null;
 }
 
 const initialState: TagsStateModel = {
@@ -33,10 +34,13 @@ const initialState: TagsStateModel = {
   loading: [],
   tags: [],
   authStatus: {
-    statusType: "",
+    statusType: "scan",
     statusMessage: "",
   },
-  authenticatedTag: null,
+  authenticatedTag: {
+    tag: null,
+    scan: null,
+  },
 };
 
 export const asyncAuthenticateData = createAsyncThunk<
@@ -106,6 +110,7 @@ export const tagsSlice = createSlice({
       state.loading = state.loading.filter(
         (id) => id !== TagsLoadingId.AUTHENTICATE_TAG
       );
+      state.authenticatedTag = action.payload.data;
     });
     builder.addCase(asyncAuthenticateData.pending, (state) => {
       state.loading.push(TagsLoadingId.AUTHENTICATE_TAG);

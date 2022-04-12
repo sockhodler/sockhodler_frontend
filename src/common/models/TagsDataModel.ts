@@ -1,8 +1,8 @@
 import { TagModel, ScanTagModel } from "./TagModel";
 
 export interface GetTagsDataParams {
-  tid: string;
-  cid: string;
+  tid?: string;
+  cid?: string;
   pl: string;
 }
 
@@ -13,8 +13,8 @@ export interface AuthenticateTagParams {
 }
 
 export interface AuthenticateTagPayload {
-  tag: TagModel;
-  scan: ScanTagModel;
+  tag: TagModel | null;
+  scan: ScanTagModel | null;
 }
 
 export interface AuthStatusModel {

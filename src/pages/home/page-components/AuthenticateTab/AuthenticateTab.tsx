@@ -1,5 +1,4 @@
 import React from "react";
-import { useQuery } from "hooks";
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import { ReactComponent as CheckCircleIcon } from "assets/icons/check-circle.svg";
 import { LayoutTab, Button, NFTInfo } from "components";
@@ -52,7 +51,6 @@ const details = [
 export const AuthenticateTab: React.FunctionComponent<Props> = ({
   for: tabFor,
 }) => {
-  const query = useQuery();
   const dispatch = useDispatch();
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
@@ -60,12 +58,6 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   const { loading: emailLoading } = useSelector(
     (state: RootState) => state.email
   );
-
-  const tid = query.get("tid");
-  const cid = query.get("cid");
-  const pl = query.get("pl");
-
-  console.log("query", query.get("tab"));
 
   const handleRedeemNFTClick = () => {
     if (connected && userInfo.username && userInfo.email) {

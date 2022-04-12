@@ -6,6 +6,7 @@ export type { DTOModel } from "./DTOModel";
 export type { RegisterUserParams } from "./RegisterUserModel";
 export type { RegisterUserPayload } from "./RegisterUserModel";
 export type { TagModel } from "./TagModel";
+export type { ScanTagModel } from "./TagModel";
 export type { VerifyUserParams } from "./VerifyUserModel";
 export type { VerifyUserPayload } from "./VerifyUserModel";
 export type { GetTagsDataParams } from "./TagsDataModel";
