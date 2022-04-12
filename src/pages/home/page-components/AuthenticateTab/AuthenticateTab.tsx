@@ -10,9 +10,11 @@ import {
   asyncRedeemNFTSendEmail,
   EmailLoadingId,
 } from "redux/email/email-slice";
+import { TagModel } from "common/models";
 
 interface Props {
   for: string;
+  tag: TagModel | null;
 }
 
 const details = [
@@ -50,6 +52,7 @@ const details = [
 
 export const AuthenticateTab: React.FunctionComponent<Props> = ({
   for: tabFor,
+  tag,
 }) => {
   const dispatch = useDispatch();
   const { connected, userInfo, selectedAccount } = useSelector(

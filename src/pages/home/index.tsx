@@ -12,7 +12,9 @@ import {
 
 export const Home: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const { authStatus } = useSelector((state: RootState) => state.tags);
+  const { authStatus, authenticatedTag } = useSelector(
+    (state: RootState) => state.tags
+  );
   const query = useQuery();
   const pl = query.get("pl");
   useEffect(() => {
@@ -39,7 +41,10 @@ export const Home: React.FunctionComponent = () => {
       ]}
     >
       {authStatus.statusType === "Authenticated" && (
-        <AuthenticateTab for="authenticate" />
+        <AuthenticateTab
+          for="authenticate"
+          tag={authenticatedTag?.tag ?? null}
+        />
       )}
       {authStatus.statusType === "Error" && (
         <AuthenticateTabError for="authenticate" type="error" />
