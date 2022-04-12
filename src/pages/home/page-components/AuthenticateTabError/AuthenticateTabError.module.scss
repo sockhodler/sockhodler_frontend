@@ -1,5 +1,28 @@
 @import "styles/abstract/mixins";
 
+
+@keyframes glow {
+  from {
+    filter: drop-shadow( 0 0 .25rem rgba(138, 38, 153, 1));
+    -webkit-filter: drop-shadow( 0 0 .25rem rgba(138, 38, 153, 1));
+  }
+  to {
+    filter: drop-shadow( 0 0 1rem rgba(252, 1, 116, 0.75));
+    -webkit-filter: drop-shadow( 0 0 1rem rgba(252, 1, 116, .5));
+  }
+}
+
+@keyframes subtle-glow {
+  from {
+    filter: drop-shadow( 0 0 1rem rgba(138, 38, 153, .35));
+    -webkit-filter: drop-shadow( 0 0 1rem rgba(138, 38, 153, .35));
+  }
+  to {
+    filter: drop-shadow( 0 0 2rem rgba(138, 38, 153, .35));
+    -webkit-filter: drop-shadow( 0 0 2rem rgba(138, 38, 153, .35));
+  }
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -10,24 +33,40 @@
   height: 15rem;
   width: 15rem;
   margin-bottom: 3.2rem;
+  animation: glow 3s ease-in-out infinite alternate;
+  transition: all .35s ease-in-out;
+
+  &:hover {
+    transform: rotate(10deg);
+  }
+
+  @include respond(sm) {
+    height: 13rem;
+    width: 13rem;
+  }
 
   @include respond(xs) {
-    height: 6.6rem;
-    width: 6.6rem;
+    height: 10rem;
+    width: 10rem;
+    margin-top: 4rem;
   }
 }
 
 .title {
-  font-size: 4.6rem;
+  font-size: 5rem;
   margin: 0;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
   font-family: var(--fonts-made-soulmaze);
   font-weight: normal;
-  max-width: 53rem;
+  //max-width: 53rem;
   text-align: center;
 
   @include respond(md) {
     font-size: 3rem;
+  }
+
+  @include respond(sm) {
+    font-size: 2.8rem;
   }
 
   @include respond(xs) {
@@ -38,7 +77,7 @@
 
 .subtitle {
   font-size: 2.6rem;
-  margin-bottom: 11rem;
+  margin-bottom: 4rem;
   color: var(--color-cyan);
   max-width: 76rem;
   text-align: center;
@@ -51,11 +90,15 @@
 
   @include respond(md) {
     font-size: 2rem;
+    margin-bottom: 4rem;
+    max-width: 40rem;
+
   }
 
   @include respond(xs) {
-    font-size: 1.6rem;
-    margin-bottom: 3rem;
+    font-size: 1.7rem;
+    margin: 2rem auto 4rem auto;
+    max-width: 30rem;
   }
 }
 
@@ -66,6 +109,10 @@
   a {
     color: var(--color-red);
     margin: 0 0.5rem;
+
+    &:hover {
+      color: var(--color-cyan);
+    }
   }
 
   @include respond(md) {
@@ -73,7 +120,7 @@
   }
 
   @include respond(xs) {
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     margin-bottom: 4.7rem;
   }
 }

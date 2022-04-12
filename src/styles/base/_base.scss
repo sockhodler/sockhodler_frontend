@@ -19,6 +19,7 @@ body {
     var(--color-dark-violet),
     var(--color-dark)
   );
+  background-attachment: fixed;
   color: var(--color-white);
   min-height: 100vh;
 }
