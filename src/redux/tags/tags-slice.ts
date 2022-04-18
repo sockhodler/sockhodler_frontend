@@ -47,7 +47,7 @@ export const asyncAuthenticateData = createAsyncThunk<
   DTOModel<AuthenticateTagPayload>,
   GetTagsDataParams,
   AsyncThunkOptions
->("wallet/registerUser", async (params, thunkOptions) => {
+>("tag/authenticate", async (params, thunkOptions) => {
   const { rejectWithValue, getState } = thunkOptions;
   const { wallets } = getState();
   const { cid, tid, pl } = params;

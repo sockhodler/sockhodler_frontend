@@ -14,7 +14,9 @@ const authenticateTag = async (
 ): Promise<DTOModel<AuthenticateTagPayload>> => {
   const axiosOptions: AxiosRequestConfig = {
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
     method: "post",
     url: `${SmartSealBaseAPI}/authenticate`,
@@ -28,11 +30,19 @@ const authenticateTag = async (
   };
 
   try {
-    const resp: AxiosResponse<AuthenticateTagPayload> = await axios(
-      axiosOptions
-    );
-
-    response.data = resp.data;
+    // const resp: AxiosResponse<AuthenticateTagPayload> = await axios(
+    //   axiosOptions
+    // );
+    const resp = await fetch("https://socks.smartseal.io/api/authenticate/", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(data),
+    });
+    response.data = JSON.parse(await resp.text());
     response.status = resp.status;
   } catch (err: any) {
     response.error = {
