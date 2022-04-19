@@ -47,6 +47,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
     }
   };
   const EXPLORER_URL = "https://algoexplorer.io/address";
+  const ASSET_URL = "https://algoexplorer.io/asset/";
   const details = [
     {
       name: "UID",
@@ -55,8 +56,8 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
     },
     {
       name: "Token ID",
-      value: tag?.nft_token_id,
-      // to: "/",
+      value: tag?.algo_id,
+       to: `${ASSET_URL}/${tag?.algo_id}`,
     },
     {
       name: "Owner",
@@ -75,7 +76,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
     },
     {
       name: "Circ. Supply",
-      value: tag?.nft_circ_supply,
+      value: tag?.algo_circulatingsupply,
       // to: "/",
     },
   ];
