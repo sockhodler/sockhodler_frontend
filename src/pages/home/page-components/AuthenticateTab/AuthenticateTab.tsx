@@ -44,37 +44,37 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
       dispatch(setModalStep(1));
     }
   };
-
+  const EXPLORER_URL = "https://algoexplorer.io/address";
   const details = [
     {
       name: "UID",
       value: tag?.uid,
-      to: "/",
+      // to: "https:",
     },
     {
       name: "Token ID",
       value: tag?.nft_token_id,
-      to: "/",
+      // to: "/",
     },
     {
       name: "Owner",
       value: tag?.nft_owner_address,
-      to: "/",
+      to: `${EXPLORER_URL}/${tag?.nft_owner_address}`,
     },
     {
       name: "Creator",
       value: tag?.algo_creator,
-      to: "/",
+      to: `${EXPLORER_URL}/${tag?.algo_creator}`,
     },
     {
       name: "Total Supply",
       value: tag?.algo_total,
-      to: "/",
+      // to: "/",
     },
     {
       name: "Circ. Supply",
       value: tag?.nft_circ_supply,
-      to: "/",
+      // to: "/",
     },
   ];
 
@@ -97,12 +97,8 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
           />
 
           <div className={classes.nft__info}>
-            <span className={classes.nft__title}>SockHodler 1/250</span>
-            <p className={classes.nft__details}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse bibendum tortor ac auctor sollicitudin. Aliquam
-              sodales interdum.
-            </p>
+            <span className={classes.nft__title}>{tag?.algo_assetname}</span>
+            <p className={classes.nft__details}>{tag?.description}</p>
             <Button
               size="huge"
               className={classes.nft__action}

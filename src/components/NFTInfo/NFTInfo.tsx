@@ -7,7 +7,7 @@ import classes from "./NFTInfo.module.scss";
 interface Props {
   value: string | null | undefined | number;
   name: string;
-  to: string;
+  to: string | undefined;
   size?: "small";
   className?: string;
 }
@@ -26,13 +26,19 @@ export const NFTInfo: React.FunctionComponent<Props> = ({
     >
       <span className={classes.name}>{name}</span>
       <div className={classes.divider} />
-      <a href={to} className={classes.value}>
-        {value}
-      </a>
+      {to ? (
+        <a href={to} className={classes.value}>
+          {value}
+        </a>
+      ) : (
+        <div className={classes.value}>{value}</div>
+      )}
       <div className={classes.divider} />
-      <Link to={to} className={classes.action}>
-        <ArrowRightIcon />
-      </Link>
+      {to && (
+        <Link to={to} className={classes.action}>
+          <ArrowRightIcon />
+        </Link>
+      )}
     </div>
   );
 };

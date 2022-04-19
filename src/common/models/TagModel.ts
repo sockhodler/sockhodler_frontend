@@ -22,6 +22,7 @@ export interface TagModel {
   nft_owner_address: string;
   nft_total_supply: string;
   nft_circ_supply: string | null;
+  description: string;
 }
 
 export interface ScanTagModel {
