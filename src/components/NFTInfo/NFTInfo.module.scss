@@ -60,15 +60,15 @@
   margin: 0 6rem;
   text-align: right;
   color: var(--color-cyan);
-  text-decoration: underline;
-
-  &:hover {
-    color: var(--color-white);
-  }
 
   @include respond(xs) {
     margin: 0 1.4rem;
   }
+}
+
+a.value:hover {
+  text-decoration: underline;
+  color: var(--color-white);
 }
 
 .action {

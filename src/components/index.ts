@@ -33,3 +33,4 @@ export { AlgorandWalletConnector } from "./AlgorandWalletConnector/AlgorandWalle
 export { BaseModal } from "./Modals/Base/Base";
 export { ConnectWalletModal } from "./Modals/ConnectWalletModal/ConnectWalletModal";
 export { LoadingModal } from "./Modals/LoadingModal/LoadingModal";
+export { ImagePreviewModal } from "./Modals/ImagePreviewModal/ImagePreviewModal";

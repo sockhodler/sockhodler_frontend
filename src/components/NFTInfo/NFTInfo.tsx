@@ -33,11 +33,13 @@ export const NFTInfo: React.FunctionComponent<Props> = ({
       ) : (
         <div className={classes.value}>{value}</div>
       )}
-      <div className={classes.divider} />
       {to && (
-        <Link to={to} className={classes.action}>
-          <ArrowRightIcon />
-        </Link>
+        <>
+          <div className={classes.divider} />
+          <Link to={to} className={classes.action}>
+            <ArrowRightIcon />
+          </Link>
+        </>
       )}
     </div>
   );

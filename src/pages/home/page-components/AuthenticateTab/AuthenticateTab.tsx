@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import { ReactComponent as CheckCircleIcon } from "assets/icons/check-circle.svg";
-import { LayoutTab, Button, NFTInfo } from "components";
+import { LayoutTab, Button, NFTInfo, ImagePreviewModal } from "components";
 import classes from "./AuthenticateTab.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalStep } from "redux/wallet/wallet-slice";
@@ -24,6 +24,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   const dispatch = useDispatch();
   const [imageLoadFailed, setLoadFailed] = useState(false);
   const [imgLoading, setImgLoading] = useState(true);
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(true);
   console.log("tag", tag);
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
@@ -80,6 +81,20 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
     },
   ];
 
+  const reduceDetailValue = (value: string | number | null | undefined) => {
+    if (value === null || value === undefined) return value;
+
+    const stringValue = String(value);
+
+    if (stringValue.length < 9) {
+      return stringValue;
+    }
+
+    return `${stringValue.substring(0, 4)}...${stringValue.substring(
+      stringValue.length - 4
+    )}`;
+  };
+
   return (
     <LayoutTab for={tabFor}>
       <section className={classes.content}>
@@ -134,12 +149,17 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
             <NFTInfo
               key={detail.value}
               name={detail.name}
-              value={detail.value}
+              value={detail.to ? reduceDetailValue(detail.value) : detail.value}
               to={detail.to}
             />
           ))}
         </div>
       </section>
+
+      <ImagePreviewModal
+        isOpen={isPreviewModalOpen}
+        onClose={() => setIsPreviewModalOpen(false)}
+      />
     </LayoutTab>
   );
 };
