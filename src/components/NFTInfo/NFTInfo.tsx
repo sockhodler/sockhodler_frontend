@@ -27,7 +27,7 @@ export const NFTInfo: React.FunctionComponent<Props> = ({
       <span className={classes.name}>{name}</span>
       <div className={classes.divider} />
       {to ? (
-        <a href={to} className={classes.value}>
+        <a href={to} className={classes.value} target="_blank" rel="noreferrer">
           {value}
         </a>
       ) : (
