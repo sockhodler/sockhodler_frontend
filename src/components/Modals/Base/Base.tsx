@@ -13,6 +13,7 @@ interface Props {
   className?: string;
   overlayClassName?: string;
   noHeader?: boolean;
+  persistent?: boolean;
 }
 
 export const BaseModal: React.FunctionComponent<Props> = ({
@@ -22,6 +23,7 @@ export const BaseModal: React.FunctionComponent<Props> = ({
   className,
   overlayClassName,
   noHeader,
+  persistent,
 }) => {
   const handleCloseModalOnEsc = (e: React.KeyboardEvent): void => {
     if (e.code === "Escape") {
@@ -30,18 +32,24 @@ export const BaseModal: React.FunctionComponent<Props> = ({
   };
 
   const handleCloseModal = (e: React.MouseEvent): void => {
-    if ((e.target as Element).className.includes("ReactModal__Overlay")) {
-      // onClose();
+    if (!persistent) {
+      if ((e.target as Element).className.includes("ReactModal__Overlay")) {
+        onClose();
+      }
     }
   };
 
-  // useEffect(() => {
-  //   document.addEventListener("keyup", handleCloseModalOnEsc);
+  useEffect(() => {
+    if (!persistent) {
+      // @ts-ignore
+      document.addEventListener("keyup", handleCloseModalOnEsc);
 
-  //   return () => {
-  //     document.removeEventListener("keyup", handleCloseModalOnEsc);
-  //   };
-  // }, []);
+      return () => {
+        // @ts-ignore
+        document.removeEventListener("keyup", handleCloseModalOnEsc);
+      };
+    }
+  }, []);
 
   return (
     <Modal

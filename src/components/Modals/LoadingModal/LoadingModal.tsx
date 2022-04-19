@@ -20,6 +20,7 @@ export const LoadingModal: React.FunctionComponent<Props> = ({
       onClose={onClose}
       className={classes.modal}
       noHeader
+      persistent
     >
       <div className={classes.content}>
         <LoadingIcon /> Please wait ...

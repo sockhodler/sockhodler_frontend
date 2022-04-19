@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import { ReactComponent as CheckCircleIcon } from "assets/icons/check-circle.svg";
-import { LayoutTab, Button, NFTInfo, ImagePreviewModal } from "components";
+import { LayoutTab, Button, NFTInfo, AssetPreviewModal } from "components";
 import classes from "./AuthenticateTab.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalStep } from "redux/wallet/wallet-slice";
@@ -21,10 +21,17 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   for: tabFor,
   tag,
 }) => {
+  const ASSET_PREVIEW_MODAL_DEFAULT = {
+    isOpen: false,
+    asset: "",
+  };
+
   const dispatch = useDispatch();
   const [imageLoadFailed, setLoadFailed] = useState(false);
   const [imgLoading, setImgLoading] = useState(true);
-  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(true);
+  const [assetPreviewModal, setAssetPreviewModal] = useState(
+    ASSET_PREVIEW_MODAL_DEFAULT
+  );
   console.log("tag", tag);
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
@@ -109,12 +116,19 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
 
         <div className={classes.nft}>
           {!imageLoadFailed ? (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
             <img
               src={tag?.algo_url ?? "https://unsplash.it/600/600"}
               alt=""
               className={classes.nft__img}
               onLoad={() => setImgLoading(false)}
               onError={() => setLoadFailed(true)}
+              onClick={() =>
+                setAssetPreviewModal({
+                  isOpen: true,
+                  asset: tag?.algo_url ?? "https://unsplash.it/600/600",
+                })
+              }
             />
           ) : (
             <video
@@ -125,6 +139,12 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
               muted
               onLoadStart={() => setImgLoading(false)}
               onError={() => setImgLoading(false)}
+              onClick={() =>
+                setAssetPreviewModal({
+                  isOpen: true,
+                  asset: tag?.algo_url || "",
+                })
+              }
             >
               <source src={tag?.algo_url} type="video/mp4" />
             </video>
@@ -157,9 +177,10 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
         </div>
       </section>
 
-      <ImagePreviewModal
-        isOpen={isPreviewModalOpen}
-        onClose={() => setIsPreviewModalOpen(false)}
+      <AssetPreviewModal
+        isOpen={assetPreviewModal.isOpen}
+        onClose={() => setAssetPreviewModal(ASSET_PREVIEW_MODAL_DEFAULT)}
+        asset={assetPreviewModal.asset}
       />
     </LayoutTab>
   );

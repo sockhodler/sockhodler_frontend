@@ -1,25 +1,24 @@
 @import "styles/abstract/mixins";
 
-
 @keyframes glow {
   from {
-    filter: drop-shadow( 0 0 .25rem rgba(138, 38, 153, 1));
-    -webkit-filter: drop-shadow( 0 0 .25rem rgba(138, 38, 153, 1));
+    filter: drop-shadow(0 0 0.25rem rgba(138, 38, 153, 1));
+    -webkit-filter: drop-shadow(0 0 0.25rem rgba(138, 38, 153, 1));
   }
   to {
-    filter: drop-shadow( 0 0 1rem rgba(252, 1, 116, 0.75));
-    -webkit-filter: drop-shadow( 0 0 1rem rgba(252, 1, 116, .5));
+    filter: drop-shadow(0 0 1rem rgba(252, 1, 116, 0.75));
+    -webkit-filter: drop-shadow(0 0 1rem rgba(252, 1, 116, 0.5));
   }
 }
 
 @keyframes subtle-glow {
   from {
-    filter: drop-shadow( 0 0 1rem rgba(138, 38, 153, .35));
-    -webkit-filter: drop-shadow( 0 0 1rem rgba(138, 38, 153, .35));
+    filter: drop-shadow(0 0 1rem rgba(138, 38, 153, 0.35));
+    -webkit-filter: drop-shadow(0 0 1rem rgba(138, 38, 153, 0.35));
   }
   to {
-    filter: drop-shadow( 0 0 2rem rgba(138, 38, 153, .35));
-    -webkit-filter: drop-shadow( 0 0 2rem rgba(138, 38, 153, .35));
+    filter: drop-shadow(0 0 2rem rgba(138, 38, 153, 0.35));
+    -webkit-filter: drop-shadow(0 0 2rem rgba(138, 38, 153, 0.35));
   }
 }
 
@@ -34,7 +33,7 @@
   width: 15rem;
   margin-bottom: 3.2rem;
   animation: glow 3s ease-in-out infinite alternate;
-  transition: all .35s ease-in-out;
+  transition: all 0.35s ease-in-out;
 
   &:hover {
     transform: rotate(10deg);
@@ -118,11 +117,11 @@
     border: 0.1rem solid var(--color-dark-violet-1);
     margin: auto;
     animation: subtle-glow 3s ease-in-out infinite alternate;
-    transition: all .35s ease-out;
+    transition: all 0.35s ease-out;
+    cursor: pointer;
 
     &:hover {
       transform: scale(1.05);
-
     }
 
     @include respond(md) {
@@ -150,7 +149,7 @@
     display: flex;
     flex-direction: column;
     width: 60rem;
-    margin:auto auto auto 0;
+    margin: auto auto auto 0;
 
     @include respond(sm) {
       margin: auto;
@@ -189,14 +188,10 @@
     }
 
     &__action {
-
-
       @include respond(md) {
-
       }
 
       @include respond(xs) {
-
       }
     }
 
@@ -212,7 +207,6 @@
       }
     } */
   }
-
 }
 
 .details {
@@ -226,7 +220,6 @@
   @include respond(xs) {
     flex-direction: column;
   }
-
 }
 
 .detail {
