@@ -24,8 +24,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   const dispatch = useDispatch();
   const [imageLoadFailed, setLoadFailed] = useState(false);
   const [imgLoading, setImgLoading] = useState(true);
-  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(true);
-  console.log("tag", tag);
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
   );

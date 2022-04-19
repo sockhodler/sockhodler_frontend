@@ -36,9 +36,14 @@ export const NFTInfo: React.FunctionComponent<Props> = ({
       {to && (
         <>
           <div className={classes.divider} />
-          <Link to={to} className={classes.action}>
+          <a
+            href={to}
+            className={classes.action}
+            target="_blank"
+            rel="noreferrer"
+          >
             <ArrowRightIcon />
-          </Link>
+          </a>
         </>
       )}
     </div>
