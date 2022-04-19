@@ -5,7 +5,7 @@ import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import classes from "./NFTInfo.module.scss";
 
 interface Props {
-  value: string;
+  value: string | null | undefined | number;
   name: string;
   to: string;
   size?: "small";

@@ -1,6 +1,6 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { DTOModel } from "common/models/DTOModel";
-import { ErrorModel } from "common/models/ErrorModel";
+// import { ErrorModel } from "common/models/ErrorModel";
 import { SendEmailPayload, SendEmailParams } from "common/models/EmailModel";
 
 const BaseAPI = process.env.REACT_APP_API_URL;

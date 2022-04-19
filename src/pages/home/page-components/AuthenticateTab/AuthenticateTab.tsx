@@ -17,44 +17,12 @@ interface Props {
   tag: TagModel | null;
 }
 
-const details = [
-  {
-    name: "UID",
-    value: "042f4442c96e80",
-    to: "/",
-  },
-  {
-    name: "Token ID",
-    value: "598088282",
-    to: "/",
-  },
-  {
-    name: "Owner",
-    value: "SOCKSV3B6CDAE...",
-    to: "/",
-  },
-  {
-    name: "Creator",
-    value: "SOCKSV3B6CDAE...",
-    to: "/",
-  },
-  {
-    name: "Total Supply",
-    value: "1",
-    to: "/",
-  },
-  {
-    name: "Circ. Supply",
-    value: "2",
-    to: "/",
-  },
-];
-
 export const AuthenticateTab: React.FunctionComponent<Props> = ({
   for: tabFor,
   tag,
 }) => {
   const dispatch = useDispatch();
+  console.log("tag", tag);
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
   );
@@ -76,6 +44,39 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
       dispatch(setModalStep(1));
     }
   };
+
+  const details = [
+    {
+      name: "UID",
+      value: tag?.uid,
+      to: "/",
+    },
+    {
+      name: "Token ID",
+      value: tag?.nft_token_id,
+      to: "/",
+    },
+    {
+      name: "Owner",
+      value: tag?.nft_owner_address,
+      to: "/",
+    },
+    {
+      name: "Creator",
+      value: tag?.algo_creator,
+      to: "/",
+    },
+    {
+      name: "Total Supply",
+      value: tag?.algo_total,
+      to: "/",
+    },
+    {
+      name: "Circ. Supply",
+      value: tag?.nft_circ_supply,
+      to: "/",
+    },
+  ];
 
   return (
     <LayoutTab for={tabFor}>

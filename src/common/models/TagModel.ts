@@ -1,6 +1,7 @@
 export interface TagModel {
   cid: string;
   tid: string;
+  uid: string;
   algo_creator: string;
   algo_owner: string;
   algo_total: number;
@@ -16,6 +17,11 @@ export interface TagModel {
   algo_id: number;
   algo_verified: boolean;
   algo_destroyed: boolean;
+  nft_token_id: string;
+  nft_token_uri: string;
+  nft_owner_address: string;
+  nft_total_supply: string;
+  nft_circ_supply: string | null;
 }
 
 export interface ScanTagModel {

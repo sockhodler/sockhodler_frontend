@@ -46,6 +46,7 @@ module.exports = {
     "no-restricted-properties": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": 0,
     "no-return-await": "off",
     "no-restricted-syntax": "off",
     "max-classes-per-file": 0,
