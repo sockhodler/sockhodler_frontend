@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import { ReactComponent as CheckCircleIcon } from "assets/icons/check-circle.svg";
 import { LayoutTab, Button, NFTInfo } from "components";
@@ -22,6 +22,8 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   tag,
 }) => {
   const dispatch = useDispatch();
+  const [imageLoadFailed, setLoadFailed] = useState(false);
+  const [imgLoading, setImgLoading] = useState(true);
   console.log("tag", tag);
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
@@ -90,11 +92,27 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
         </p>
 
         <div className={classes.nft}>
-          <img
-            src="https://unsplash.it/600/600"
-            alt=""
-            className={classes.nft__img}
-          />
+          {!imageLoadFailed ? (
+            <img
+              src={tag?.algo_url ?? "https://unsplash.it/600/600"}
+              alt=""
+              className={classes.nft__img}
+              onLoad={() => setImgLoading(false)}
+              onError={() => setLoadFailed(true)}
+            />
+          ) : (
+            <video
+              className={classes.nft__img}
+              preload="auto"
+              autoPlay
+              loop
+              muted
+              onLoadStart={() => setImgLoading(false)}
+              onError={() => setImgLoading(false)}
+            >
+              <source src={tag?.algo_url} type="video/mp4" />
+            </video>
+          )}
 
           <div className={classes.nft__info}>
             <span className={classes.nft__title}>{tag?.algo_assetname}</span>
