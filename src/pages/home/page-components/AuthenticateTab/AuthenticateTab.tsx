@@ -32,7 +32,6 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   const [assetPreviewModal, setAssetPreviewModal] = useState(
     ASSET_PREVIEW_MODAL_DEFAULT
   );
-  console.log("tag", tag);
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
   );

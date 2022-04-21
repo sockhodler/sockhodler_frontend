@@ -78,7 +78,7 @@ export const tagsMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
           case 7:
             dispatch(
               setAuthStatus({
-                type: "Authenticated",
+                type: "Authentication Token Expired",
                 message: "Please rescan tag.",
               })
             );
