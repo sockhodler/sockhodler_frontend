@@ -32,6 +32,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
   const [assetPreviewModal, setAssetPreviewModal] = useState(
     ASSET_PREVIEW_MODAL_DEFAULT
   );
+
   const { connected, userInfo, selectedAccount } = useSelector(
     (state: RootState) => state.wallets
   );
@@ -54,7 +55,7 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
     }
   };
   const EXPLORER_URL = "https://algoexplorer.io/address";
-  const ASSET_URL = "https://algoexplorer.io/asset/";
+  const ASSET_URL = "https://algoexplorer.io/asset";
   const details = [
     {
       name: "UID",
@@ -93,12 +94,12 @@ export const AuthenticateTab: React.FunctionComponent<Props> = ({
 
     const stringValue = String(value);
 
-    if (stringValue.length < 9) {
+    if (stringValue.length < 10) {
       return stringValue;
     }
 
-    return `${stringValue.substring(0, 4)}...${stringValue.substring(
-      stringValue.length - 4
+    return `${stringValue.substring(0, 5)}...${stringValue.substring(
+      stringValue.length - 5
     )}`;
   };
 
