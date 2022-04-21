@@ -26,9 +26,9 @@
   }
 
   &__btn {
-    height: 6.7rem;
-    width: 6.7rem;
-    border-radius: 1.5rem;
+    height: 4.25rem;
+    width: 4.25rem;
+    border-radius: .5rem;
     background: linear-gradient(
       to right,
       var(--color-dark-1),
@@ -41,8 +41,9 @@
     justify-content: center;
 
     svg {
-      height: 3.5rem;
+      height: 2.5rem;
       width: auto;
+      color: var(--color-white);
     }
 
     @include respond(lg) {

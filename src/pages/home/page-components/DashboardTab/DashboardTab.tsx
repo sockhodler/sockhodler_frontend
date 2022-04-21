@@ -75,12 +75,12 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
               style={{ backgroundImage: `url(${NftSampleImage})` }}
             >
               <div className={classes.release__content}>
-                <MngoIcon />
+                <h2>SOCKBOT</h2>
                 <span>
-                  New Collection Released on 05/01/22
+                  New Collection Released on 07/01/22
                   <br />
                   <br />
-                  Reserve your Berd today.
+                  Reserve your SOCKBOT today.
                 </span>
 
                 <button>learn more</button>
@@ -143,13 +143,6 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                 </Tab>
               </Tabs>
             </Card>
-
-            <img
-              className={classes.banner}
-              src={Banner}
-              alt=""
-              draggable={false}
-            />
           </div>
 
           <div className={classes.grid__right}>
@@ -171,7 +164,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                     <ul className={classes.giveaway__details}>
                       <li>Quantity: 1</li>
                       <li>ASA ID: 23594871</li>
-                      <li>Enter to win MNGO #2469.</li>
+                      <li>Enter to win SOXGEN #00.</li>
                     </ul>
                     <p className={classes.giveaway__text}>
                       The contest will conclude on July 4th, 2022.

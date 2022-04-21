@@ -22,7 +22,7 @@
 
 // header
 .header {
-  padding: 3rem 6.4rem;
+  padding: 2rem 6.4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,7 +72,7 @@
 // navbar
 .navbar {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: linear-gradient(
     to right,
     var(--color-dark-2),
@@ -81,7 +81,7 @@
   width: 100%;
   border: 0.2rem solid var(--color-dark-violet-2);
   border-radius: 0 0 3rem 3rem;
-  padding: 1.2rem 3.2rem;
+  padding: 1rem 3rem;
 
   @include respond(lg) {
     padding: 0.8rem 2.5rem;
@@ -100,7 +100,7 @@
 
 @mixin active-link-label {
   visibility: visible;
-  margin-left: 4rem;
+  margin-left: 2rem;
   width: auto;
   transform: translateX(0);
   opacity: 1;
@@ -117,11 +117,13 @@
 
 .page-nav {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 1 100rem;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  flex: 1 1 auto;
+  margin-left: auto;
   margin-right: auto;
-  grid-gap: 3rem;
+  //grid-gap: 3rem;
   transition: all 0.3s ease-in-out;
 
   @include respond(md) {
@@ -130,6 +132,7 @@
 
   @include respond(sm) {
     grid-gap: 1rem;
+
   }
 
   @include respond(xs) {
@@ -145,27 +148,34 @@
       rgba(27, 8, 51, 0.70) 0%,
       rgba(80, 22, 89, 0.70) 100%
     );
-    justify-content: center;
   }
 
   &__link {
     display: flex;
     align-items: center;
     border-radius: 10rem;
-    padding: 2.1rem 2rem;
+    //padding: 2rem 2rem;
     // grid-gap: 4rem;
     transition: all 0.3s ease-in-out;
 
     svg {
-      height: 4.6rem;
+      height: 4rem;
       width: auto;
     }
 
     @include respond(lg) {
-      padding: 1.2rem 1.8rem;
+      //padding: 1.1rem 1.8rem;
 
       svg {
         height: 3.4rem;
+      }
+    }
+
+    @include respond(md) {
+      //padding: 1rem 1.5rem;
+
+      svg {
+        height: 3rem;
       }
     }
 
@@ -173,7 +183,7 @@
       padding: 0.7rem;
 
       svg {
-        height: 2.2rem;
+        height: 2.75rem;
         width: auto;
       }
     }
@@ -185,7 +195,12 @@
         var(--color-dark-1),
         var(--color-dark-violet-1)
       );
-      padding: 2.1rem 4.4rem;
+      padding: 1rem 4rem;
+      border: 1px var(--color-violet-3) solid;
+
+      @include respond(md) {
+        padding: 1rem 2.5rem;
+      }
 
       @include respond(xs) {
         padding: 0.7rem 2.3rem;
@@ -200,7 +215,8 @@
   }
 
   &__label {
-    font-size: 2.2rem;
+    font-size: 1.75rem;
+    letter-spacing: 1px;
     font-weight: 700;
     visibility: hidden;
     transform: translateX(-4rem);
@@ -214,8 +230,13 @@
       font-size: 1.8rem;
     }
 
+    @include respond(md) {
+      font-size: 1.5rem;
+    }
+
     @include respond(xs) {
-      font-size: 1rem;
+      font-size: 1.25rem;
+      display: none;
       font-weight: 400;
     }
 
@@ -227,11 +248,12 @@
 
 .tabs-tape {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-content: flex-end;
   border-radius: 10rem;
-  overflow-x: auto;
-  overflow-y: hidden;
+  //overflow-x: auto;
+  //overflow-y: hidden;
   background: linear-gradient(
     to right,
     var(--color-dark-violet-1),
@@ -239,8 +261,9 @@
   );
   grid-gap: 3rem;
   padding: 1.1rem 1.8rem;
-  margin-left: 6rem;
-  flex-shrink: 0;
+  margin-left: 8rem;
+  margin-right: 2rem;
+  //flex-shrink: 0;
 
   @include respond(lg) {
     padding: 0.8rem 1.4rem;
