@@ -43,7 +43,7 @@ export const Home: React.FunctionComponent = () => {
       {authStatus.statusType === "Authenticated" && (
         <AuthenticateTab
           for="authenticate"
-          tag={authenticatedTag?.tag ?? null}
+          tagData={authenticatedTag?.tag ?? null}
         />
       )}
       {authStatus.statusType === "Error" && (
