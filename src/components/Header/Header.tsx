@@ -8,6 +8,7 @@ import { ReactComponent as MarketplaceIcon } from "assets/icons/marketplace.svg"
 import { ReactComponent as NFTAuctionsIcon } from "assets/icons/nft-auctions.svg";
 import { ReactComponent as NFTStackingIcon } from "assets/icons/nft-stacking.svg";
 import { ReactComponent as PortfolioIcon } from "assets/icons/portfolio.svg";
+import { ReactComponent as MintIcon } from "assets/icons/mint-nft.svg";
 import { ReactComponent as WalletIcon } from "assets/icons/wallet.svg";
 import { config } from "common/config/conf";
 import { AlgorandWalletConnector } from "components";
@@ -56,7 +57,7 @@ const navItems = [
   {
     label: "Mint",
     to: "/mint-nft",
-    icon: <NFTAuctionsIcon />,
+    icon: <MintIcon />,
   },
 ];
 

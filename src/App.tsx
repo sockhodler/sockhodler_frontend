@@ -35,61 +35,71 @@ const App: React.FunctionComponent = () => {
       path: "/marketplace",
       component: <Marketplace />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/marketplace-details",
       component: <MarketplaceDetails />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/nft-auctions",
       component: <NftAuctions />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/nft-auction-details",
       component: <NFTAuctionDetails />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/nft-staking",
       component: <NftStaking />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/portfolio",
       component: <Portfolio />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/mint-nft",
       component: <MintNFT />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/nft-details/:assetId",
       component: <NFTDetails />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/minted-assets",
       component: <MintedAssets />,
       walletAuth: false,
-      adminAuth: false,
+      adminAuth: true,
+      // set this back to false upon launch
     },
     {
       path: "/admin-login",
       component: <AdminLogin />,
       walletAuth: false,
       adminAuth: false,
+      // set this back to false upon launch
     },
   ];
 
