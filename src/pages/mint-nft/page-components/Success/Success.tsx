@@ -11,7 +11,7 @@ export const Success: React.FunctionComponent<Props> = ({ onBackClick }) => {
   return (
     <div className={classes.success}>
       <p className={classes.message}>
-        Your Asset <span>SOXGEN</span> has been minted successfully
+        Your Asset has been minted successfully
       </p>
 
       <div className={classes.divider} />

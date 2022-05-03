@@ -1,6 +1,5 @@
 export const config = {
   apiUrl: process.env.REACT_APP_API_URL,
-  scrapperUrl: process.env.REACT_APP_YNFT_SCRAPPER,
   storageToken: process.env.REACT_APP_STORAGE_TOKEN,
   ipfsGateway: process.env.REACT_APP_IPFS_GATEWAY,
   pinataURL: process.env.REACT_APP_PINATA_URL,
