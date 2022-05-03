@@ -21,7 +21,8 @@ export const conf: Config = {
   explorerApi: process.env.REACT_APP_ALGO_EXPLORER_API,
   network: process.env.REACT_APP_ALGO_NETWORK,
   imageOptimizer: process.env.REACT_APP_IMAGE_OPTIMIZER,
-  algod: "https://algoexplorerapi.io",
+  // algod: "https://algoexplorerapi.io",
+  algod: "https://testnet.algoexplorerapi.io",
 };
 
 export const getAddrUrl = (addr: string) =>
