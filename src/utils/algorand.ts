@@ -4,7 +4,7 @@ import { NFT, NFTMetadata } from "./nft";
 import { conf } from "./config";
 import { MINT_PROGRESS_STEPS } from "utils/constants";
 
-const client = new algosdk.Algodv2("", conf.algod, "");
+const client = new algosdk.Algodv2(conf.algodToken, conf.algod, "");
 
 export async function createToken(
   wallet: Wallet,

@@ -7,6 +7,7 @@ type Config = {
   pinataJWT: string | undefined;
   explorerApi: string | undefined;
   algod: string | undefined; // The Algod api url to use
+  algodToken: any;
   blockExplorer: string | undefined; // The Block Explorer to allow linking out to
   imageOptimizer: string | undefined;
 };
@@ -22,7 +23,11 @@ export const conf: Config = {
   network: process.env.REACT_APP_ALGO_NETWORK,
   imageOptimizer: process.env.REACT_APP_IMAGE_OPTIMIZER,
   // algod: "https://algoexplorerapi.io",
-  algod: "https://testnet.algoexplorerapi.io",
+  // algod: "https://testnet.algoexplorerapi.io",
+  algod: process.env.REACT_APP_ALGO_BASE_SERVER,
+  algodToken: {
+    "X-API-key": process.env.REACT_APP_PURESTAKE_KEY,
+  },
 };
 
 export const getAddrUrl = (addr: string) =>
