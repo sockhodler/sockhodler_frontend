@@ -34,3 +34,4 @@ export { BaseModal } from "./Modals/Base/Base";
 export { ConnectWalletModal } from "./Modals/ConnectWalletModal/ConnectWalletModal";
 export { LoadingModal } from "./Modals/LoadingModal/LoadingModal";
 export { AssetPreviewModal } from "./Modals/AssetPreviewModal/AssetPreviewModal";
+export { TokenTxnModal } from "./Modals/TokenTxnModal/TokenTxnModal";

@@ -5,6 +5,10 @@ import { conf } from "./config";
 import { MINT_PROGRESS_STEPS } from "utils/constants";
 
 const client = new algosdk.Algodv2(conf.algodToken, conf.algod, "");
+const platformAccount = algosdk.mnemonicToSecretKey(
+  "such skill arrange hungry color rabbit slogan charge gasp oven cage project attack rebel video lucky transfer gas output pattern plunge patrol claim absent boss"
+);
+const SOCKTokenIndex = 452047208;
 
 export async function createToken(
   wallet: Wallet,
@@ -32,6 +36,38 @@ export async function createToken(
   setProgressStatus(MINT_PROGRESS_STEPS.AWAIT_CONFIRM);
   const result = await sendWait([create_txn_s]);
   return result["asset-index"];
+}
+
+export async function sendSOCKToken(
+  toAddress: string,
+  amount: number,
+  setScanRewardsInfo: any
+): Promise<void> {
+  const txParams = await client.getTransactionParams().do();
+
+  const txn = await algosdk.makeAssetTransferTxnWithSuggestedParams(
+    platformAccount.addr,
+    toAddress,
+    undefined,
+    undefined,
+    amount * 1000000,
+    undefined,
+    SOCKTokenIndex,
+    txParams
+  );
+
+  const signed = await txn.signTxn(platformAccount.sk);
+
+  const { txId } = await client.sendRawTransaction(signed).do();
+  const result = await waitForConfirmation(txId, 3);
+  if (result) {
+    setScanRewardsInfo({
+      loading: false,
+      txId,
+      amount,
+      success: true,
+    });
+  }
 }
 
 export async function getSuggested(rounds: number) {

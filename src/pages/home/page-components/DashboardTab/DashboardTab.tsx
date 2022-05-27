@@ -1,7 +1,15 @@
-import React from "react";
-import { LayoutTab, Button, Tabs, Tab, Card } from "components";
-import classNames from "classnames";
-import Banner from "assets/images/banner.png";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { sendSOCKToken } from "utils/algorand";
+import {
+  LayoutTab,
+  Button,
+  Tabs,
+  Tab,
+  Card,
+  LoadingIndicator,
+  TokenTxnModal,
+} from "components";
 import { ReactComponent as MngoIcon } from "assets/icons/mngo.svg";
 import { ReactComponent as SockholderIcon } from "assets/icons/sockholder.svg";
 // import { ReactComponent as VerifiedIcon } from 'assets/icons/verified.svg'
@@ -11,6 +19,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import NftSampleImage from "assets/images/sample-nft.png";
 import classes from "./DashboardTab.module.scss";
+import { RootState } from "redux/rootReducer";
+import { setModalStep } from "redux/wallet/wallet-slice";
 
 interface Props {
   for: string;
@@ -39,15 +49,65 @@ const usdTabDetails = [
   },
 ];
 
+interface scanRewardsInfoType {
+  loading: boolean;
+  txId: string;
+  amount: number | undefined;
+  success: boolean;
+}
+
 export const DashboardTab: React.FunctionComponent<Props> = ({
   for: tabFor,
 }) => {
+  const dispatch = useDispatch();
+  const { connected, selectedAccount } = useSelector(
+    (state: RootState) => state.wallets
+  );
+  const [scanRewardsInfo, setScanRewardsInfo] = useState<scanRewardsInfoType>({
+    loading: false,
+    txId: "",
+    amount: undefined,
+    success: false,
+  });
+  const handleClaimDailyRewards = async () => {
+    if (connected && selectedAccount) {
+      const randomAmount = Math.floor(Math.random() * 200);
+      setScanRewardsInfo({
+        ...scanRewardsInfo,
+        loading: true,
+        amount: randomAmount,
+      });
+      try {
+        await sendSOCKToken(selectedAccount, randomAmount, setScanRewardsInfo);
+      } catch (error) {
+        console.error(error);
+        setScanRewardsInfo({
+          loading: false,
+          txId: "",
+          amount: undefined,
+          success: false,
+        });
+      }
+    } else {
+      dispatch(setModalStep(1));
+    }
+    // await sendSOCKToken()
+  };
+
   return (
     <LayoutTab for={tabFor}>
       <section className={classes.content}>
         <h2 className={classes.title}>Welcome back</h2>
-        <Button className={classes.daily__action}>
-          CLAIM DAILY SCAN REWARDS
+        <Button
+          onClick={handleClaimDailyRewards}
+          disabled={scanRewardsInfo.loading}
+          className={classes.daily__action}
+        >
+          {scanRewardsInfo.loading ? (
+            <LoadingIndicator />
+          ) : (
+            "CLAIM DAILY SCAN REWARDS"
+          )}
         </Button>
 
         <div className={classes.nft}>
@@ -225,6 +285,17 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
               </Carousel>
             </Card>
           </div>
+          <TokenTxnModal
+            isOpen={scanRewardsInfo.success}
+            onClose={() =>
+              setScanRewardsInfo({
+                ...scanRewardsInfo,
+                success: false,
+              })
+            }
+            data={scanRewardsInfo}
+            addr={selectedAccount}
+          />
         </section>
       </section>
     </LayoutTab>
