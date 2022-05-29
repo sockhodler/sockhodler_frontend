@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { sendSOCKToken } from "utils/algorand";
 import {
@@ -21,6 +21,7 @@ import NftSampleImage from "assets/images/sample-nft.png";
 import classes from "./DashboardTab.module.scss";
 import { RootState } from "redux/rootReducer";
 import { setModalStep } from "redux/wallet/wallet-slice";
+import classNames from "classnames";
 
 interface Props {
   for: string;
@@ -69,6 +70,22 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
     amount: undefined,
     success: false,
   });
+  const [disableBtn, setDisableBtn] = useState<boolean>(false);
+  const [availableHour, setAvailableHour] = useState<number>();
+  const lastLogin = localStorage.getItem("lastLogin");
+
+  useEffect(() => {
+    if (lastLogin) {
+      const currentTime = new Date();
+      const diffTime = currentTime.getTime() - new Date(lastLogin).getTime();
+      if (diffTime < 1000 * 60 * 60 * 24) {
+        setDisableBtn(true);
+        const availableHour = 24 - Math.ceil(diffTime / 1000 / 60 / 60);
+        setAvailableHour(availableHour);
+      }
+    }
+  }, [lastLogin]);
+
   const handleClaimDailyRewards = async () => {
     if (connected && selectedAccount) {
       const randomAmount = Math.floor(Math.random() * 200);
@@ -100,8 +117,12 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
         <h2 className={classes.title}>Welcome back</h2>
         <Button
           onClick={handleClaimDailyRewards}
-          disabled={scanRewardsInfo.loading}
-          className={classes.daily__action}
+          disabled={scanRewardsInfo.loading || disableBtn}
+          className={classNames(
+            classes.daily__action,
+            disableBtn && classes.daily__disable
+          )}
+          tooltip={disableBtn ? `You can claim in ${availableHour} hours.` : ""}
         >
           {scanRewardsInfo.loading ? (
             <LoadingIndicator />

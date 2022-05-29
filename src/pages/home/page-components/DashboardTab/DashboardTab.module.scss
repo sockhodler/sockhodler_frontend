@@ -36,6 +36,12 @@
   }
 }
 
+.daily__disable {
+  background: grey;
+  &:hover {
+    background: grey;
+  }
+}
 .nft {
   display: flex;
   grid-gap: 6.4rem;
