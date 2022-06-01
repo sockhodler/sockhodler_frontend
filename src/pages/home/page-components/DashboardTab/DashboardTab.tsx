@@ -9,8 +9,8 @@ import {
   Card,
   LoadingIndicator,
   TokenTxnModal,
+  OptInModal,
 } from "components";
-import { ReactComponent as MngoIcon } from "assets/icons/mngo.svg";
 import { ReactComponent as SockholderIcon } from "assets/icons/sockholder.svg";
 // import { ReactComponent as VerifiedIcon } from 'assets/icons/verified.svg'
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
@@ -70,6 +70,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
     amount: undefined,
     success: false,
   });
+  const [isOptinModal, setIsOptinModal] = useState<boolean>(false);
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [availableHour, setAvailableHour] = useState<number>();
   const lastLogin = localStorage.getItem("lastLogin");
@@ -96,19 +97,20 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
       });
       try {
         await sendSOCKToken(selectedAccount, randomAmount, setScanRewardsInfo);
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        if (error.message.includes("must optin")) {
+          setIsOptinModal(true);
+        }
         setScanRewardsInfo({
           loading: false,
           txId: "",
-          amount: undefined,
+          amount: randomAmount,
           success: false,
         });
       }
     } else {
       dispatch(setModalStep(1));
     }
-    // await sendSOCKToken()
   };
 
   return (
@@ -314,6 +316,12 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                 success: false,
               })
             }
+            data={scanRewardsInfo}
+            addr={selectedAccount}
+          />
+          <OptInModal
+            isOpen={isOptinModal}
+            onClose={() => setIsOptinModal(false)}
             data={scanRewardsInfo}
             addr={selectedAccount}
           />
