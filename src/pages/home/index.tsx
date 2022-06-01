@@ -37,7 +37,7 @@ export const Home: React.FunctionComponent = () => {
         {
           label: "Dashboard",
           value: "dashboard",
-          disabled: true,
+          disabled: authStatus.statusType !== "Authenticated",
         },
       ]}
     >
