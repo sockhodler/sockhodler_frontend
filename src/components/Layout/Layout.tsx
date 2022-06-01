@@ -7,7 +7,7 @@ export const LayoutTabContext = createContext<string>("");
 LayoutTabContext.displayName = "LayoutTabContext";
 
 interface Props {
-  tabs?: { label: string; value: string }[];
+  tabs?: { label: string; value: string; disabled?: boolean }[];
   noNav?: boolean;
 }
 

@@ -132,7 +132,6 @@
 
   @include respond(sm) {
     grid-gap: 1rem;
-
   }
 
   @include respond(xs) {
@@ -145,8 +144,8 @@
     backdrop-filter: blur(1rem);
     background: linear-gradient(
       90deg,
-      rgba(27, 8, 51, 0.70) 0%,
-      rgba(80, 22, 89, 0.70) 100%
+      rgba(27, 8, 51, 0.7) 0%,
+      rgba(80, 22, 89, 0.7) 100%
     );
   }
 
@@ -300,6 +299,17 @@
     border-radius: 10rem;
     flex: 1 1 auto;
     transition: all 0.35s ease-in-out;
+
+    &[disabled] {
+      background-color: var(--color-grey);
+      color: var(--color-dark-2);
+      cursor: not-allowed;
+
+      &:hover {
+        border-color: transparent;
+        background: var(--color-grey);
+      }
+    }
 
     @include respond(lg) {
       padding: 1.3rem 2.5rem;

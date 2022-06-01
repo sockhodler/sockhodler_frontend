@@ -22,7 +22,7 @@ import { RootState } from "redux/rootReducer";
 
 interface Props {
   className?: string;
-  tabs?: { label: string; value: string }[];
+  tabs?: { label: string; value: string; disabled?: boolean }[];
   selectedTab?: string;
   onTabChange?: (tab: string) => void;
   noNav?: boolean;
@@ -138,12 +138,17 @@ export const Header: React.FunctionComponent<Props> = ({
               {tabs.map((tab) => (
                 <button
                   key={tab.value}
-                  onClick={() => onTabChange?.(tab.value)}
+                  onClick={() => {
+                    if (!tab.disabled) {
+                      onTabChange?.(tab.value);
+                    }
+                  }}
                   className={classNames(
                     classes["tabs-tape__item"],
                     selectedTab === tab.value &&
                       classes["tabs-tape__item--active"]
                   )}
+                  disabled={tab.disabled}
                 >
                   {tab.label}
                 </button>
