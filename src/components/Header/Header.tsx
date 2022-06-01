@@ -19,6 +19,7 @@ import {
 } from "redux/wallet/wallet-slice";
 import classes from "./Header.module.scss";
 import { RootState } from "redux/rootReducer";
+import ReactTooltip from "react-tooltip";
 
 interface Props {
   className?: string;
@@ -146,9 +147,12 @@ export const Header: React.FunctionComponent<Props> = ({
                   className={classNames(
                     classes["tabs-tape__item"],
                     selectedTab === tab.value &&
-                      classes["tabs-tape__item--active"]
+                      classes["tabs-tape__item--active"],
+                    tab.disabled && classes["tabs-tape__item--disabled"]
                   )}
-                  disabled={tab.disabled}
+                  {...(tab.disabled
+                    ? { "data-tip": `${tab.label} is disabled` }
+                    : {})}
                 >
                   {tab.label}
                 </button>
@@ -157,6 +161,8 @@ export const Header: React.FunctionComponent<Props> = ({
           ) : null}
         </div>
       )}
+
+      <ReactTooltip effect="solid" place="bottom" className={classes.tooltip} />
     </header>
   );
 };
