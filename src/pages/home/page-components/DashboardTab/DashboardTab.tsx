@@ -158,7 +158,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
               <div className={classes.release__content}>
                 <h2>SOCKBOT</h2>
                 <span>
-                  New Collection Released on 07/01/22
+                  New Collection Releasing 07/22
                   <br />
                   <br />
                   Reserve your SOCKBOT today.
