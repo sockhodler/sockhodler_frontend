@@ -150,8 +150,8 @@ export const Header: React.FunctionComponent<Props> = ({
                       classes["tabs-tape__item--active"],
                     tab.disabled && classes["tabs-tape__item--disabled"]
                   )}
-                  {...(tab.disabled
-                    ? { "data-tip": `${tab.label} is disabled` }
+                  {...(tab.disabled && tab.label === "Dashboard"
+                    ? { "data-tip": "NFC tag must be authenticated." }
                     : {})}
                 >
                   {tab.label}
