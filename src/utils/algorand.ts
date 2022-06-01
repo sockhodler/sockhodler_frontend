@@ -6,7 +6,7 @@ import { MINT_PROGRESS_STEPS } from "utils/constants";
 
 const client = new algosdk.Algodv2(conf.algodToken, conf.algod, "");
 const platformAccount = algosdk.mnemonicToSecretKey(
-  "such skill arrange hungry color rabbit slogan charge gasp oven cage project attack rebel video lucky transfer gas output pattern plunge patrol claim absent boss"
+  process.env.REACT_APP_PLATFORM_ACCOUNT_MNEMONIC ?? ""
 );
 const SOCKTokenIndex = 452047208;
 
