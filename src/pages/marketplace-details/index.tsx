@@ -1,23 +1,7 @@
 import React from "react";
-import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
-import { Layout, NFTDetails } from "components";
+import { Layout, NFTMarketplaceDetails } from "components";
 import classes from "./index.module.scss";
-
-const faqItems = [
-  {
-    title: "Sizing Guide",
-    body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-  },
-  {
-    title: "Shipping and Returns",
-    body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-    isOpen: true,
-  },
-  {
-    title: "Wash and Care",
-    body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-  },
-];
+import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
 
 const infoItems = [
   {
@@ -38,11 +22,7 @@ const infoItems = [
     value: "250",
   },
   {
-    value: `Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-    diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-    aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-    nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-    aliquip ex ea commodo consequat.`,
+    value: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed ",
   },
 ];
 
@@ -67,24 +47,18 @@ const details = [
     value: "SOCKSV3AE5R4BS5...",
     to: "/",
   },
-  {
-    name: "Escrow",
-    value: "4GB16A567B776GB...",
-    to: "/",
-  },
 ];
 
 export const MarketplaceDetails: React.FunctionComponent = () => {
   return (
     <Layout>
       <h2 className={classes.title}>Marketplace</h2>
-      <span className={classes.subtitle}>Physically-Backed NFT Socks</span>
+      <span className={classes.subtitle}>NFT</span>
 
-      <NFTDetails
+      <NFTMarketplaceDetails
         back={{ label: "back to home", to: "/" }}
-        title="Taco Coin - Meet Me at Dora’s #1"
+        title="SockHolder 1/250"
         imgSrc="https://unsplash.it/700/700"
-        faqItems={faqItems}
         actionLabel="BUY NOW"
         onActionClick={() => console.log("on action click")}
         info={infoItems}

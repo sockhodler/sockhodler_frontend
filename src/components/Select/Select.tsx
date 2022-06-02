@@ -3,6 +3,7 @@ import React, { useState, forwardRef, useRef } from "react";
 import classNames from "classnames";
 import classes from "./Select.module.scss";
 import { ReactComponent as ArrowDownIcon } from "assets/icons/arrow-down.svg";
+import { ReactComponent as ChevronDownIcon } from "assets/icons/chevron-down.svg";
 import { useOnClickOutside } from "hooks";
 
 type Item = { label: string; value: string };
@@ -15,6 +16,7 @@ interface Props {
   onChange?: (item: Item, idx: number) => void;
   selected?: string;
   className?: string;
+  accent?: "violet";
 }
 
 export const Select: React.FunctionComponent<Props> = forwardRef<
@@ -22,7 +24,7 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
   Props
 >(
   (
-    { placeholder, items, label, error, onChange, selected, className },
+    { placeholder, items, label, error, onChange, selected, className, accent },
     ref
   ) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +65,7 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
           classes.container,
           isOpen && classes["container--open"],
           error && classes.error,
+          accent && classes[`accent-${accent}`],
           className
         )}
         ref={selectRef}
@@ -70,7 +73,8 @@ export const Select: React.FunctionComponent<Props> = forwardRef<
         {label && <span className={classes.label}>{label}</span>}
 
         <button className={classes.select} onClick={handleClickOnSelect}>
-          {selected ? defaultSelected?.label : placeholder} <ArrowDownIcon />
+          {selected ? defaultSelected?.label : placeholder}
+          {accent === "violet" ? <ChevronDownIcon /> : <ArrowDownIcon />}
         </button>
 
         <div className={classes.list}>

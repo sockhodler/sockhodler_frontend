@@ -25,6 +25,7 @@ export { NFTDetails } from "./NFTDetails/NFTDetails";
 export { NFTInfo } from "./NFTInfo/NFTInfo";
 export { StakingGrid } from "./StakingGrid/StakingGrid";
 export { StakingItem } from "./StakingItem/StakingItem";
+export { NFTMarketplaceDetails } from "./NFTMarketplaceDetails/NFTMarketplaceDetails";
 
 // AlgorandWalletConnector
 export { AlgorandWalletConnector } from "./AlgorandWalletConnector/AlgorandWalletConnector";

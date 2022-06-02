@@ -135,3 +135,62 @@
     border-color: var(--color-red);
   }
 }
+
+// accents
+.accent-violet {
+  .label {
+    @include respond(xs) {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .select {
+    background: linear-gradient(
+      0deg,
+      var(--color-dark-violet-10) 0%,
+      var(--color-dark-violet-11) 100%
+    );
+    border: 1px solid var(--color-dark-violet-11);
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 0.8rem;
+    padding: 1.6rem 2rem;
+
+    svg {
+      color: var(--color-white);
+      width: 1rem;
+    }
+
+    @include respond(xs) {
+      font-size: 1rem;
+      padding: 0.8rem;
+
+      svg {
+        width: 0.6rem;
+      }
+    }
+  }
+
+  .list {
+    top: 100%;
+    border-radius: 0.8rem;
+    background: linear-gradient(
+      0deg,
+      var(--color-dark-violet-10) 0%,
+      var(--color-dark-violet-11) 100%
+    );
+    border: 1px solid var(--color-dark-violet-11);
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.5);
+    padding: 0;
+    margin-top: 0.8rem;
+  }
+
+  .item {
+    padding: 1.2rem 1.8rem;
+
+    @include respond(xs) {
+      font-size: 1rem;
+      padding: 1.2rem 1.6rem;
+    }
+  }
+}
