@@ -38,7 +38,84 @@ export async function createToken(
   return result["asset-index"];
 }
 
-export async function sendRewardSOCKToken(
+export async function sendALGOToken(
+  wallet: Wallet,
+  fromAddress: string,
+  toAddress: string,
+  amount: number,
+  setSendTokenInfo: any
+): Promise<void> {
+  const txParams = await client.getTransactionParams().do();
+
+  const txn = await algosdk.makePaymentTxnWithSuggestedParams(
+    fromAddress,
+    toAddress,
+    amount * 1000000,
+    undefined,
+    undefined,
+    txParams
+  );
+
+  const [txn_s] = await wallet.signTxn([txn]);
+
+  const { txId } = await client
+    .sendRawTransaction(
+      [txn_s].map((t) => {
+        return t.blob;
+      })
+    )
+    .do();
+  const result = await waitForConfirmation(txId, 3);
+  if (result) {
+    setSendTokenInfo({
+      loading: false,
+      txId,
+      amount,
+      success: true,
+    });
+  }
+}
+export async function sendSOCKSToken(
+  wallet: Wallet,
+  fromAddress: string,
+  toAddress: string,
+  amount: number,
+  setSendTokenInfo: any
+): Promise<void> {
+  const txParams = await client.getTransactionParams().do();
+
+  const txn = await algosdk.makeAssetTransferTxnWithSuggestedParams(
+    fromAddress,
+    toAddress,
+    undefined,
+    undefined,
+    amount * 1000000,
+    undefined,
+    SOCKTokenIndex,
+    txParams
+  );
+
+  const [txn_s] = await wallet.signTxn([txn]);
+
+  const { txId } = await client
+    .sendRawTransaction(
+      [txn_s].map((t) => {
+        return t.blob;
+      })
+    )
+    .do();
+  const result = await waitForConfirmation(txId, 3);
+  if (result) {
+    setSendTokenInfo({
+      loading: false,
+      txId,
+      amount,
+      success: true,
+    });
+  }
+}
+
+export async function sendRewardSOCKSToken(
   toAddress: string,
   amount: number,
   setScanRewardsInfo: any

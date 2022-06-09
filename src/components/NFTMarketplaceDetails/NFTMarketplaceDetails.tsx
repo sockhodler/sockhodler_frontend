@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
-import { Card, NFTInfo, Button, Select } from "components";
+import { Card, NFTInfo, Button, Select, LoadingIndicator } from "components";
 import classes from "./NFTMarketplaceDetails.module.scss";
 import classNames from "classnames";
 
@@ -16,6 +16,12 @@ const paySelectItems = [
   },
 ];
 
+export interface sendTokenInfoType {
+  loading: boolean;
+  txId: string;
+  amount: number | undefined;
+  success: boolean;
+}
 interface Props {
   back: { label: string; to: string };
   details: { name: string; value: string; to: string }[];
@@ -24,6 +30,9 @@ interface Props {
   onActionClick: () => void;
   title: string;
   info: { title?: string; value: string | JSX.Element }[];
+  sendTokenInfo: sendTokenInfoType;
+  selectedPay: string;
+  setSelectedPay: any;
 }
 
 export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
@@ -34,9 +43,10 @@ export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
   onActionClick,
   title,
   info,
+  sendTokenInfo,
+  selectedPay,
+  setSelectedPay,
 }) => {
-  const [selectedPay, setSelectedPay] = useState("");
-
   return (
     <div className={classes.container}>
       <div className={classes.nav}>
@@ -56,12 +66,12 @@ export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
             size="large"
             accent="red"
             onClick={onActionClick}
-            disabled={selectedPay.length === 0}
+            disabled={selectedPay.length === 0 || sendTokenInfo.loading}
             className={classNames(
               selectedPay.length === 0 && classes["actions__cta--disabled"]
             )}
           >
-            {actionLabel}
+            {sendTokenInfo.loading ? <LoadingIndicator /> : actionLabel}
           </Button>
 
           <Select

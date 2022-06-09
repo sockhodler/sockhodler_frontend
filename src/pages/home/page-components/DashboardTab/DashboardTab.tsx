@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sendRewardSOCKToken } from "utils/algorand";
+import { sendRewardSOCKSToken } from "utils/algorand";
 import {
   LayoutTab,
   Button,
@@ -96,7 +96,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
         amount: randomAmount,
       });
       try {
-        await sendRewardSOCKToken(
+        await sendRewardSOCKSToken(
           selectedAccount,
           randomAmount,
           setScanRewardsInfo
@@ -320,6 +320,9 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
                 success: false,
               })
             }
+            title="Daily Rewards"
+            subtitle="Claimed"
+            currency="$SOCKS tokens"
             data={scanRewardsInfo}
             addr={selectedAccount}
           />

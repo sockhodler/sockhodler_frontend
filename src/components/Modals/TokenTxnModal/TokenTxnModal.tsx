@@ -7,6 +7,9 @@ import classes from "./TokenTxnModal.module.scss";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  title: string;
+  subtitle: string;
+  currency: string;
   data: any;
   addr: string;
 }
@@ -14,6 +17,9 @@ interface Props {
 export const TokenTxnModal: React.FunctionComponent<Props> = ({
   isOpen,
   onClose,
+  title,
+  subtitle,
+  currency,
   data,
   addr,
 }) => {
@@ -27,16 +33,17 @@ export const TokenTxnModal: React.FunctionComponent<Props> = ({
     >
       <div className={classes.success}>
         <div className={classes.success__header}>
-          <h3 className={classes.success__title}>Daily Rewards</h3>
+          <h3 className={classes.success__title}>{title}</h3>
           <h4 className={classes.success__subtitle}>
-            <span>Claimed</span>
+            <span>{subtitle}</span>
           </h4>
         </div>
 
         <div className={classes.content}>
           <h3 className={classes.content__number}>{data.amount}</h3>
           <p>
-            $SOCKS tokens have been transferred to
+            ${currency === "socks-tokens" && "SOCKS tokens"}
+            {currency === "algo" && "ALGOs"} have been transferred to
             <br />
             <a href={`https://algoexplorer.io/address/${addr}`}>
               {formatAddress(addr)}

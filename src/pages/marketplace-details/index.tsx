@@ -1,10 +1,12 @@
-import React from "react";
-import { Layout, NFTMarketplaceDetails } from "components";
+import React, { useState } from "react";
+import { Layout, NFTMarketplaceDetails, TokenTxnModal } from "components";
+import { sendTokenInfoType } from "components/NFTMarketplaceDetails/NFTMarketplaceDetails";
 import classes from "./index.module.scss";
 import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
 import { RootState } from "redux/rootReducer";
 import { setModalStep } from "redux/wallet/wallet-slice";
 import { useSelector, useDispatch } from "react-redux";
+import { sendSOCKSToken, sendALGOToken } from "utils/algorand";
 
 const infoItems = [
   {
@@ -52,14 +54,63 @@ const details = [
   },
 ];
 
+const platformAccountAddress = process.env.REACT_APP_PLATFORM_ACCOUNT_ADDRESS;
+
 export const MarketplaceDetails: React.FunctionComponent = () => {
+  const [sendTokenInfo, setSendTokenInfo] = useState<sendTokenInfoType>({
+    loading: false,
+    txId: "",
+    amount: undefined,
+    success: false,
+  });
+  const [selectedPay, setSelectedPay] = useState("");
+
   const dispatch = useDispatch();
-  const { connected, selectedAccount } = useSelector(
+  const { connected, selectedAccount, sessionWallet } = useSelector(
     (state: RootState) => state.wallets
   );
-  const handleBuyNowClick = () => {
+  const handleBuyNowClick = async () => {
     if (connected && selectedAccount) {
-      console.log("trigger buy now");
+      setSendTokenInfo({
+        ...sendTokenInfo,
+        loading: true,
+        amount: 1,
+      });
+      if (platformAccountAddress && sessionWallet) {
+        try {
+          if (selectedPay === "socks-tokens") {
+            await sendSOCKSToken(
+              sessionWallet.wallet,
+              selectedAccount,
+              platformAccountAddress,
+              1,
+              setSendTokenInfo
+            );
+          } else if (selectedPay === "algo") {
+            await sendALGOToken(
+              sessionWallet.wallet,
+              selectedAccount,
+              platformAccountAddress,
+              1,
+              setSendTokenInfo
+            );
+          }
+        } catch (err) {
+          setSendTokenInfo({
+            loading: false,
+            txId: "",
+            amount: undefined,
+            success: false,
+          });
+        }
+      } else {
+        setSendTokenInfo({
+          loading: false,
+          txId: "",
+          amount: undefined,
+          success: false,
+        });
+      }
     } else {
       dispatch(setModalStep(1));
     }
@@ -75,9 +126,26 @@ export const MarketplaceDetails: React.FunctionComponent = () => {
         title="SockHolder 1/250"
         imgSrc="https://unsplash.it/700/700"
         actionLabel="BUY NOW"
-        onActionClick={() => handleBuyNowClick()}
+        onActionClick={handleBuyNowClick}
         info={infoItems}
         details={details}
+        sendTokenInfo={sendTokenInfo}
+        selectedPay={selectedPay}
+        setSelectedPay={setSelectedPay}
+      />
+      <TokenTxnModal
+        isOpen={sendTokenInfo.success}
+        onClose={() =>
+          setSendTokenInfo({
+            ...sendTokenInfo,
+            success: false,
+          })
+        }
+        title="Payment Transaction"
+        subtitle="Confirmed"
+        currency={selectedPay}
+        data={sendTokenInfo}
+        addr={selectedAccount}
       />
     </Layout>
   );
