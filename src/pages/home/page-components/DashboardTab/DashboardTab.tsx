@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sendSOCKToken } from "utils/algorand";
+import { sendRewardSOCKToken } from "utils/algorand";
 import {
   LayoutTab,
   Button,
@@ -96,7 +96,11 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
         amount: randomAmount,
       });
       try {
-        await sendSOCKToken(selectedAccount, randomAmount, setScanRewardsInfo);
+        await sendRewardSOCKToken(
+          selectedAccount,
+          randomAmount,
+          setScanRewardsInfo
+        );
       } catch (error: any) {
         if (error.message.includes("must optin")) {
           setIsOptinModal(true);

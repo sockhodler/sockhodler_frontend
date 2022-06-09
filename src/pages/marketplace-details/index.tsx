@@ -2,6 +2,9 @@ import React from "react";
 import { Layout, NFTMarketplaceDetails } from "components";
 import classes from "./index.module.scss";
 import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
+import { RootState } from "redux/rootReducer";
+import { setModalStep } from "redux/wallet/wallet-slice";
+import { useSelector, useDispatch } from "react-redux";
 
 const infoItems = [
   {
@@ -50,6 +53,18 @@ const details = [
 ];
 
 export const MarketplaceDetails: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
+  const { connected, selectedAccount } = useSelector(
+    (state: RootState) => state.wallets
+  );
+  const handleBuyNowClick = () => {
+    if (connected && selectedAccount) {
+      console.log("trigger buy now");
+    } else {
+      dispatch(setModalStep(1));
+    }
+  };
+
   return (
     <Layout>
       <h2 className={classes.title}>Marketplace</h2>
@@ -60,7 +75,7 @@ export const MarketplaceDetails: React.FunctionComponent = () => {
         title="SockHolder 1/250"
         imgSrc="https://unsplash.it/700/700"
         actionLabel="BUY NOW"
-        onActionClick={() => console.log("on action click")}
+        onActionClick={() => handleBuyNowClick()}
         info={infoItems}
         details={details}
       />

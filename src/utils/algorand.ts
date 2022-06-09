@@ -38,7 +38,7 @@ export async function createToken(
   return result["asset-index"];
 }
 
-export async function sendSOCKToken(
+export async function sendRewardSOCKToken(
   toAddress: string,
   amount: number,
   setScanRewardsInfo: any
