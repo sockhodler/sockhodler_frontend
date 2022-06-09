@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
 import { Card, Button } from "components";
 import classes from "./NFT.module.scss";
@@ -30,9 +30,14 @@ export const NFT: React.FunctionComponent<NftProps> = ({
   info,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRedirect = () => {
-    navigate("/nft-auction-details");
+    if (location.pathname === "/marketplace") {
+      navigate("/marketplace-details");
+    } else if (location.pathname === "/nft-auctions") {
+      navigate("/nft-auction-details");
+    }
   };
 
   return (
