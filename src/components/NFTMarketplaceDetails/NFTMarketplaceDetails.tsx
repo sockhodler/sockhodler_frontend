@@ -71,7 +71,11 @@ export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
               selectedPay.length === 0 && classes["actions__cta--disabled"]
             )}
           >
-            {sendTokenInfo.loading ? <LoadingIndicator /> : actionLabel}
+            {sendTokenInfo.loading ? (
+              <LoadingIndicator fontSize={20} />
+            ) : (
+              actionLabel
+            )}
           </Button>
 
           <Select
