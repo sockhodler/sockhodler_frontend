@@ -22,6 +22,7 @@ import classes from "./DashboardTab.module.scss";
 import { RootState } from "redux/rootReducer";
 import { setModalStep } from "redux/wallet/wallet-slice";
 import classNames from "classnames";
+import { WalletService } from "services/WalletService";
 
 interface Props {
   for: string;
@@ -61,7 +62,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
   for: tabFor,
 }) => {
   const dispatch = useDispatch();
-  const { connected, selectedAccount } = useSelector(
+  const { connected, selectedAccount, userInfo } = useSelector(
     (state: RootState) => state.wallets
   );
   const [scanRewardsInfo, setScanRewardsInfo] = useState<scanRewardsInfoType>({
@@ -73,19 +74,26 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
   const [isOptinModal, setIsOptinModal] = useState<boolean>(false);
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [availableHour, setAvailableHour] = useState<number>();
-  const lastLogin = localStorage.getItem("lastLogin");
-
   useEffect(() => {
-    if (lastLogin) {
-      const currentTime = new Date();
-      const diffTime = currentTime.getTime() - new Date(lastLogin).getTime();
-      if (diffTime < 1000 * 60 * 60 * 24) {
-        setDisableBtn(true);
-        const availableHour = 24 - Math.ceil(diffTime / 1000 / 60 / 60);
-        setAvailableHour(availableHour);
+    const lastLoginFunc = async (username: string) => {
+      const lastLogin = await WalletService.getLastLoginDailyScanRewards(
+        username
+      );
+      if (lastLogin) {
+        const currentTime = new Date();
+        const diffTime = currentTime.getTime() - new Date(lastLogin).getTime();
+        if (diffTime < 1000 * 60 * 60 * 24) {
+          setDisableBtn(true);
+          const availableHour = 24 - Math.ceil(diffTime / 1000 / 60 / 60);
+          setAvailableHour(availableHour);
+        }
       }
+    };
+
+    if (userInfo.username) {
+      lastLoginFunc(userInfo.username);
     }
-  }, [lastLogin]);
+  }, [userInfo, scanRewardsInfo.success]);
 
   const handleClaimDailyRewards = async () => {
     if (connected && selectedAccount) {
@@ -101,6 +109,11 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
           randomAmount,
           setScanRewardsInfo
         );
+        const lastLogin = new Date();
+        await WalletService.setLastLoginDailyScanRewards({
+          username: userInfo.username || "",
+          date: lastLogin.toString(),
+        });
       } catch (error: any) {
         if (error.message.includes("must optin")) {
           setIsOptinModal(true);

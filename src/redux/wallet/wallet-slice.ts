@@ -25,6 +25,11 @@ import {
   VerifyUserPayload,
   VerifyUserParams,
 } from "common/models/VerifyUserModel";
+import {
+  GetLastLoginDailyScanRewardsParams,
+  SetLastLoginDailyScanRewardsParams,
+} from "common/models/LastLoginDailyScanRewardsModel";
+
 import { ClearUserParams } from "common/models/ClearUserModel";
 
 import { ErrorModel } from "common/models/ErrorModel";
@@ -274,6 +279,29 @@ export const asyncVerifyUser = createAsyncThunk<
   return response;
 });
 
+export const asyncGetLastLoginDailyScanRewards = createAsyncThunk<
+  string,
+  GetLastLoginDailyScanRewardsParams,
+  AsyncThunkOptions
+>("wallet/getLastLoginDailyScanRewards", async (params) => {
+  const { username } = params;
+
+  const response = await WalletService.getLastLoginDailyScanRewards(username);
+  console.log("response", response);
+
+  return response;
+});
+
+export const asyncSetLastLoginDailyScanRewards = createAsyncThunk<
+  void,
+  SetLastLoginDailyScanRewardsParams,
+  AsyncThunkOptions
+>("wallet/setLastLoginDailyScanRewards", async (params) => {
+  const response = await WalletService.setLastLoginDailyScanRewards(params);
+
+  return response;
+});
+
 /* ****************** Slice ****************** */
 export const walletSlice = createSlice({
   name: "wallet",
@@ -318,14 +346,11 @@ export const walletSlice = createSlice({
   },
   extraReducers: (builder) => {
     // GET Get Connect Wallet
-    builder.addCase(
-      asyncCheckUser.fulfilled,
-      (state, action: PayloadAction<DTOModel<CheckUserPayload>>) => {
-        state.loading = state.loading.filter(
-          (id) => id !== WalletLoadingId.CHECK_USER
-        );
-      }
-    );
+    builder.addCase(asyncCheckUser.fulfilled, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.CHECK_USER
+      );
+    });
     builder.addCase(asyncCheckUser.pending, (state) => {
       state.loading.push(WalletLoadingId.CHECK_USER);
     });

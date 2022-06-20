@@ -138,8 +138,6 @@ export async function sendRewardSOCKSToken(
   const { txId } = await client.sendRawTransaction(signed).do();
   const result = await waitForConfirmation(txId, 3);
   if (result) {
-    const lastLogin = new Date();
-    localStorage.setItem("lastLogin", lastLogin.toString());
     setScanRewardsInfo({
       loading: false,
       txId,

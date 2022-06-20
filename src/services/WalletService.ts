@@ -12,6 +12,7 @@ import {
   VerifyUserPayload,
   VerifyUserParams,
 } from "common/models/VerifyUserModel";
+import { SetLastLoginDailyScanRewardsParams } from "common/models/LastLoginDailyScanRewardsModel";
 import { ErrorModel } from "common/models/ErrorModel";
 import { ClearUserParams } from "common/models/ClearUserModel";
 
@@ -180,10 +181,75 @@ const verifyUser = async (
   return response;
 };
 
+const getLastLoginDailyScanRewards = async (
+  username: string
+): Promise<string> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "get",
+    url: `${BaseAPI}/users/last-daily-scan-rewards?username=${username}`,
+  };
+
+  const response: DTOModel<string> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<string> = await axios(axiosOptions);
+
+    response.data = resp.data;
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  if (response.data) {
+    return response.data;
+  }
+  return "";
+};
+
+const setLastLoginDailyScanRewards = async (
+  params: SetLastLoginDailyScanRewardsParams
+): Promise<void> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    url: `${BaseAPI}/users/last-daily-scan-rewards`,
+    data: params,
+  };
+
+  const response: DTOModel<string> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<void> = await axios(axiosOptions);
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+};
+
 export const WalletService = {
   checkUser,
   registerUser,
   verifyUser,
   reverifyUser,
   clearUser,
+  getLastLoginDailyScanRewards,
+  setLastLoginDailyScanRewards,
 };

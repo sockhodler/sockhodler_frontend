@@ -55,9 +55,9 @@ export const Button: React.FunctionComponent<Props> = ({
         {children}
       </button>
 
-      {tooltip && (
+      {/* {tooltip && (
         <ReactTooltip effect="solid" place="top" className={classes.tooltip} />
-      )}
+      )} */}
     </>
   );
 };
