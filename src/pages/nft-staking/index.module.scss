@@ -38,5 +38,10 @@
   button {
     padding: 2.1rem 3.4rem;
     font-size: 1.8rem;
+
+    @include respond(xs) {
+      font-size: 1.3rem;
+      padding: 0.8rem 1.4rem;
+    }
   }
 }

@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Button, StakingItem, Switch, Tab, TextField } from "components";
+import {
+  AlgorandWalletConnector,
+  Button,
+  StakingItem,
+  Switch,
+  Tab,
+  TextField,
+} from "components";
 import { StakingItemProps } from "components/StakingItem/StakingItem";
 import classes from "./GenesisCoinsTab.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "redux/rootReducer";
+import { SessionWallet } from "algorand-session-wallet";
+import { config } from "common/config/conf";
+import {
+  setSessionWallet,
+  setAccounts,
+  setConnectedStatus,
+} from "redux/wallet/wallet-slice";
 
 interface Props {
   for: string;
@@ -10,6 +26,29 @@ interface Props {
 
 export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
   const [isStaked, setIsStaked] = useState(true);
+  const dispatch = useDispatch();
+
+  const isConnected = useSelector(
+    (state: RootState) => state.wallets?.connected
+  );
+
+  const { sessionWallet, accts } = useSelector(
+    (state: RootState) => state.wallets
+  );
+
+  const sw = new SessionWallet(config.network ? config.network : "TestNet");
+  const [connected, setConnected] = React.useState(sw.connected());
+
+  const updateWallet = (swk: SessionWallet) => {
+    dispatch(setSessionWallet(swk));
+    dispatch(setAccounts(swk.accountList()));
+    dispatch(setConnectedStatus(swk.connected()));
+    setConnected(swk.connected());
+  };
+
+  useEffect(() => {
+    setConnected(connected);
+  }, [connected]);
 
   const rewardsItems: StakingItemProps[] = [];
   const depositItems: StakingItemProps[] = [];
@@ -81,34 +120,47 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
 
   return (
     <Tab for={tabFor}>
-      <div className={classes.grid}>
-        <div className={classes.header}>
-          <TextField
-            placeholder="SEARCH"
-            className={classes.header__search}
-            underline
-          />
-          <Switch
-            label="STAKED"
-            isActive={isStaked}
-            onChange={(ia) => setIsStaked(ia)}
+      {isConnected ? (
+        <div className={classes.grid}>
+          <div className={classes.header}>
+            <TextField
+              placeholder="SEARCH"
+              className={classes.header__search}
+              underline
+            />
+            <Switch
+              label="STAKED"
+              isActive={isStaked}
+              onChange={(ia) => setIsStaked(ia)}
+            />
+          </div>
+
+          <div className={classes.list}>
+            {isStaked
+              ? rewardsItems.map((item) => (
+                  <StakingItem {...item} type="reward" />
+                ))
+              : depositItems.map((item) => (
+                  <StakingItem {...item} type="deposit" />
+                ))}
+          </div>
+
+          <Button size="huge" className={classes["load-more"]}>
+            LOAD MORE
+          </Button>
+        </div>
+      ) : (
+        <div className={classes["connect-wallet"]}>
+          <AlgorandWalletConnector
+            darkMode={false}
+            sessionWallet={sessionWallet}
+            accts={accts}
+            connected={connected}
+            updateWallet={updateWallet}
+            className={classes["connect-wallet__btn"]}
           />
         </div>
-
-        <div className={classes.list}>
-          {isStaked
-            ? rewardsItems.map((item) => (
-                <StakingItem {...item} type="reward" />
-              ))
-            : depositItems.map((item) => (
-                <StakingItem {...item} type="deposit" />
-              ))}
-        </div>
-
-        <Button size="huge" className={classes["load-more"]}>
-          LOAD MORE
-        </Button>
-      </div>
+      )}
     </Tab>
   );
 };

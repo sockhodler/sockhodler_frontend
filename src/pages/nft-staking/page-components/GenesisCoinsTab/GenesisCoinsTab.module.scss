@@ -45,3 +45,47 @@
     margin-top: 3.6rem;
   }
 }
+
+.connect-wallet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10rem 5rem 20rem 5rem;
+
+  button.connect-wallet__btn {
+    border: 1px solid var(--color-violet-3);
+    padding: 1.3rem 2.5rem;
+    border-radius: 10rem;
+    background: linear-gradient(
+      to right,
+      var(--color-dark-1),
+      var(--color-dark-violet-1)
+    );
+
+    &:hover {
+      background: linear-gradient(
+        to left,
+        var(--color-dark-1),
+        var(--color-dark-violet-1)
+      );
+      border-color: var(--color-dark-violet-1);
+    }
+
+    @include respond(xs) {
+      padding: 0.8rem 1.9rem;
+    }
+
+    & > div {
+      display: none;
+    }
+
+    & > span {
+      font-size: 2rem;
+      margin: 0;
+
+      @include respond(xs) {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}

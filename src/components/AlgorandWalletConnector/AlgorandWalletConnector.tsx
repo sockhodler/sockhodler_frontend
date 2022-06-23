@@ -22,6 +22,7 @@ import {
   WalletLoadingId,
 } from "redux/wallet/wallet-slice";
 import classes from "./AlgorandWalletConnector.module.scss";
+import classNames from "classnames";
 
 type AlgorandWalletConnectorProps = {
   darkMode: boolean;
@@ -29,11 +30,19 @@ type AlgorandWalletConnectorProps = {
   accts: string[];
   sessionWallet: SessionWallet;
   updateWallet(sw: SessionWallet): void;
+  className?: string;
 };
 
 export const AlgorandWalletConnector: React.FunctionComponent<
   AlgorandWalletConnectorProps
-> = ({ sessionWallet, updateWallet, darkMode, connected, accts }) => {
+> = ({
+  sessionWallet,
+  updateWallet,
+  darkMode,
+  connected,
+  accts,
+  className,
+}) => {
   const dispatch = useDispatch();
 
   const selectedWallet = useSelector(
@@ -155,7 +164,10 @@ export const AlgorandWalletConnector: React.FunctionComponent<
   if (!loginSuccess)
     return (
       <>
-        <button className={classes.wallet} onClick={handleConnectWalletClick}>
+        <button
+          className={classNames(classes.wallet, className)}
+          onClick={handleConnectWalletClick}
+        >
           <span className={classes.wallet__text}>Connect Wallet</span>
           <div className={classes.wallet__btn}>
             <WalletIcon />
