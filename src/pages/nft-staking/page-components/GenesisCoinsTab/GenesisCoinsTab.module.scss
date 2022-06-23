@@ -32,3 +32,16 @@
     margin-top: 3.2rem;
   }
 }
+
+.load-more {
+  max-width: 47rem;
+  margin: 0 auto;
+  width: 100%;
+  display: block;
+  margin-top: 6rem;
+
+  @include respond(xs) {
+    max-width: 16.5rem;
+    margin-top: 3.6rem;
+  }
+}

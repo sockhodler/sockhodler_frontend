@@ -1,44 +1,10 @@
 import React from "react";
-import { Layout, Tabs, Tab, StakingGrid } from "components";
-import { StakingItemProps } from "components/StakingItem/StakingItem";
+
+import { Layout, Tabs } from "components";
 import classes from "./index.module.scss";
+import { GenesisCoinsTab, SockBotTab } from "./page-components";
 
 export const NftStaking: React.FunctionComponent = () => {
-  const items: StakingItemProps[] = [];
-  for (let i = 0; i < 20; i++) {
-    items.push({
-      title: "SockHodler Genesis #00",
-      img: "https://unsplash.it/200/200",
-      details: [
-        {
-          label: "ASA ID",
-          value: "552690161",
-        },
-        {
-          label: "Amount Held",
-          value: "0",
-        },
-        {
-          label: "Amount Staked",
-          value: "1",
-        },
-      ],
-      info: [
-        {
-          label: "Estimated Daily Rewards",
-          value: "15 SOCKS Tokens",
-        },
-        {
-          label: "Estimated APR",
-          value: "10.41%",
-        },
-      ],
-      onWithdrawClick: () => console.log("on onWithdrawClick click"),
-      onWebsiteClick: () => console.log("on onWebsiteClick click"),
-      onExplorerClick: () => console.log("on onExplorerClick click"),
-    });
-  }
-
   return (
     <Layout>
       <h2 className={classes.title}>NFT Staking</h2>
@@ -49,27 +15,19 @@ export const NftStaking: React.FunctionComponent = () => {
       <Tabs
         tabs={[
           {
-            label: "Base Collection",
-            value: "base-collection",
+            label: "Genesis Coins",
+            value: "genesis-coins",
           },
           {
-            label: "Genesis Collection",
-            value: "genesis-collection",
-          },
-          {
-            label: "Partner Pools",
-            value: "partner-pools",
+            label: "SockBot",
+            value: "sock-bot",
           },
         ]}
         mobileSize="small"
+        className={classes.tabs}
       >
-        <Tab for="base-collection">
-          <StakingGrid list={items} />
-        </Tab>
-
-        <Tab for="genesis-collection">genesis-collection</Tab>
-
-        <Tab for="partner-pools">partner-pools</Tab>
+        <GenesisCoinsTab for="genesis-coins" />
+        <SockBotTab for="sock-bot" />
       </Tabs>
     </Layout>
   );

@@ -23,7 +23,6 @@ export { NFT } from "./NFT/NFT";
 export { NFTGrid } from "./NFTGrid/NFTGrid";
 export { NFTDetails } from "./NFTDetails/NFTDetails";
 export { NFTInfo } from "./NFTInfo/NFTInfo";
-export { StakingGrid } from "./StakingGrid/StakingGrid";
 export { StakingItem } from "./StakingItem/StakingItem";
 export { NFTMarketplaceDetails } from "./NFTMarketplaceDetails/NFTMarketplaceDetails";
 

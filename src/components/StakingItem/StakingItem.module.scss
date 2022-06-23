@@ -72,7 +72,7 @@
   }
 
   &:nth-child(7) {
-    margin-left: 9.7rem;
+    margin-left: 6.4rem;
 
     @include respond(md) {
       grid-column: 1 / -1;
@@ -149,11 +149,13 @@
 .info {
   display: flex;
   flex-direction: column;
-  font-size: 1.4rem;
+  align-items: center;
+  font-size: 1.6rem;
   margin-bottom: 2rem;
 
   @include respond(md) {
     margin-bottom: 1rem;
+    align-items: flex-start;
   }
 
   @include respond(xs) {
@@ -164,10 +166,32 @@
   & span:first-of-type {
     font-weight: 700;
     margin-bottom: 0.4rem;
+    color: var(--color-red);
   }
 }
 
-.actions {
+.actions-reward {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1.5rem;
+
+  @include respond(md) {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 2rem;
+  }
+
+  button {
+    font-size: 2rem;
+
+    @include respond(md) {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.actions-deposit {
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
@@ -175,15 +199,30 @@
 
   @include respond(md) {
     margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    grid-template-columns: repeat(2, calc(50% - 1rem));
     grid-gap: 2rem;
+    grid-template-rows: unset;
   }
 
   button {
+    font-size: 1.6rem;
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
+
     &:nth-child(1) {
       grid-column: 1 / -1;
+      font-size: 2rem;
+
+      @include respond(md) {
+        font-size: 1.6rem;
+        grid-column: unset;
+      }
+    }
+
+    @include respond(md) {
+      &:nth-child(2) {
+        display: none;
+      }
     }
   }
 }

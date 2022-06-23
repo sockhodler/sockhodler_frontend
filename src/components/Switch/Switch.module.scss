@@ -18,26 +18,31 @@
 .input {
   display: none;
 
+  /*  &:checked + .container {
+    background: linear-gradient(
+      to right,
+      var(--color-dark-violet-1),
+      var(--color-dark-1)
+    );
+  } */
+
   &:checked + .container .ball {
-    transform: translateX(calc(100% - 0.53rem / 2));
+    transform: translateX(0);
+    background-color: var(--color-dark-violet-8);
 
     @include respond(xs) {
-      transform: translateX(calc(100% - 0.4rem / 2));
+      transform: translateX(0);
     }
   }
 }
 
 .container {
-  background: linear-gradient(
-    to right,
-    var(--color-dark-violet-1),
-    var(--color-dark-1)
-  );
   width: 6.9rem;
   height: 2.3rem;
   padding: 0.3rem 0.53rem;
   border-radius: 10rem;
   border: 0.1rem solid var(--color-dark-violet-7);
+  background-color: var(--color-dark-violet-1);
 
   @include respond(xs) {
     padding: 0.2rem 0.4rem;
@@ -50,10 +55,12 @@
   width: 3.1rem;
   height: 100%;
   border-radius: 10rem;
-  background-color: var(--color-dark-violet-8);
   transition: all 0.2s ease-in-out;
+  transform: translateX(calc(100% - 0.53rem / 2));
+  background-color: var(--color-purple-1);
 
   @include respond(xs) {
     width: 2.8rem;
+    transform: translateX(calc(100% - 0.4rem / 2));
   }
 }
