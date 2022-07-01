@@ -19,7 +19,7 @@ export const formatURL = async (url: string): Promise<any> => {
     const urlArr = url.split("://");
     if (url.endsWith(ARC3_URL_SUFFIX) || url.endsWith(ARC69_URL_SUFFIX)) {
       const response = await axios.get(
-        `https://yieldly.mypinata.cloud/ipfs/${urlArr[1]}`
+        `https://sockhodler.mypinata.cloud/ipfs/${urlArr[1]}`
       );
       if (response.data.image) {
         const respURL = await formatURL(response.data.image);
@@ -30,20 +30,20 @@ export const formatURL = async (url: string): Promise<any> => {
       return returnURL;
     }
   } else if (url && url.includes("ipfs.io")) {
-    const replaceURL = url.replace("ipfs.io", "yieldly.mypinata.cloud");
+    const replaceURL = url.replace("ipfs.io", "sockhodler.mypinata.cloud");
     return replaceURL;
   } else if (url && url.includes("tinyurl.com")) {
     const res = await axios.get(url);
     if (res.request.responseURL) {
       const replaceURL = res.request.responseURL.replace(
         "gateway.pinata.cloud",
-        "yieldly.mypinata.cloud"
+        "sockhodler.mypinata.cloud"
       );
       return replaceURL;
     } else if (res.request.res.responseUrl) {
       const replaceURL = res.request.res.responseUrl.replace(
         "gateway.pinata.cloud",
-        "yieldly.mypinata.cloud"
+        "sockhodler.mypinata.cloud"
       );
       return replaceURL;
     }
@@ -61,7 +61,7 @@ export const formatURL = async (url: string): Promise<any> => {
   } else if (url && url.includes("gateway.pinata.cloud")) {
     const replaceURL = url.replace(
       "gateway.pinata.cloud",
-      "yieldly.mypinata.cloud"
+      "sockhodler.mypinata.cloud"
     );
     return replaceURL;
   } else if (url && url.includes("bit.ly")) {
