@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Layout, Card, Button } from "components";
 import { useParams } from "react-router-dom";
@@ -8,30 +8,30 @@ import classNames from "classnames";
 import { validateArc3 } from "utils/validator";
 import { Icon } from "@blueprintjs/core";
 
-interface InfoDetailProps {
-  title: string;
-  value: string | number;
-}
-interface ListProps {
-  title: string;
-  items: InfoDetailProps[];
-}
+// interface InfoDetailProps {
+//   title: string;
+//   value: string | number;
+// }
+// interface ListProps {
+//   title: string;
+//   items: InfoDetailProps[];
+// }
 
-const List: React.FunctionComponent<ListProps> = ({ title, items }) => {
-  return (
-    <div className={classes.info}>
-      <h2 className={classes.info__title}>{title}</h2>
-      <ul className={classes.info__list}>
-        {items.map((item) => (
-          <li className={classes.info__item}>
-            <span>{item.title}</span>
-            <span>{item.value}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+// const List: React.FunctionComponent<ListProps> = ({ title, items }) => {
+//   return (
+//     <div className={classes.info}>
+//       <h2 className={classes.info__title}>{title}</h2>
+//       <ul className={classes.info__list}>
+//         {items.map((item) => (
+//           <li className={classes.info__item}>
+//             <span>{item.title}</span>
+//             <span>{item.value}</span>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
 
 export const NFTDetails: React.FunctionComponent = () => {
   const { assetId } = useParams();

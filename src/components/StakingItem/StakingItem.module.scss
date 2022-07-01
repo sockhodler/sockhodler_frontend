@@ -226,3 +226,27 @@
     }
   }
 }
+.hide_img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -9999;
+  opacity: 0;
+}
+
+// .loadingImgContainer {
+//   height: 3rem;
+//   width: 3rem;
+//   object-fit: cover;
+//   margin-right: 1rem;
+//   border-radius: 0.4rem;
+//   background-color: none;
+//   overflow: hidden;
+
+//   & img {
+//     transform: scale(2.5);
+//   }
+// }

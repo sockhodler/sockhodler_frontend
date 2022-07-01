@@ -20,6 +20,8 @@ export interface ProgressStatusType {
 
 export const ARC3_NAME_SUFFIX = "@arc3";
 export const ARC3_URL_SUFFIX = "#arc3";
+export const ARC69_NAME_SUFFIX = "@arc69";
+export const ARC69_URL_SUFFIX = "#arc69";
 export const METADATA_FILE = "metadata.json";
 export const JSON_TYPE = "application/json";
 
@@ -163,6 +165,17 @@ export class NFT {
         return new NFT(await getMetaFromIpfs(url), token, urlMimeType);
     }
     return new NFT(NFTMetadata.fromToken(token), token, urlMimeType);
+  }
+
+  static async tokenFromAssetId(assetId: number) {
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const token = new Token(await getToken(assetId));
+      return token;
+    } catch (err) {
+      return false;
+      // throw err
+    }
   }
 
   imgURL(): string {

@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { Middleware } from "@reduxjs/toolkit";
-import { ErrorModel } from "common/models/ErrorModel";
+// import { ErrorModel } from "common/models/ErrorModel";
 import { RootState } from "../rootReducer";
 import { ThunkAppDispatch } from "../store";
 import {
@@ -11,7 +11,7 @@ import {
 
 export const tagsMiddleware: Middleware<void, RootState, ThunkAppDispatch> =
   (middlewareOptions) => (next) => async (action) => {
-    const { dispatch, getState } = middlewareOptions;
+    const { dispatch } = middlewareOptions;
     const result = next(action);
 
     if (asyncAuthenticateData.fulfilled.match(action)) {

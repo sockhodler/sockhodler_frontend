@@ -38,7 +38,7 @@ export async function createToken(
   return result["asset-index"];
 }
 
-export async function sendALGOToken(
+export async function sendALGOTokenFromUserToPlatformAccount(
   wallet: Wallet,
   fromAddress: string,
   toAddress: string,
@@ -75,7 +75,8 @@ export async function sendALGOToken(
     });
   }
 }
-export async function sendSOCKSToken(
+
+export async function sendSOCKSTokenFromUserToPlatformAccount(
   wallet: Wallet,
   fromAddress: string,
   toAddress: string,
@@ -115,7 +116,120 @@ export async function sendSOCKSToken(
   }
 }
 
-export async function sendRewardSOCKSToken(
+export async function optInUserAccountAsset(
+  wallet: Wallet,
+  addr: string,
+  assetIndex: number
+): Promise<any> {
+  const txParams = await client.getTransactionParams().do();
+  const txn = await algosdk.makeAssetTransferTxnWithSuggestedParams(
+    addr,
+    addr,
+    undefined,
+    undefined,
+    0,
+    undefined,
+    assetIndex,
+    txParams
+  );
+
+  const [txn_s] = await wallet.signTxn([txn]);
+
+  const { txId } = await client
+    .sendRawTransaction(
+      [txn_s].map((t) => {
+        return t.blob;
+      })
+    )
+    .do();
+  const result = await waitForConfirmation(txId, 3);
+  return result;
+}
+
+export async function optInPlatformAccountAsset(
+  addr: string,
+  assetIndex: number
+): Promise<any> {
+  const txParams = await client.getTransactionParams().do();
+
+  const txn = await algosdk.makeAssetTransferTxnWithSuggestedParams(
+    addr,
+    addr,
+    undefined,
+    undefined,
+    0,
+    undefined,
+    assetIndex,
+    txParams
+  );
+  const txn_s = await txn.signTxn(platformAccount.sk);
+  // const [txn_s] = await wallet.signTxn([txn]);
+
+  const { txId } = await client.sendRawTransaction(txn_s).do();
+  const result = await waitForConfirmation(txId, 3);
+  return result;
+}
+
+export async function transferAssetFromPlatformAccountToUser(
+  fromAddress: string,
+  toAddress: string,
+  amount: number,
+  assetIndex: number
+): Promise<any> {
+  const txParams = await client.getTransactionParams().do();
+
+  const txn = await algosdk.makeAssetTransferTxnWithSuggestedParams(
+    fromAddress,
+    toAddress,
+    undefined,
+    undefined,
+    amount,
+    undefined,
+    assetIndex,
+    txParams
+  );
+
+  const txn_s = await txn.signTxn(platformAccount.sk);
+  // const [txn_s] = await wallet.signTxn([txn]);
+
+  const { txId } = await client.sendRawTransaction(txn_s).do();
+  const result = await waitForConfirmation(txId, 3);
+  return result;
+}
+export async function transferAssetFromUserToPlatformAccount(
+  wallet: Wallet,
+  fromAddress: string,
+  toAddress: string,
+  amount: number,
+  assetIndex: number
+): Promise<any> {
+  const txParams = await client.getTransactionParams().do();
+
+  const txn = await algosdk.makeAssetTransferTxnWithSuggestedParams(
+    fromAddress,
+    toAddress,
+    undefined,
+    undefined,
+    amount,
+    undefined,
+    assetIndex,
+    txParams
+  );
+
+  const [txn_s] = await wallet.signTxn([txn]);
+
+  const { txId } = await client
+    .sendRawTransaction(
+      [txn_s].map((t) => {
+        return t.blob;
+      })
+    )
+    .do();
+  const result = await waitForConfirmation(txId, 3);
+  return result;
+}
+
+export async function sendRewardSOCKSTokenFromPlatformToUser(
   toAddress: string,
   amount: number,
   setScanRewardsInfo: any
@@ -198,6 +312,7 @@ export async function sendWait(signed: any[]): Promise<any> {
     const result = await waitForConfirmation(txId, 3);
     return result;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
   }
 

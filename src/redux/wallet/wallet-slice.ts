@@ -1,13 +1,4 @@
-/*
- * File: case-slice.ts
- * Project: receiving-rules
- * -----
- * Last Modified: 30 Sep 2020 5:38:56 pm
- * -----
- * Copyright (c) 2020 Elegant Software Solutions All rights reserved.
- */
-
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SessionWallet } from "algorand-session-wallet";
 import { config } from "common/config/conf";
 import { WalletService } from "services/WalletService";
@@ -29,6 +20,12 @@ import {
   GetLastLoginDailyScanRewardsParams,
   SetLastLoginDailyScanRewardsParams,
 } from "common/models/LastLoginDailyScanRewardsModel";
+import {
+  DeleteStakeRecordsParams,
+  GetStakeRecordsParams,
+  SetStakeRecordsParams,
+  StakeRecordPayload,
+} from "common/models/StakeRecordModel";
 
 import { ClearUserParams } from "common/models/ClearUserModel";
 
@@ -42,6 +39,8 @@ export enum WalletLoadingId {
   VERIFY_USER = "verifyUser",
   CLEAR_USER = "clearUser",
   REVERIFY_USER = "reverifyUser",
+  DELETE_STAKE_RECORDS = "deleteStakeRecords",
+  SET_STAKE_RECORDS = "setStakeRecords",
 }
 
 export enum WalletErrorId {
@@ -138,7 +137,7 @@ export const asyncRegisterUser = createAsyncThunk<
 >("wallet/registerUser", async (params, thunkOptions) => {
   const { rejectWithValue, getState } = thunkOptions;
   const { wallets } = getState();
-  const { publicAddress, email, username } = params;
+  const { email } = params;
   localStorage.setItem("email", email);
   if (wallets === undefined) {
     const error: ErrorModel = {
@@ -177,7 +176,7 @@ export const asyncReverifyUser = createAsyncThunk<
 >("wallet/reverifyUser", async (params, thunkOptions) => {
   const { rejectWithValue, getState } = thunkOptions;
   const { wallets } = getState();
-  const { publicAddress, email, username } = params;
+  const { email } = params;
   localStorage.setItem("email", email);
   if (wallets === undefined) {
     const error: ErrorModel = {
@@ -214,9 +213,9 @@ export const asyncClearUser = createAsyncThunk<
   ClearUserParams,
   AsyncThunkOptions
 >("wallet/clearUser", async (params, thunkOptions) => {
-  const { rejectWithValue, getState } = thunkOptions;
-  const { wallets } = getState();
-  const { publicAddress, email, username } = params;
+  const { rejectWithValue } = thunkOptions;
+  // const { wallets } = getState();
+  // const { publicAddress, email, username } = params;
   // if (wallets === undefined) {
   //   const error: ErrorModel = {
   //     errorMessage: "Unable to find wallet",
@@ -247,7 +246,7 @@ export const asyncVerifyUser = createAsyncThunk<
 >("wallet/verifyUser", async (params, thunkOptions) => {
   const { rejectWithValue, getState } = thunkOptions;
   const { wallets } = getState();
-  const { code } = params;
+  // const { code } = params;
 
   if (wallets === undefined) {
     const error: ErrorModel = {
@@ -287,7 +286,6 @@ export const asyncGetLastLoginDailyScanRewards = createAsyncThunk<
   const { username } = params;
 
   const response = await WalletService.getLastLoginDailyScanRewards(username);
-  console.log("response", response);
 
   return response;
 });
@@ -298,6 +296,38 @@ export const asyncSetLastLoginDailyScanRewards = createAsyncThunk<
   AsyncThunkOptions
 >("wallet/setLastLoginDailyScanRewards", async (params) => {
   const response = await WalletService.setLastLoginDailyScanRewards(params);
+
+  return response;
+});
+
+export const asyncGetStakeRecords = createAsyncThunk<
+  DTOModel<StakeRecordPayload | null>,
+  GetStakeRecordsParams,
+  AsyncThunkOptions
+>("wallet/getStakeRecords", async (params) => {
+  const { fromAddress } = params;
+
+  const response = await WalletService.getStakeRecords(fromAddress);
+
+  return response;
+});
+
+export const asyncSetStakeRecords = createAsyncThunk<
+  DTOModel<void>,
+  SetStakeRecordsParams,
+  AsyncThunkOptions
+>("wallet/setStakeRecords", async (params) => {
+  const response = await WalletService.setStakeRecords(params);
+
+  return response;
+});
+
+export const asyncDeleteStakeRecords = createAsyncThunk<
+  DTOModel<void>,
+  DeleteStakeRecordsParams,
+  AsyncThunkOptions
+>("wallet/deleteStakeRecords", async (params) => {
+  const response = await WalletService.deleteStakeRecords(params);
 
   return response;
 });
@@ -417,6 +447,38 @@ export const walletSlice = createSlice({
     builder.addCase(asyncReverifyUser.rejected, (state, action) => {
       state.loading = state.loading.filter(
         (id) => id !== WalletLoadingId.REVERIFY_USER
+      );
+      state.error.push(action.payload as ErrorModel);
+    });
+
+    // Delete Stake Records
+    builder.addCase(asyncDeleteStakeRecords.fulfilled, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.DELETE_STAKE_RECORDS
+      );
+    });
+    builder.addCase(asyncDeleteStakeRecords.pending, (state) => {
+      state.loading.push(WalletLoadingId.DELETE_STAKE_RECORDS);
+    });
+    builder.addCase(asyncDeleteStakeRecords.rejected, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.DELETE_STAKE_RECORDS
+      );
+      state.error.push(action.payload as ErrorModel);
+    });
+
+    // Set Stake Records
+    builder.addCase(asyncSetStakeRecords.fulfilled, (state) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.SET_STAKE_RECORDS
+      );
+    });
+    builder.addCase(asyncSetStakeRecords.pending, (state) => {
+      state.loading.push(WalletLoadingId.SET_STAKE_RECORDS);
+    });
+    builder.addCase(asyncSetStakeRecords.rejected, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.SET_STAKE_RECORDS
       );
       state.error.push(action.payload as ErrorModel);
     });

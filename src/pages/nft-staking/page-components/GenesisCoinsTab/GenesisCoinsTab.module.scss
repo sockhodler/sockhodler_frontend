@@ -39,7 +39,16 @@
   width: 100%;
   display: block;
   margin-top: 6rem;
+  &--disabled {
+    background: var(--color-grey);
+    color: var(--color-dark-2);
+    cursor: not-allowed;
 
+    &:hover {
+      border-color: transparent;
+      background: var(--color-grey);
+    }
+  }
   @include respond(xs) {
     max-width: 16.5rem;
     margin-top: 3.6rem;

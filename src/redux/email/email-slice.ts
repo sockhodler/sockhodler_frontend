@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AsyncThunkOptions } from "common/models/AsyncThunkOptions";
 import { DTOModel } from "common/models/DTOModel";
 import { ErrorModel } from "common/models/ErrorModel";

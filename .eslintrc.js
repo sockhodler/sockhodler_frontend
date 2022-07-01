@@ -55,6 +55,7 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-param-reassign": "off",
     "no-shadow": "off",
+    "no-else-return": "off",
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "import/prefer-default-export": "off",
     "react/button-has-type": "off",

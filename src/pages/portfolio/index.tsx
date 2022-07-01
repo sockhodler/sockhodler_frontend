@@ -37,6 +37,7 @@ export const Portfolio: React.FunctionComponent = () => {
       <NFTGrid
         back={{ label: "back to home", to: "/" }}
         list={items}
+        // eslint-disable-next-line no-console
         onLoadMoreClick={() => console.log("onLoadMoreClick")}
         type="portfolio"
       />

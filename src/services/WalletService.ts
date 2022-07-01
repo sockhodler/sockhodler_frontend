@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { DTOModel } from "common/models/DTOModel";
 import {
   CheckUserParams,
@@ -13,7 +13,11 @@ import {
   VerifyUserParams,
 } from "common/models/VerifyUserModel";
 import { SetLastLoginDailyScanRewardsParams } from "common/models/LastLoginDailyScanRewardsModel";
-import { ErrorModel } from "common/models/ErrorModel";
+import {
+  StakeRecordPayload,
+  SetStakeRecordsParams,
+  DeleteStakeRecordsParams,
+} from "common/models/StakeRecordModel";
 import { ClearUserParams } from "common/models/ClearUserModel";
 
 const BaseAPI = process.env.REACT_APP_API_URL;
@@ -244,6 +248,97 @@ const setLastLoginDailyScanRewards = async (
   }
 };
 
+const getStakeRecords = async (
+  fromAddress: string
+): Promise<DTOModel<StakeRecordPayload | null>> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "get",
+    url: `${BaseAPI}/users/stake-record?fromAddress=${fromAddress}`,
+  };
+
+  const response: DTOModel<StakeRecordPayload> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<StakeRecordPayload> = await axios(axiosOptions);
+
+    response.data = resp.data;
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  return response;
+};
+
+const setStakeRecords = async (
+  params: SetStakeRecordsParams
+): Promise<DTOModel<void>> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    url: `${BaseAPI}/users/stake-record`,
+    data: params,
+  };
+
+  const response: DTOModel<void> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<void> = await axios(axiosOptions);
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  return response;
+};
+
+const deleteStakeRecords = async (
+  params: DeleteStakeRecordsParams
+): Promise<DTOModel<void>> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "delete",
+    url: `${BaseAPI}/users/stake-record`,
+    data: params,
+  };
+
+  const response: DTOModel<void> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<void> = await axios(axiosOptions);
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  return response;
+};
+
 export const WalletService = {
   checkUser,
   registerUser,
@@ -252,4 +347,7 @@ export const WalletService = {
   clearUser,
   getLastLoginDailyScanRewards,
   setLastLoginDailyScanRewards,
+  getStakeRecords,
+  setStakeRecords,
+  deleteStakeRecords,
 };

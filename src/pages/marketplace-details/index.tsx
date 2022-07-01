@@ -6,7 +6,10 @@ import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
 import { RootState } from "redux/rootReducer";
 import { setModalStep } from "redux/wallet/wallet-slice";
 import { useSelector, useDispatch } from "react-redux";
-import { sendSOCKSToken, sendALGOToken } from "utils/algorand";
+import {
+  sendSOCKSTokenFromUserToPlatformAccount,
+  sendALGOTokenFromUserToPlatformAccount,
+} from "utils/algorand";
 
 const infoItems = [
   {
@@ -79,7 +82,7 @@ export const MarketplaceDetails: React.FunctionComponent = () => {
       if (platformAccountAddress && sessionWallet) {
         try {
           if (selectedPay === "socks-tokens") {
-            await sendSOCKSToken(
+            await sendSOCKSTokenFromUserToPlatformAccount(
               sessionWallet.wallet,
               selectedAccount,
               platformAccountAddress,
@@ -87,7 +90,7 @@ export const MarketplaceDetails: React.FunctionComponent = () => {
               setSendTokenInfo
             );
           } else if (selectedPay === "algo") {
-            await sendALGOToken(
+            await sendALGOTokenFromUserToPlatformAccount(
               sessionWallet.wallet,
               selectedAccount,
               platformAccountAddress,

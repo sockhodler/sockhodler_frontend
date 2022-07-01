@@ -14,6 +14,7 @@ export const config = {
   },
   smartContractUrl: process.env.REACT_APP_SMART_CONTRACT_URL,
   imageOptimizer: process.env.REACT_APP_IMAGE_OPTIMIZER,
+  algoExplorerIndexerApi: process.env.REACT_APP_ALGO_EXPLORER_API_INDEXER,
 };
 
 export const getAddrUrl = (addr: string) =>

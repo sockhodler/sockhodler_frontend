@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "components";
 import classes from "./StakingItem.module.scss";
 import classNames from "classnames";
+import { formatURL } from "utils/helpers";
+import loadingBubbleAnimation from "assets/loadings/bubble.svg";
 
 export interface StakingItemProps {
   title: string;
@@ -9,11 +11,13 @@ export interface StakingItemProps {
   details: { label: string; value: string }[];
   info: { label: string; value: string }[];
   onClaimRewardsClick?: () => void;
-  onWithdrawClick?: () => void;
-  onDepositClick?: () => void;
+  onWithdrawClick?: (index: number) => void;
+  onDepositClick?: (index: number) => void;
   onNftExplorerClick?: () => void;
   onExplorerClick?: () => void;
   type?: "reward" | "deposit";
+  depositLoading?: boolean;
+  withdrawLoading?: boolean;
 }
 
 export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
@@ -27,14 +31,63 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
   onNftExplorerClick,
   onExplorerClick,
   type = "reward",
+  depositLoading,
+  withdrawLoading,
 }) => {
+  const [formattedURL, setFormattedURL] = useState<string>();
+  const [loadingFailed, setLoadingFailed] = useState<boolean>(false);
+  const [imgLoading, setImgLoading] = useState<boolean>(true);
+  const [index, setIndex] = useState<number>(0);
+
+  useEffect(() => {
+    if (details.find((de) => de.label === "ASA ID")?.value) {
+      setIndex(Number(details.find((de) => de.label === "ASA ID")?.value));
+    }
+  }, [details]);
+
+  useEffect(() => {
+    const formattedURL = async () => {
+      const url = await formatURL(img);
+      setFormattedURL(url);
+    };
+    formattedURL();
+  }, [img]);
+  // const index = details.find((de) => de.label === "ASA ID")?.value;
   return (
     <Card className={classes.container}>
       <div className={classes.header}>{title}</div>
 
       <div className={classes.row}>
         <div className={classes.column}>
-          <img src={img} className={classes.img} alt="" />
+          {imgLoading && (
+            <img
+              src={loadingBubbleAnimation}
+              className={classes.img}
+              alt="loading"
+            />
+          )}
+          {loadingFailed ? (
+            <video
+              preload="auto"
+              loop
+              autoPlay
+              muted
+              onLoadStart={() => setImgLoading(false)}
+              onError={() => setImgLoading(false)}
+              className={`${classes.img} ${imgLoading && classes.hide_img}`}
+            >
+              <source src={`${formattedURL}#t=0.1`} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={formattedURL}
+              alt="nft-asset"
+              onError={() => setLoadingFailed(true)}
+              onLoad={() => setImgLoading(false)}
+              className={`${classes.img} ${imgLoading && classes.hide_img}`}
+            />
+          )}
+          {/* <img src={formattedURL} className={classes.img} alt="" /> */}
         </div>
         <div className={classes.divider} />
         <div className={classes.column}>
@@ -64,8 +117,14 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
             <Button accent="red" sharp onClick={onClaimRewardsClick}>
               CLAIM REWARDS
             </Button>
-            <Button accent="purple" sharp onClick={onWithdrawClick}>
-              WITHDRAW
+            <Button
+              accent="purple"
+              sharp
+              disabled={withdrawLoading}
+              loading={withdrawLoading}
+              onClick={() => onWithdrawClick?.(index)}
+            >
+              {withdrawLoading ? "" : "WITHDRAW"}
             </Button>
           </div>
         )}
@@ -74,15 +133,37 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
           <div
             className={classNames(classes.column, classes["actions-deposit"])}
           >
-            <Button accent="red" sharp onClick={onDepositClick}>
-              Deposit NFT
+            <Button
+              accent="red"
+              sharp
+              disabled={depositLoading}
+              loading={depositLoading}
+              onClick={() => onDepositClick?.(index)}
+            >
+              {depositLoading ? "" : "Deposit NFT"}
             </Button>
-            <Button accent="purple" sharp onClick={onNftExplorerClick}>
-              NFTEXPLORER
-            </Button>
-            <Button accent="black" sharp onClick={onExplorerClick}>
-              EXPLORER
-            </Button>
+            <a
+              href={`https://nftexplorer.app/asset/${
+                details.find((de) => de.label === "ASA ID")?.value
+              }`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button accent="purple" sharp onClick={onNftExplorerClick}>
+                NFTEXPLORER
+              </Button>
+            </a>
+            <a
+              href={`https://algoexplorer.io/asset/${
+                details.find((de) => de.label === "ASA ID")?.value
+              }`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button accent="black" sharp onClick={onExplorerClick}>
+                EXPLORER
+              </Button>
+            </a>
           </div>
         )}
       </div>

@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   TagModel,
-  ScanTagModel,
+  // ScanTagModel,
   GetTagsDataParams,
   ErrorModel,
   DTOModel,
@@ -48,9 +48,10 @@ export const asyncAuthenticateData = createAsyncThunk<
   GetTagsDataParams,
   AsyncThunkOptions
 >("tag/authenticate", async (params, thunkOptions) => {
-  const { rejectWithValue, getState } = thunkOptions;
-  const { wallets } = getState();
-  const { cid, tid, pl } = params;
+  const { rejectWithValue } = thunkOptions;
+  // const { wallets } = getState();
+  // const { cid, tid, pl } = params;
+  const { pl } = params;
   const post_data = {
     useragent: "useragent string goes here",
     ip_address: "111.111.111.111",

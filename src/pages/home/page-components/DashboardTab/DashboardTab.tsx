@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sendRewardSOCKSToken } from "utils/algorand";
+import { sendRewardSOCKSTokenFromPlatformToUser } from "utils/algorand";
 import {
   LayoutTab,
   Button,
@@ -104,7 +104,7 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
         amount: randomAmount,
       });
       try {
-        await sendRewardSOCKSToken(
+        await sendRewardSOCKSTokenFromPlatformToUser(
           selectedAccount,
           randomAmount,
           setScanRewardsInfo

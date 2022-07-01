@@ -1,27 +1,25 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+// import { AxiosRequestConfig } from "axios";
 import {
   DTOModel,
   AuthenticateTagParams,
-  ErrorModel,
-  TagModel,
   AuthenticateTagPayload,
 } from "common/models";
 
-const SmartSealBaseAPI = process.env.REACT_APP_SMART_SEAL_API_URL;
+// const SmartSealBaseAPI = process.env.REACT_APP_SMART_SEAL_API_URL;
 
 const authenticateTag = async (
   data: AuthenticateTagParams
 ): Promise<DTOModel<AuthenticateTagPayload>> => {
-  const axiosOptions: AxiosRequestConfig = {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    method: "post",
-    url: `${SmartSealBaseAPI}/authenticate`,
-    data: JSON.stringify(data),
-  };
+  // const axiosOptions: AxiosRequestConfig = {
+  //   headers: {
+  //     Accept: "application/json",
+  //     "Content-Type": "application/json",
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  //   method: "post",
+  //   url: `${SmartSealBaseAPI}/authenticate`,
+  //   data: JSON.stringify(data),
+  // };
 
   const response: DTOModel<AuthenticateTagPayload> = {
     data: null,
