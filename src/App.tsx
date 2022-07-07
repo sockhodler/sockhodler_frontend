@@ -38,7 +38,7 @@ const App: React.FunctionComponent = () => {
       adminAuth: false,
     },
     {
-      path: "/marketplace-details",
+      path: "/marketplace-details/:index",
       component: <MarketplaceDetails />,
       walletAuth: false,
       adminAuth: false,

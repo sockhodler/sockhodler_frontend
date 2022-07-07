@@ -33,3 +33,35 @@
     margin-bottom: 3rem;
   }
 }
+
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16.5rem 0 19.2rem 0;
+
+  &__title {
+    font-size: 4.8rem;
+    line-height: 4.2rem;
+    font-weight: 400;
+    font-family: var(--fonts-made-soulmaze);
+
+    @include respond(xs) {
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 3.6rem;
+    line-height: 4.8rem;
+    font-weight: 700;
+    color: var(--color-red);
+
+    @include respond(xs) {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+  }
+}

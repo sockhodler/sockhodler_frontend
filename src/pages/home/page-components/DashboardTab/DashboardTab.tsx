@@ -104,16 +104,23 @@ export const DashboardTab: React.FunctionComponent<Props> = ({
         amount: randomAmount,
       });
       try {
-        await sendRewardSOCKSTokenFromPlatformToUser(
+        const result = await sendRewardSOCKSTokenFromPlatformToUser(
           selectedAccount,
-          randomAmount,
-          setScanRewardsInfo
+          randomAmount
         );
-        const lastLogin = new Date();
-        await WalletService.setLastLoginDailyScanRewards({
-          username: userInfo.username || "",
-          date: lastLogin.toString(),
-        });
+        if (result && result.txId) {
+          const lastLogin = new Date();
+          await WalletService.setLastLoginDailyScanRewards({
+            username: userInfo.username || "",
+            date: lastLogin.toString(),
+          });
+          setScanRewardsInfo({
+            loading: false,
+            txId: result.txId,
+            amount: randomAmount,
+            success: true,
+          });
+        }
       } catch (error: any) {
         if (error.message.includes("must optin")) {
           setIsOptinModal(true);

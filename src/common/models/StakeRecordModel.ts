@@ -15,6 +15,7 @@ export interface SetStakeRecordsParams {
   toAddress: string;
   index: number;
   amount: number;
+  date: string;
 }
 
 export interface DeleteStakeRecordsParams {

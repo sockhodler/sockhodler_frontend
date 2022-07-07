@@ -1,15 +1,15 @@
 import React from "react";
 import { Layout, NFTGrid } from "components";
-import { NftProps } from "components/NFT/NFT";
+import { MarketplaceItemType } from "components/NFT/NFT";
 import classes from "./index.module.scss";
 import { Wallet } from "./page-components";
 
 export const Portfolio: React.FunctionComponent = () => {
-  const items: NftProps[] = [];
+  const items: MarketplaceItemType[] = [];
   for (let i = 0; i < 20; i++) {
     items.push({
-      title: "SockHodler 1/250",
-      subtitle: "SOCKHODLER",
+      name: "SockHodler 1/250",
+      unitName: "SOCKHODLER",
       info: [
         {
           label: "CREATOR ADDRESS",

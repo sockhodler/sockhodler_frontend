@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ReactComponent as AlgoIcon } from "assets/icons/algo.svg";
 import { Card, Button } from "components";
 import classes from "./NFT.module.scss";
+import { formatURL } from "utils/helpers";
+import loadingBubbleAnimation from "assets/loadings/bubble.svg";
 
 export interface NftProps {
   title: string;
@@ -17,44 +19,111 @@ export interface NftProps {
   info?: { label: string; value: string }[];
 }
 
-export const NFT: React.FunctionComponent<NftProps> = ({
-  title,
-  subtitle,
-  price,
-  unitMin,
-  unitMax,
-  unitAvailable,
+export interface MarketplaceItemType {
+  name: string;
+  unitName: string;
+  creator?: string;
+  index?: number;
+  amount?: number;
+  total?: number;
+  decimals?: number;
+  url?: string;
+  algoPrice?: number;
+  socksPrice?: number;
+  royalty?: number;
+  type?: string;
+  currentBid?: number;
+  endIn?: number;
+  info?: { label: string; value: string }[];
+  description?: string;
+}
+
+export const NFT: React.FunctionComponent<MarketplaceItemType> = ({
+  name,
+  unitName,
+  creator,
+  index,
+  amount,
+  total,
+  decimals,
+  url,
+  algoPrice,
+  socksPrice,
+  royalty,
+  type,
   currentBid,
   endIn,
-  type,
   info,
+  description,
 }) => {
+  const [formattedURL, setFormattedURL] = useState<string>();
+  const [loadingFailed, setLoadingFailed] = useState<boolean>(false);
+  const [imgLoading, setImgLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const formattedURL = async () => {
+      if (url) {
+        const img = await formatURL(url);
+        setFormattedURL(img);
+      }
+    };
+    formattedURL();
+  }, [url]);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleRedirect = () => {
     if (location.pathname === "/marketplace") {
-      navigate("/marketplace-details");
+      navigate(`/marketplace-details/${index}`);
     } else if (location.pathname === "/nft-auctions") {
-      navigate("/nft-auction-details");
+      navigate(`/nft-auction-details/${index}`);
     }
   };
 
   return (
     <Card className={classes.nft}>
-      <img src="https://unsplash.it/400/400" className={classes.img} alt="" />
+      {imgLoading && (
+        <img
+          src={loadingBubbleAnimation}
+          className={classes.img}
+          alt="loading"
+        />
+      )}
+      {loadingFailed ? (
+        <video
+          preload="auto"
+          loop
+          autoPlay
+          muted
+          onLoadStart={() => setImgLoading(false)}
+          onError={() => setImgLoading(false)}
+          className={`${classes.img} ${imgLoading && classes.hide_img}`}
+        >
+          <source src={`${formattedURL}#t=0.1`} type="video/mp4" />
+        </video>
+      ) : (
+        <img
+          src={formattedURL}
+          alt="nft-asset"
+          onError={() => setLoadingFailed(true)}
+          onLoad={() => setImgLoading(false)}
+          className={`${classes.img} ${imgLoading && classes.hide_img}`}
+        />
+      )}
+      {/* <img src="https://unsplash.it/400/400" className={classes.img} alt="" /> */}
       <div className={classes.content}>
-        <span className={classes.title}>{title}</span>
-        <span className={classes.subtitle}>{subtitle}</span>
+        <span className={classes.title}>{`${name} ${amount}/${total}`}</span>
+        <span className={classes.subtitle}>{unitName}</span>
         {type !== "portfolio" ? (
           <>
             <div className={classes.price}>
-              {price}
+              {algoPrice}
               <AlgoIcon />
             </div>
-            {unitMin && (
+            {!currentBid && (
               <span className={classes.unit}>
-                {unitMin}/{unitMax} - {unitAvailable} UNITS LEFT
+                {amount}/{total} - {amount} UNITS LEFT
               </span>
             )}
             {currentBid && (

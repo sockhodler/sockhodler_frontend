@@ -4,22 +4,28 @@ import classes from "./StakingItem.module.scss";
 import classNames from "classnames";
 import { formatURL } from "utils/helpers";
 import loadingBubbleAnimation from "assets/loadings/bubble.svg";
+import { WalletService } from "services/WalletService";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/rootReducer";
+import ReactTooltip from "react-tooltip";
 
 export interface StakingItemProps {
   title: string;
   img: string;
   details: { label: string; value: string }[];
   info: { label: string; value: string }[];
-  onClaimRewardsClick?: () => void;
+  onClaimRewardsClick?: (index: number) => void;
   onWithdrawClick?: (index: number) => void;
   onDepositClick?: (index: number) => void;
-  onNftExplorerClick?: () => void;
-  onExplorerClick?: () => void;
+  // onNftExplorerClick?: () => void;
+  // onExplorerClick?: () => void;
   type?: "reward" | "deposit";
   depositLoading?: boolean;
   withdrawLoading?: boolean;
+  claimRewardsLoading?: boolean;
+  claimRewardsInfoSuccess?: boolean;
 }
-
+const platformAccount = process.env.REACT_APP_PLATFORM_ACCOUNT_ADDRESS;
 export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
   title,
   img,
@@ -28,16 +34,53 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
   onClaimRewardsClick,
   onWithdrawClick,
   onDepositClick,
-  onNftExplorerClick,
-  onExplorerClick,
+  // onNftExplorerClick,
+  // onExplorerClick,
   type = "reward",
   depositLoading,
   withdrawLoading,
+  claimRewardsLoading,
+  claimRewardsInfoSuccess,
 }) => {
   const [formattedURL, setFormattedURL] = useState<string>();
   const [loadingFailed, setLoadingFailed] = useState<boolean>(false);
   const [imgLoading, setImgLoading] = useState<boolean>(true);
   const [index, setIndex] = useState<number>(0);
+  const [disableRewardsBtn, setDisableRewardsBtn] = useState<boolean>(false);
+  const [availableDay, setAvailableDay] = useState<number>();
+
+  const { selectedAccount, userInfo } = useSelector(
+    (state: RootState) => state.wallets
+  );
+
+  useEffect(() => {
+    const lastLoginFunc = async (
+      username: string,
+      fromAddress: string,
+      toAddress: string,
+      index: number
+    ) => {
+      const lastLogin = await WalletService.getLastLoginWeeklyClaimRewards(
+        username,
+        fromAddress,
+        toAddress,
+        index
+      );
+      if (lastLogin) {
+        const currentTime = new Date();
+        const diffTime = currentTime.getTime() - new Date(lastLogin).getTime();
+        if (diffTime < 1000 * 60 * 60 * 24) {
+          setDisableRewardsBtn(true);
+          const availableDay = 7 - Math.floor(diffTime / 1000 / 60 / 60 / 24);
+          setAvailableDay(availableDay);
+        }
+      }
+    };
+
+    if (userInfo.username && platformAccount) {
+      lastLoginFunc(userInfo.username, selectedAccount, platformAccount, index);
+    }
+  }, [userInfo, index, claimRewardsInfoSuccess]);
 
   useEffect(() => {
     if (details.find((de) => de.label === "ASA ID")?.value) {
@@ -114,8 +157,19 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
           <div
             className={classNames(classes.column, classes["actions-reward"])}
           >
-            <Button accent="red" sharp onClick={onClaimRewardsClick}>
-              CLAIM REWARDS
+            <Button
+              accent="red"
+              sharp
+              disabled={claimRewardsLoading || disableRewardsBtn}
+              loading={claimRewardsLoading}
+              onClick={() => onClaimRewardsClick?.(index)}
+              tooltip={
+                disableRewardsBtn
+                  ? `You can claim in ${availableDay} days.`
+                  : ""
+              }
+            >
+              {claimRewardsLoading ? "" : "CLAIM REWARDS"}
             </Button>
             <Button
               accent="purple"
@@ -149,7 +203,7 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
               target="_blank"
               rel="noreferrer"
             >
-              <Button accent="purple" sharp onClick={onNftExplorerClick}>
+              <Button accent="purple" sharp>
                 NFTEXPLORER
               </Button>
             </a>
@@ -160,13 +214,14 @@ export const StakingItem: React.FunctionComponent<StakingItemProps> = ({
               target="_blank"
               rel="noreferrer"
             >
-              <Button accent="black" sharp onClick={onExplorerClick}>
+              <Button accent="black" sharp>
                 EXPLORER
               </Button>
             </a>
           </div>
         )}
       </div>
+      <ReactTooltip effect="solid" place="bottom" className={classes.tooltip} />
     </Card>
   );
 };

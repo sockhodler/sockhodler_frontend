@@ -30,6 +30,12 @@ import {
 import { ClearUserParams } from "common/models/ClearUserModel";
 
 import { ErrorModel } from "common/models/ErrorModel";
+import { SetLastLoginWeeklyClaimRewardsParams } from "common/models/LastLoginWeeklyClaimRewardsModel";
+import {
+  MarketplaceRecordPayload,
+  SetMarketplaceRecordsParams,
+  UpdateMarketplaceRecordsParams,
+} from "common/models/MarketplaceRecordModel";
 
 /* ****************** Enums ****************** */
 export enum WalletLoadingId {
@@ -41,6 +47,7 @@ export enum WalletLoadingId {
   REVERIFY_USER = "reverifyUser",
   DELETE_STAKE_RECORDS = "deleteStakeRecords",
   SET_STAKE_RECORDS = "setStakeRecords",
+  GET_MARKETPLACE_RECORDS = "getMarketplaceRecords",
 }
 
 export enum WalletErrorId {
@@ -64,6 +71,7 @@ interface WalletStateModel {
   loginSuccess: boolean;
   modalStep: number;
   userInfo: RegisterUserPayload;
+  marketplace: MarketplaceRecordPayload[] | null;
 }
 
 const sw = new SessionWallet(config.network ? config.network : "TestNet");
@@ -86,6 +94,7 @@ const initialState: WalletStateModel = {
   loginSuccess: false,
   modalStep: 0,
   userInfo: {},
+  marketplace: [],
 };
 
 /* ****************** Async Thunks ****************** */
@@ -300,6 +309,16 @@ export const asyncSetLastLoginDailyScanRewards = createAsyncThunk<
   return response;
 });
 
+export const asyncSetLastLoginWeeklyClaimRewards = createAsyncThunk<
+  void,
+  SetLastLoginWeeklyClaimRewardsParams,
+  AsyncThunkOptions
+>("wallet/setLastLoginWeeklyClaimRewards", async (params) => {
+  const response = await WalletService.setLastLoginWeeklyClaimRewards(params);
+
+  return response;
+});
+
 export const asyncGetStakeRecords = createAsyncThunk<
   DTOModel<StakeRecordPayload | null>,
   GetStakeRecordsParams,
@@ -308,6 +327,32 @@ export const asyncGetStakeRecords = createAsyncThunk<
   const { fromAddress } = params;
 
   const response = await WalletService.getStakeRecords(fromAddress);
+
+  return response;
+});
+
+export const asyncGetMarketplaceRecords = createAsyncThunk<
+  DTOModel<MarketplaceRecordPayload[]>
+>("wallet/getMarketplaceRecords", async () => {
+  const response = await WalletService.getMarketplaceRecords();
+
+  return response;
+});
+
+export const asyncSetMarketplaceRecords = createAsyncThunk<
+  DTOModel<MarketplaceRecordPayload>,
+  SetMarketplaceRecordsParams
+>("wallet/setMarketplaceRecords", async (params) => {
+  const response = await WalletService.setMarketplaceRecords(params);
+
+  return response;
+});
+
+export const asyncUpdateMarketplaceRecords = createAsyncThunk<
+  DTOModel<void>,
+  UpdateMarketplaceRecordsParams
+>("wallet/updateMarketplaceRecords", async (params) => {
+  const response = await WalletService.updateMarketplaceRecords(params);
 
   return response;
 });
@@ -479,6 +524,23 @@ export const walletSlice = createSlice({
     builder.addCase(asyncSetStakeRecords.rejected, (state, action) => {
       state.loading = state.loading.filter(
         (id) => id !== WalletLoadingId.SET_STAKE_RECORDS
+      );
+      state.error.push(action.payload as ErrorModel);
+    });
+
+    // Get Marketplace Records
+    builder.addCase(asyncGetMarketplaceRecords.fulfilled, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.GET_MARKETPLACE_RECORDS
+      );
+      state.marketplace = action.payload.data;
+    });
+    builder.addCase(asyncGetMarketplaceRecords.pending, (state) => {
+      state.loading.push(WalletLoadingId.GET_MARKETPLACE_RECORDS);
+    });
+    builder.addCase(asyncGetMarketplaceRecords.rejected, (state, action) => {
+      state.loading = state.loading.filter(
+        (id) => id !== WalletLoadingId.GET_MARKETPLACE_RECORDS
       );
       state.error.push(action.payload as ErrorModel);
     });

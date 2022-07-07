@@ -43,6 +43,7 @@ export async function sendALGOTokenFromUserToPlatformAccount(
   fromAddress: string,
   toAddress: string,
   amount: number,
+  index: number,
   setSendTokenInfo: any
 ): Promise<void> {
   const txParams = await client.getTransactionParams().do();
@@ -67,6 +68,13 @@ export async function sendALGOTokenFromUserToPlatformAccount(
     .do();
   const result = await waitForConfirmation(txId, 3);
   if (result) {
+    await optInUserAccountAsset(wallet, fromAddress, index);
+    await transferAssetFromPlatformAccountToUser(
+      toAddress,
+      fromAddress,
+      1,
+      index
+    );
     setSendTokenInfo({
       loading: false,
       txId,
@@ -81,6 +89,7 @@ export async function sendSOCKSTokenFromUserToPlatformAccount(
   fromAddress: string,
   toAddress: string,
   amount: number,
+  index: number,
   setSendTokenInfo: any
 ): Promise<void> {
   const txParams = await client.getTransactionParams().do();
@@ -107,6 +116,13 @@ export async function sendSOCKSTokenFromUserToPlatformAccount(
     .do();
   const result = await waitForConfirmation(txId, 3);
   if (result) {
+    await optInUserAccountAsset(wallet, fromAddress, index);
+    await transferAssetFromPlatformAccountToUser(
+      toAddress,
+      fromAddress,
+      1,
+      index
+    );
     setSendTokenInfo({
       loading: false,
       txId,
@@ -231,9 +247,8 @@ export async function transferAssetFromUserToPlatformAccount(
 
 export async function sendRewardSOCKSTokenFromPlatformToUser(
   toAddress: string,
-  amount: number,
-  setScanRewardsInfo: any
-): Promise<void> {
+  amount: number
+): Promise<any> {
   const txParams = await client.getTransactionParams().do();
 
   const txn = await algosdk.makeAssetTransferTxnWithSuggestedParams(
@@ -251,14 +266,10 @@ export async function sendRewardSOCKSTokenFromPlatformToUser(
 
   const { txId } = await client.sendRawTransaction(signed).do();
   const result = await waitForConfirmation(txId, 3);
-  if (result) {
-    setScanRewardsInfo({
-      loading: false,
-      txId,
-      amount,
-      success: true,
-    });
-  }
+  return {
+    confirms_result: result,
+    txId,
+  };
 }
 
 export async function getSuggested(rounds: number) {

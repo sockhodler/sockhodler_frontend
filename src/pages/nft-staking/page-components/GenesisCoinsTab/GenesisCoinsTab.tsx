@@ -10,6 +10,7 @@ import {
   Switch,
   Tab,
   TextField,
+  TokenTxnModal,
 } from "components";
 import { StakingItemProps } from "components/StakingItem/StakingItem";
 import classes from "./GenesisCoinsTab.module.scss";
@@ -32,6 +33,7 @@ import {
   optInUserAccountAsset,
   transferAssetFromUserToPlatformAccount,
   transferAssetFromPlatformAccountToUser,
+  sendRewardSOCKSTokenFromPlatformToUser,
 } from "utils/algorand";
 import { WalletService } from "services/WalletService";
 
@@ -47,6 +49,18 @@ interface WithdrawLoadingType {
   index: number | undefined;
 }
 
+interface ClaimRewardsLoadingType {
+  status: boolean;
+  index: number | undefined;
+}
+
+interface claimRewardsInfoType {
+  loading: boolean;
+  txId: string;
+  amount: number | undefined;
+  success: boolean;
+}
+
 export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
   const [isStaked, setIsStaked] = useState<boolean>(true);
   const [fetchMoreLoading, setFetchMoreLoading] = useState<boolean>(false);
@@ -58,6 +72,19 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
     status: false,
     index: undefined,
   });
+
+  const [claimRewardsLoading, setClaimRewardsLoading] =
+    useState<ClaimRewardsLoadingType>({
+      status: false,
+      index: undefined,
+    });
+  const [claimRewardsInfo, setClaimRewardsInfo] =
+    useState<claimRewardsInfoType>({
+      loading: false,
+      txId: "",
+      amount: undefined,
+      success: false,
+    });
 
   const [totalAssets, setTotalAssets] = useState<any>([]);
   const [totalStakedAssets, setTotalStakedAssets] = useState<any>([]);
@@ -79,6 +106,7 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
   const [connected, setConnected] = React.useState(sw.connected());
 
   const platformAccount = process.env.REACT_APP_PLATFORM_ACCOUNT_ADDRESS;
+  const sockhodlerAccount = process.env.REACT_APP_GENESIS_COLLECTION_ADDRESS;
 
   const updateWallet = (swk: SessionWallet) => {
     dispatch(setSessionWallet(swk));
@@ -101,7 +129,11 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
       const ownedAssetList = (await getAccountAssets(selectedAccount)).filter(
         (asset: any) => asset.amount > 0 && asset.decimals === 0
       );
-      setTotalAssets(ownedAssetList);
+      setTotalAssets(
+        ownedAssetList.filter(
+          (asset: any) => asset.creator === sockhodlerAccount
+        )
+      );
     };
     const initStakedAssets = async () => {
       const { data } = await WalletService.getStakeRecords(selectedAccount);
@@ -235,6 +267,7 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
             index
           );
           if (transferResult) {
+            const depositDate = new Date();
             dispatch(
               asyncSetStakeRecords({
                 username: userInfo.username || "",
@@ -242,6 +275,7 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
                 toAddress: platformAccount,
                 index,
                 amount,
+                date: depositDate.toString(),
               })
             );
           }
@@ -304,6 +338,70 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
     });
   };
 
+  const handleClaimRewardsClick = async (index: number) => {
+    setClaimRewardsLoading({
+      status: true,
+      index,
+    });
+    const amount = 10;
+    setClaimRewardsInfo({
+      ...claimRewardsInfo,
+      loading: true,
+      amount,
+    });
+    if (platformAccount) {
+      try {
+        const optInResult = await optInUserAccountAsset(
+          sw.wallet,
+          selectedAccount,
+          452047208
+        );
+        if (optInResult) {
+          const lastLogin = new Date();
+          const result = await sendRewardSOCKSTokenFromPlatformToUser(
+            selectedAccount,
+            amount
+          );
+          if (result && result.txId) {
+            await WalletService.setLastLoginWeeklyClaimRewards({
+              username: userInfo.username || "",
+              fromAddress: selectedAccount,
+              toAddress: platformAccount,
+              index,
+              date: lastLogin.toString(),
+            });
+            setClaimRewardsInfo({
+              loading: false,
+              txId: result.txId,
+              amount,
+              success: true,
+            });
+          }
+          setClaimRewardsLoading({
+            status: true,
+            index,
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        setClaimRewardsLoading({
+          status: false,
+          index,
+        });
+        setClaimRewardsInfo({
+          loading: false,
+          txId: "",
+          amount,
+          success: false,
+        });
+      }
+    }
+    setClaimRewardsLoading({
+      status: false,
+      index,
+    });
+  };
+
   useEffect(() => {
     if (totalAssets.length <= assetDepositList.length) {
       setHasMore(false);
@@ -321,11 +419,11 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
           },
           {
             label: "Amount Held",
-            value: "0",
+            value: "Coming Soon",
           },
           {
             label: "Amount Staked",
-            value: "1",
+            value: "Coming Soon",
           },
         ],
         info: [
@@ -335,12 +433,12 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
           },
           {
             label: "Estimated APY",
-            value: "10.41%",
+            value: "Coming Soon",
           },
         ],
         onDepositClick: (index: number) => handleDepositClick(index),
-        onNftExplorerClick: () => console.log("onNftExplorerClick"),
-        onExplorerClick: () => console.log("onExplorerClick"),
+        // onNftExplorerClick: () => console.log("onNftExplorerClick"),
+        // onExplorerClick: () => console.log("onExplorerClick"),
       });
     }
     setDepositItems(depositItemsArr);
@@ -362,24 +460,24 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
           },
           {
             label: "Amount Held",
-            value: "0",
+            value: "Coming Soon",
           },
           {
             label: "Amount Staked",
-            value: "1",
+            value: "Coming Soon",
           },
         ],
         info: [
           {
-            label: "Estimated Daily Rewards",
-            value: "15 SOCKS Tokens",
+            label: "Estimated Weekly Rewards",
+            value: "100 SOCKS Tokens",
           },
           {
             label: "Estimated APY",
-            value: "10.41%",
+            value: "Coming Soon",
           },
         ],
-        onClaimRewardsClick: () => console.log("onClaimRewardsClick"),
+        onClaimRewardsClick: (index: number) => handleClaimRewardsClick(index),
         onWithdrawClick: (index: number) => handleWithdrawClick(index),
       });
     }
@@ -425,6 +523,14 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
                     key={index}
                     {...item}
                     type="reward"
+                    claimRewardsInfoSuccess={claimRewardsInfo.success}
+                    claimRewardsLoading={
+                      claimRewardsLoading.index ===
+                      item.details.find((de: any) => de.label === "ASA ID")
+                        .value
+                        ? claimRewardsLoading.status
+                        : undefined
+                    }
                     withdrawLoading={
                       withdrawLoading.index ===
                       item.details.find((de: any) => de.label === "ASA ID")
@@ -487,6 +593,20 @@ export const GenesisCoinsTab: React.FC<Props> = ({ for: tabFor }) => {
           />
         </div>
       )}
+      <TokenTxnModal
+        isOpen={claimRewardsInfo.success}
+        onClose={() =>
+          setClaimRewardsInfo({
+            ...claimRewardsInfo,
+            success: false,
+          })
+        }
+        title="Weekly Rewards"
+        subtitle="Claimed"
+        currency="socks-tokens"
+        data={claimRewardsInfo}
+        addr={selectedAccount}
+      />
     </Tab>
   );
 };

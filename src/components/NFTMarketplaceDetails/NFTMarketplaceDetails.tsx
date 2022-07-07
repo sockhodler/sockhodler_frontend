@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import { Card, NFTInfo, Button, Select, LoadingIndicator } from "components";
 import classes from "./NFTMarketplaceDetails.module.scss";
 import classNames from "classnames";
+import { MarketplaceItemType } from "components/NFT/NFT";
+import { formatURL } from "utils/helpers";
+import loadingBubbleAnimation from "assets/loadings/bubble.svg";
 
 const paySelectItems = [
   {
@@ -22,14 +25,23 @@ export interface sendTokenInfoType {
   amount: number | undefined;
   success: boolean;
 }
+export interface MarketplaceItemDetailsType {
+  name: string;
+  value: string;
+  to: string;
+}
+
+export interface MarketplaceItemInfoType {
+  title?: string;
+  value: string | JSX.Element;
+}
 interface Props {
   back: { label: string; to: string };
-  details: { name: string; value: string; to: string }[];
-  imgSrc: string;
+  detailInfo: MarketplaceItemType;
+  details: MarketplaceItemDetailsType[];
+  info: MarketplaceItemInfoType[];
   actionLabel: string;
   onActionClick: () => void;
-  title: string;
-  info: { title?: string; value: string | JSX.Element }[];
   sendTokenInfo: sendTokenInfoType;
   selectedPay: string;
   setSelectedPay: any;
@@ -37,16 +49,29 @@ interface Props {
 
 export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
   back,
+  detailInfo,
   details,
-  imgSrc,
+  info,
   actionLabel,
   onActionClick,
-  title,
-  info,
   sendTokenInfo,
   selectedPay,
   setSelectedPay,
 }) => {
+  const [formattedURL, setFormattedURL] = useState<string>();
+  const [loadingFailed, setLoadingFailed] = useState<boolean>(false);
+  const [imgLoading, setImgLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const formattedURL = async () => {
+      if (detailInfo.url) {
+        const url = await formatURL(detailInfo.url);
+        setFormattedURL(url);
+      }
+    };
+    formattedURL();
+  }, [detailInfo.url]);
+
   return (
     <div className={classes.container}>
       <div className={classes.nav}>
@@ -57,16 +82,50 @@ export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
       </div>
 
       <Card className={classes.nft}>
-        <div className={classes.header}>{title}</div>
+        <div
+          className={classes.header}
+        >{`${detailInfo.name} ${detailInfo.amount}/${detailInfo.total}`}</div>
 
-        <img src={imgSrc} alt="" className={classes.img} />
+        {imgLoading && (
+          <img
+            src={loadingBubbleAnimation}
+            className={classes.img}
+            alt="loading"
+          />
+        )}
+        {loadingFailed ? (
+          <video
+            preload="auto"
+            loop
+            autoPlay
+            muted
+            onLoadStart={() => setImgLoading(false)}
+            onError={() => setImgLoading(false)}
+            className={`${classes.img} ${imgLoading && classes.hide_img}`}
+          >
+            <source src={`${formattedURL}#t=0.1`} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={formattedURL}
+            alt="nft-asset"
+            onError={() => setLoadingFailed(true)}
+            onLoad={() => setImgLoading(false)}
+            className={`${classes.img} ${imgLoading && classes.hide_img}`}
+          />
+        )}
+        {/* <img src={imgSrc} alt="" className={classes.img} /> */}
 
         <div className={classes.actions}>
           <Button
             size="large"
             accent="red"
             onClick={onActionClick}
-            disabled={selectedPay.length === 0 || sendTokenInfo.loading}
+            disabled={
+              selectedPay.length === 0 ||
+              sendTokenInfo.loading ||
+              detailInfo.amount === 0
+            }
             className={classNames(
               selectedPay.length === 0 && classes["actions__cta--disabled"]
             )}
@@ -90,8 +149,8 @@ export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
         </div>
 
         <Card className={classes.info}>
-          {info.map((item) => (
-            <div className={classes.info__item} key={item.title}>
+          {info.map((item, index) => (
+            <div key={index} className={classes.info__item}>
               {item.title ? (
                 <>
                   <span>{item.title}</span>
@@ -115,9 +174,9 @@ export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
         </Card>
 
         <div className={classes.details}>
-          {details.map((detail) => (
+          {details.map((detail, index) => (
             <NFTInfo
-              key={detail.name}
+              key={index}
               name={detail.name}
               value={detail.value}
               to={detail.to}

@@ -18,7 +18,13 @@ import {
   SetStakeRecordsParams,
   DeleteStakeRecordsParams,
 } from "common/models/StakeRecordModel";
+import {
+  MarketplaceRecordPayload,
+  SetMarketplaceRecordsParams,
+  UpdateMarketplaceRecordsParams,
+} from "common/models/MarketplaceRecordModel";
 import { ClearUserParams } from "common/models/ClearUserModel";
+import { SetLastLoginWeeklyClaimRewardsParams } from "common/models/LastLoginWeeklyClaimRewardsModel";
 
 const BaseAPI = process.env.REACT_APP_API_URL;
 
@@ -185,6 +191,72 @@ const verifyUser = async (
   return response;
 };
 
+const getLastLoginWeeklyClaimRewards = async (
+  username: string,
+  fromAddress: string,
+  toAddress: string,
+  index: number
+): Promise<string> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "get",
+    url: `${BaseAPI}/users/last-weekly-claim-rewards?username=${username}&fromAddress=${fromAddress}&toAddress=${toAddress}&index=${index}`,
+  };
+
+  const response: DTOModel<string> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<string> = await axios(axiosOptions);
+
+    response.data = resp.data;
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  if (response.data) {
+    return response.data;
+  }
+  return "";
+};
+
+const setLastLoginWeeklyClaimRewards = async (
+  params: SetLastLoginWeeklyClaimRewardsParams
+): Promise<void> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    url: `${BaseAPI}/users/last-weekly-claim-rewards`,
+    data: params,
+  };
+
+  const response: DTOModel<string> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<void> = await axios(axiosOptions);
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+};
+
 const getLastLoginDailyScanRewards = async (
   username: string
 ): Promise<string> => {
@@ -246,6 +318,101 @@ const setLastLoginDailyScanRewards = async (
       status: err.response.status,
     };
   }
+};
+
+const getMarketplaceRecords = async (): Promise<
+  DTOModel<MarketplaceRecordPayload[]>
+> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "get",
+    url: `${BaseAPI}/users/marketplace-record`,
+  };
+
+  const response: DTOModel<MarketplaceRecordPayload[]> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<MarketplaceRecordPayload[]> = await axios(
+      axiosOptions
+    );
+
+    response.data = resp.data;
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  return response;
+};
+
+const setMarketplaceRecords = async (
+  params: SetMarketplaceRecordsParams
+): Promise<DTOModel<MarketplaceRecordPayload>> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    url: `${BaseAPI}/users/stake-record`,
+    data: params,
+  };
+
+  const response: DTOModel<MarketplaceRecordPayload> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<MarketplaceRecordPayload> = await axios(
+      axiosOptions
+    );
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  return response;
+};
+
+const updateMarketplaceRecords = async (
+  params: UpdateMarketplaceRecordsParams
+): Promise<DTOModel<void>> => {
+  const axiosOptions: AxiosRequestConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "put",
+    url: `${BaseAPI}/users/marketplace-record`,
+    data: params,
+  };
+
+  const response: DTOModel<void> = {
+    data: null,
+    error: null,
+    status: null,
+  };
+
+  try {
+    const resp: AxiosResponse<void> = await axios(axiosOptions);
+    response.status = resp.status;
+  } catch (err: any) {
+    response.error = {
+      errorMessage: err.response.data,
+      status: err.response.status,
+    };
+  }
+  return response;
 };
 
 const getStakeRecords = async (
@@ -347,7 +514,12 @@ export const WalletService = {
   clearUser,
   getLastLoginDailyScanRewards,
   setLastLoginDailyScanRewards,
+  getLastLoginWeeklyClaimRewards,
+  setLastLoginWeeklyClaimRewards,
   getStakeRecords,
   setStakeRecords,
   deleteStakeRecords,
+  getMarketplaceRecords,
+  setMarketplaceRecords,
+  updateMarketplaceRecords,
 };

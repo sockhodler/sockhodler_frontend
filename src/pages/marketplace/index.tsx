@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Tabs, Tab, NFTGrid } from "components";
 import { NftProps } from "components/NFT/NFT";
 import classes from "./index.module.scss";
+import { getAccountAssets } from "services/AssetService";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "redux/rootReducer";
+import { asyncGetMarketplaceRecords } from "redux/wallet/wallet-slice";
+
+const platformAccount = process.env.REACT_APP_PLATFORM_ACCOUNT_ADDRESS;
+const sockhodlerAccount = process.env.REACT_APP_GENESIS_COLLECTION_ADDRESS;
 
 export const Marketplace: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(asyncGetMarketplaceRecords());
+  }, []);
+
   const items: NftProps[] = [];
   for (let i = 0; i < 20; i++) {
     items.push({
@@ -15,6 +28,27 @@ export const Marketplace: React.FunctionComponent = () => {
       unitAvailable: 24,
     });
   }
+  const [buyableItems, setBuyableItems] = useState<any>();
+
+  const { selectedAccount, marketplace } = useSelector(
+    (state: RootState) => state.wallets
+  );
+  useEffect(() => {
+    const initBuyableAssets = async () => {
+      if (platformAccount) {
+        const ownedAssetList = (await getAccountAssets(platformAccount)).filter(
+          (asset: any) =>
+            asset.amount > 0 &&
+            asset.decimals === 0 &&
+            asset.creator === sockhodlerAccount
+        );
+        setBuyableItems(ownedAssetList.slice(0, 3));
+      }
+    };
+    if (platformAccount && sockhodlerAccount) {
+      initBuyableAssets();
+    }
+  }, []);
 
   return (
     <Layout>
@@ -41,14 +75,28 @@ export const Marketplace: React.FunctionComponent = () => {
         <Tab for="base-collection">
           <NFTGrid
             back={{ label: "back to home", to: "/" }}
-            list={items}
+            list={marketplace?.filter((li) => li.amount > 0) ?? []}
             onLoadMoreClick={() => console.log("onLoadMoreClick")}
           />
         </Tab>
 
-        <Tab for="genesis-collection">genesis-collection</Tab>
+        <Tab for="genesis-collection">
+          <div className={classes["coming-soon"]}>
+            <h2 className={classes["coming-soon__title"]}>
+              SockBot NFT Marketplace
+            </h2>
+            <h3 className={classes["coming-soon__subtitle"]}>Coming Soon</h3>
+          </div>
+        </Tab>
 
-        <Tab for="collabs">collabs</Tab>
+        <Tab for="collabs">
+          <div className={classes["coming-soon"]}>
+            <h2 className={classes["coming-soon__title"]}>
+              SockBot NFT Marketplace
+            </h2>
+            <h3 className={classes["coming-soon__subtitle"]}>Coming Soon</h3>
+          </div>
+        </Tab>
       </Tabs>
     </Layout>
   );

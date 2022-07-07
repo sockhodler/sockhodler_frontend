@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "assets/icons/arrow-right.svg";
 import { NFT, Button } from "components";
-import { NftProps } from "components/NFT/NFT";
+import { MarketplaceItemType } from "components/NFT/NFT";
 import classes from "./NFTGrid.module.scss";
 
 interface Props {
-  list: NftProps[];
+  list: MarketplaceItemType[];
   onLoadMoreClick?: () => void;
   back: { label: string; to: string };
   type?: "portfolio";
