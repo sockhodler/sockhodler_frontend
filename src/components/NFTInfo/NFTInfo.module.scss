@@ -60,6 +60,9 @@
   margin: 0 6rem;
   text-align: right;
   color: var(--color-cyan);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   @include respond(xs) {
     margin: 0 1.4rem;

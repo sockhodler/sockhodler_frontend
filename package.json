@@ -44,9 +44,9 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": "react-scripts start",
     "dev": "react-scripts --max_old_space_size=4096 start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "set GENERATE_SOURCEMAP=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src",

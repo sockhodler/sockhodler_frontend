@@ -31,7 +31,7 @@
       var(--color-dark-1)
     );
     border-color: var(--color-purple);
-    background-size: 100%; 
+    background-size: 100%;
   }
 
   @include respond(md) {
@@ -134,9 +134,14 @@
   padding: 1.2rem 3rem;
   border-radius: 1.5rem;
 
+  @include respond(sm) {
+    width: 100%;
+    padding: 1.5rem 6rem;
+  }
+
   @include respond(xs) {
     font-size: 1.4rem;
-    padding: 0.7rem 2rem;
+    padding: 1.4rem 2rem;
     border-radius: 1rem;
   }
 }

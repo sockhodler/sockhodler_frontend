@@ -84,68 +84,70 @@ export const NFTMarketplaceDetails: React.FunctionComponent<Props> = ({
       <Card className={classes.nft}>
         <div
           className={classes.header}
-        >{`${detailInfo.name} ${detailInfo.amount}/${detailInfo.total}`}</div>
+        >{`${detailInfo.name} (${detailInfo.amount}/${detailInfo.total})`}</div>
 
-        {imgLoading && (
-          <img
-            src={loadingBubbleAnimation}
-            className={classes.img}
-            alt="loading"
-          />
-        )}
-        {loadingFailed ? (
-          <video
-            preload="auto"
-            loop
-            autoPlay
-            muted
-            onLoadStart={() => setImgLoading(false)}
-            onError={() => setImgLoading(false)}
-            className={`${classes.img} ${imgLoading && classes.hide_img}`}
-          >
-            <source src={`${formattedURL}#t=0.1`} type="video/mp4" />
-          </video>
-        ) : (
-          <img
-            src={formattedURL}
-            alt="nft-asset"
-            onError={() => setLoadingFailed(true)}
-            onLoad={() => setImgLoading(false)}
-            className={`${classes.img} ${imgLoading && classes.hide_img}`}
-          />
-        )}
-        {/* <img src={imgSrc} alt="" className={classes.img} /> */}
+        <div className={classes.content}>
+          {imgLoading && (
+            <img
+              src={loadingBubbleAnimation}
+              className={classes.img}
+              alt="loading"
+            />
+          )}
+          {loadingFailed ? (
+            <video
+              preload="auto"
+              loop
+              autoPlay
+              muted
+              onLoadStart={() => setImgLoading(false)}
+              onError={() => setImgLoading(false)}
+              className={`${classes.img} ${imgLoading && classes.hide_img}`}
+            >
+              <source src={`${formattedURL}#t=0.1`} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={formattedURL}
+              alt="nft-asset"
+              onError={() => setLoadingFailed(true)}
+              onLoad={() => setImgLoading(false)}
+              className={`${classes.img} ${imgLoading && classes.hide_img}`}
+            />
+          )}
+          {/* <img src={imgSrc} alt="" className={classes.img} /> */}
 
-        <div className={classes.actions}>
-          <Button
-            size="large"
-            accent="red"
-            onClick={onActionClick}
-            disabled={
-              selectedPay.length === 0 ||
-              sendTokenInfo.loading ||
-              detailInfo.amount === 0
-            }
-            className={classNames(
-              selectedPay.length === 0 && classes["actions__cta--disabled"]
-            )}
-          >
-            {sendTokenInfo.loading ? (
-              <LoadingIndicator fontSize={20} />
-            ) : (
-              actionLabel
-            )}
-          </Button>
+          <div className={classes.actions}>
+            <Button
+              size="large"
+              accent="red"
+              onClick={onActionClick}
+              disabled={
+                selectedPay.length === 0 ||
+                sendTokenInfo.loading ||
+                detailInfo.amount === 0
+              }
+              className={classNames(
+                selectedPay.length === 0 && classes["actions__cta--disabled"]
+              )}
+            >
+              {sendTokenInfo.loading ? (
+                <LoadingIndicator fontSize={20} />
+              ) : (
+                actionLabel
+              )}
+            </Button>
 
-          <Select
-            selected={selectedPay}
-            items={paySelectItems}
-            onChange={(item: any) => setSelectedPay(item.value)}
-            className={classes.actions__select}
-            placeholder="Select your currency"
-            accent="violet"
-            label="Pay With"
-          />
+            <Select
+              selected={selectedPay}
+              items={paySelectItems}
+              onChange={(item: any) => setSelectedPay(item.value)}
+              className={classes.actions__select}
+              placeholder="Select your currency"
+              accent="violet"
+              label="Pay With"
+            />
+          </div>
         </div>
 
         <Card className={classes.info}>
