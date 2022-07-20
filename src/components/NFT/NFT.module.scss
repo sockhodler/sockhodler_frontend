@@ -2,14 +2,32 @@
 
 .nft {
   --cart-width: 30.7rem;
-
   max-width: var(--cart-width);
   width: 100%;
+  
   border-radius: 3rem;
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+
+  @include respond(sm) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    --cart-width: 100%;
+    border-radius: 1rem;
+    padding: 2rem;
+  }
 
   @include respond(xs) {
-    --cart-width: 17.3rem;
+    display: flex;
+    flex-direction: row;
+    --cart-width: 100%;
     border-radius: 1rem;
+    padding: 2rem;
   }
 
   /* @media screen and (max-width: 390px) {
@@ -18,13 +36,26 @@
 }
 
 .img {
-  width: var(--cart-width);
-  height: var(--cart-width);
+  max-width: var(--cart-width);
+  max-height: var(--cart-width);
+  display: block;
+  width: auto;
+  height: auto;
   border-radius: 3rem;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.3);
 
+  
+  @include respond(sm) {
+    border-radius: 1rem;
+    max-width: 20rem;
+    max-height: 20rem;
+  }
+
   @include respond(xs) {
     border-radius: 1rem;
+    width: 35%;
+    height: auto;
+    margin-right: 2rem;
   }
 
   /* @media screen and (max-width: 390px) {
@@ -47,6 +78,7 @@
   padding: 3.5rem 2.2rem 2.3rem 2.2rem;
   display: flex;
   flex-direction: column;
+  width: 75%;
 
   @include respond(xs) {
     padding: 1.4rem 0.7rem 1.3rem 0.7rem;
