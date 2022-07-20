@@ -8,11 +8,11 @@
   text-align: center;
 
   @include respond(md) {
-    font-size: 4rem;
+    font-size: 5rem;
   }
 
   @include respond(xs) {
-    font-size: 2rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
   }
 }
@@ -25,11 +25,11 @@
   text-align: center;
 
   @include respond(md) {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   @include respond(xs) {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     margin-bottom: 3rem;
   }
 }
@@ -40,8 +40,8 @@
     font-size: 1.8rem;
 
     @include respond(xs) {
-      font-size: 1.3rem;
-      padding: 0.8rem 1.4rem;
+      font-size: 1.6rem;
+      padding: 1.5rem 2rem;
     }
   }
 }

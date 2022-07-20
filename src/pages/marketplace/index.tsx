@@ -58,8 +58,8 @@ export const Marketplace: React.FunctionComponent = () => {
       <Tabs
         tabs={[
           {
-            label: "Base Collection",
-            value: "base-collection",
+            label: "Premium Plan",
+            value: "premium-plan",
           },
           {
             label: "Genesis Collection",
@@ -72,7 +72,7 @@ export const Marketplace: React.FunctionComponent = () => {
         ]}
         mobileSize="small"
       >
-        <Tab for="base-collection">
+        <Tab for="premium-plan">
           <NFTGrid
             back={{ label: "back to home", to: "/" }}
             list={marketplace?.filter((li) => li.amount > 0) ?? []}
@@ -83,7 +83,7 @@ export const Marketplace: React.FunctionComponent = () => {
         <Tab for="genesis-collection">
           <div className={classes["coming-soon"]}>
             <h2 className={classes["coming-soon__title"]}>
-              SockBot NFT Marketplace
+              Genesis NFT Marketplace
             </h2>
             <h3 className={classes["coming-soon__subtitle"]}>Coming Soon</h3>
           </div>

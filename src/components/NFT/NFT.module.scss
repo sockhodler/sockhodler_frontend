@@ -89,6 +89,7 @@
   font-family: var(--fonts-made-soulmaze);
   font-size: 1.8rem;
   margin-bottom: 0.3rem;
+  letter-spacing: 1px;
 
   @include respond(xs) {
     font-size: 1.3rem;
