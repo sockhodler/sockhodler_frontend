@@ -4,7 +4,6 @@
   --cart-width: 30.7rem;
   max-width: var(--cart-width);
   width: 100%;
-  
   border-radius: 3rem;
   margin: 2rem 0;
   display: flex;
@@ -33,6 +32,7 @@
   /* @media screen and (max-width: 390px) {
     --cart-width: 100%;
   } */
+
 }
 
 .img {
@@ -43,6 +43,7 @@
   height: auto;
   border-radius: 3rem;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 
   
   @include respond(sm) {
@@ -74,11 +75,12 @@
   opacity: 0;
 }
 
+
 .content {
   padding: 3.5rem 2.2rem 2.3rem 2.2rem;
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 100%;
 
   @include respond(xs) {
     padding: 1.4rem 0.7rem 1.3rem 0.7rem;

@@ -8,11 +8,11 @@
   text-align: center;
 
   @include respond(md) {
-    font-size: 4rem;
+    font-size: 5rem;
   }
 
   @include respond(xs) {
-    font-size: 2rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
   }
 }
@@ -20,16 +20,16 @@
 .subtitle {
   color: var(--color-red);
   font-size: 2.6rem;
-  margin-bottom: 9.5rem;
+  margin-bottom: 8.7rem;
   display: block;
   text-align: center;
 
   @include respond(md) {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   @include respond(xs) {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     margin-bottom: 3rem;
   }
 }

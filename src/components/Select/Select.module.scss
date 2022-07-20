@@ -141,7 +141,7 @@
   .label {
     @include respond(xs) {
       font-size: 1.4rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
   }
 
@@ -163,7 +163,7 @@
 
     @include respond(xs) {
       font-size: 1.4rem;
-      padding: 0.8rem;
+      padding: 1.5rem;
 
       svg {
         width: 0.6rem;

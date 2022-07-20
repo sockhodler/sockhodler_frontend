@@ -103,13 +103,15 @@ export const NFT: React.FunctionComponent<MarketplaceItemType> = ({
           <source src={`${formattedURL}#t=0.1`} type="video/mp4" />
         </video>
       ) : (
-        <img
-          src={formattedURL}
-          alt="nft-asset"
-          onError={() => setLoadingFailed(true)}
-          onLoad={() => setImgLoading(false)}
-          className={`${classes.img} ${imgLoading && classes.hide_img}`}
-        />
+        <a onClick={handleRedirect}>
+          <img
+            src={formattedURL}
+            alt="nft-asset"
+            onError={() => setLoadingFailed(true)}
+            onLoad={() => setImgLoading(false)}
+            className={`${classes.img} ${imgLoading && classes.hide_img}`}
+          />
+        </a>
       )}
       {/* <img src="https://unsplash.it/400/400" className={classes.img} alt="" /> */}
       <div className={classes.content}>

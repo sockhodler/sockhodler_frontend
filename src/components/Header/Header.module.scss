@@ -171,10 +171,18 @@
     }
 
     @include respond(md) {
-      //padding: 1rem 1.5rem;
 
       svg {
         height: 3rem;
+      }
+    }
+
+    @include respond(sm) {
+      padding: 2rem 1rem;
+
+      svg {
+        height: 3rem;
+        width: auto;
       }
     }
 
@@ -199,6 +207,10 @@
 
       @include respond(md) {
         padding: 1rem 2.5rem;
+      }
+
+      @include respond(sm) {
+        padding: 1rem 2rem;
       }
 
       @include respond(xs) {
