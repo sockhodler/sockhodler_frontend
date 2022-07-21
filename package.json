@@ -38,6 +38,7 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "^4.0.3",
     "react-tooltip": "^4.2.21",
+    "serve": "^14.0.1",
     "web-vitals": "^2.1.4",
     "web3.storage": "^3.5.7",
     "yup": "^0.32.11"
@@ -57,7 +58,6 @@
       "react-app/jest"
     ]
   },
-
   "settings": {
     "import/resolver": {
       "typescript": {}
