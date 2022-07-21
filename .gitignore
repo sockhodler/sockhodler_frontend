@@ -22,7 +22,7 @@
 .env.production.local
 
 .eslintrc.js
-prettierrc.js
+.prettierrc.js
 
 yarn.lock*
 npm-debug.log*
