@@ -21,6 +21,9 @@
 .env.test.local
 .env.production.local
 
+.eslintrc.js
+prettierrc.js
+
 yarn.lock*
 npm-debug.log*
 yarn-debug.log*
