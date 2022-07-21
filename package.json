@@ -57,6 +57,7 @@
       "react-app/jest"
     ]
   },
+
   "settings": {
     "import/resolver": {
       "typescript": {}
