@@ -32,6 +32,12 @@ const App: React.FunctionComponent = () => {
       adminAuth: false,
     },
     {
+      path: "/auth-page", //Temp Testing Route for Existing Tags
+      component: <Home />,
+      walletAuth: false,
+      adminAuth: false,
+    },
+    {
       path: "/marketplace",
       component: <Marketplace />,
       walletAuth: false,
