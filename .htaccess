@@ -1,0 +1,5 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^app\.sockhodler\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.app\.sockhodler\.com$
+RewriteRule ^auth\-page$ "https\:\/\/app\.sockhodler\.com\/\?tab\=authenticate" [R=301,L]
