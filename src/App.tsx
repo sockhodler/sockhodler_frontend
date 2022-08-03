@@ -21,12 +21,19 @@ import {
 
 const App: React.FunctionComponent = () => {
   // auth guard => connect wallet status, admin guard => boolean: isAdmin
+
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const { loginSuccess } = useSelector((state: RootState) => state.wallets);
   const routes = [
     {
       path: "/",
+      component: <Home />,
+      walletAuth: false,
+      adminAuth: false,
+    },
+    {
+      path: "/auth-page",
       component: <Home />,
       walletAuth: false,
       adminAuth: false,
@@ -136,6 +143,8 @@ const App: React.FunctionComponent = () => {
 
           {/* Not found page */}
           <Route path="*" element={<ComingSoon />} />
+
+          <Route path="/auth-page" element={<Home />} />
         </Routes>
       </React.Suspense>
     </BrowserRouter>
