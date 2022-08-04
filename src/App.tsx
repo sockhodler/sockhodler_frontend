@@ -21,7 +21,6 @@ import {
 
 const App: React.FunctionComponent = () => {
   // auth guard => connect wallet status, admin guard => boolean: isAdmin
-
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const { loginSuccess } = useSelector((state: RootState) => state.wallets);
@@ -37,6 +36,7 @@ const App: React.FunctionComponent = () => {
       component: <Home />,
       walletAuth: false,
       adminAuth: false,
+      search: this.props.location.search,
     },
     {
       path: "/marketplace",
@@ -137,14 +137,13 @@ const App: React.FunctionComponent = () => {
                 path={route.path}
                 element={route.component}
                 key={route.path}
+                search={route.search}
               />
             );
           })}
 
           {/* Not found page */}
           <Route path="*" element={<ComingSoon />} />
-
-          <Route path="/auth-page" element={<Home />} />
         </Routes>
       </React.Suspense>
     </BrowserRouter>
